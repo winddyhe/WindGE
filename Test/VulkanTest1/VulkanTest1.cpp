@@ -7,18 +7,20 @@
 
 using namespace WindGE;
 
-int main()
+int WINAPI WinMain(__in HINSTANCE hInstance, __in_opt HINSTANCE /*hPrevInstance*/, __in LPSTR /*lpCmdLine*/, __in int /*nShowCmd*/)
 {
 	{
+		Win32Window window(hInstance);
+
 		Application app;
-		bool res = app.init();
+		bool res = window.init(&app, L"AppTest");
 
-		if (res)
+		if (!res)
 		{
-			std::cout << "vk app init success.." << std::endl;
+			std::cout << "vk app init faield.." << std::endl;
+			return 0;
 		}
+		return window.run();
 	}
-	system("pause");
-
-    return 0;
+	return 0;
 }

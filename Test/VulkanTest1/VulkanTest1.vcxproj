@@ -91,7 +91,7 @@
       <AdditionalIncludeDirectories>..\..\ThirdLib\Vulkan\Include;..\..\Core\Engine\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>..\..\ThirdLib\Vulkan\Bin32;..\..\Debug;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>vulkan-1.lib;Engine.lib;%(AdditionalDependencies)</AdditionalDependencies>

@@ -7,6 +7,7 @@
 
 #include "Config.h"
 #include "vulkan\vulkan.hpp"
+#include "vulkan\vk_sdk_platform.h"
 
 namespace WindGE
 {
@@ -17,10 +18,12 @@ namespace WindGE
 		virtual ~Application();
 
 	public:
-		virtual bool init();
-		virtual void update();
+		virtual bool init(HINSTANCE inst, HWND hwnd, int width, int height);
+		virtual void update(float deltaTime);
 		virtual void draw();
 		virtual void resize(int w, int h);
+
+		inline VkDevice* device() { return &__vk_device; }
 
 	protected:
 		VkInstance								__vk_inst;
@@ -29,6 +32,10 @@ namespace WindGE
 		VkDevice								__vk_device;
 		VkCommandPool							__vk_cmd_pool;
 		VkCommandBuffer							__vk_cmd_buffer;
+		VkSurfaceKHR							__vk_surface;
+
+		int										__client_width;
+		int										__client_height;
 	};
 }
 

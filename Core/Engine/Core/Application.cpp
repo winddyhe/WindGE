@@ -6,22 +6,30 @@
 
 using namespace WindGE;
 
-Application::Application()
+Application::Application() :
+	__client_width(0),
+	__client_height(0)
 {
 }
 
 Application::~Application()
 {
 	VkCommandBuffer cmdBuffers[1] = { __vk_cmd_buffer };
-	vkFreeCommandBuffers(__vk_device, __vk_cmd_pool, 1, cmdBuffers);
-	vkDestroyCommandPool(__vk_device, __vk_cmd_pool, nullptr);
-
+	if (__vk_device && __vk_cmd_pool)
+	{
+		vkFreeCommandBuffers(__vk_device, __vk_cmd_pool, 1, cmdBuffers);
+		vkDestroyCommandPool(__vk_device, __vk_cmd_pool, nullptr);
+	}
+	
 	vkDestroyDevice(__vk_device, nullptr);
 	vkDestroyInstance(__vk_inst, nullptr);
 }
 
-bool Application::init()
+bool Application::init(HINSTANCE inst, HWND hwnd, int width, int height)
 {
+	__client_width = width;
+	__client_height = height;
+
 	VkApplicationInfo appInfo = {};
 	appInfo.sType = VK_STRUCTURE_TYPE_APPLICATION_INFO;
 	appInfo.pNext = nullptr;
@@ -149,15 +157,30 @@ bool Application::init()
 		std::cout << "create command buffer failed.." << std::endl;
 		return false;
 	}
+
+	// ¹¹½¨Surface
+	VkWin32SurfaceCreateInfoKHR surfaceCreateInfo = {};
+	surfaceCreateInfo.sType = VK_STRUCTURE_TYPE_WIN32_SURFACE_CREATE_INFO_KHR;
+	surfaceCreateInfo.pNext = nullptr;
+	surfaceCreateInfo.hinstance = inst;
+	surfaceCreateInfo.hwnd = hwnd;
+	res = vkCreateWin32SurfaceKHR(__vk_inst, &surfaceCreateInfo, nullptr, &__vk_surface);
+	if (res != VK_SUCCESS)
+	{
+		std::cout << "create surface failed.." << std::endl;
+		return false;
+	}
 	
 	return true;
 }
 
-void Application::resize(int /*w*/, int /*h*/)
+void Application::resize(int w, int h)
 {
+	__client_width = w;
+	__client_height = h;
 }
 
-void Application::update()
+void Application::update(float /*deltaTime*/)
 {
 }
 

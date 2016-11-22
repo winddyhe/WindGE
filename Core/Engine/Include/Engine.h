@@ -4,5 +4,8 @@
 
 #include "../Core/Config.h"
 #include "../Core/Application.h"
+#include "../Core/Timer.h"
+
+#include "../Platform/Win32Window.h"
 
 #endif // !__ENGINE_H__

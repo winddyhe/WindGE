@@ -7,6 +7,9 @@
     <Filter Include="Include">
       <UniqueIdentifier>{b2d395b3-8b40-4a3d-a843-6538361cd4c6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Platform">
+      <UniqueIdentifier>{e771f26c-df2d-4a51-810e-1b77d1a006d6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Core\Application.cpp">
@@ -14,6 +17,12 @@
     </ClCompile>
     <ClCompile Include="Include\Engine.cpp">
       <Filter>Include</Filter>
+    </ClCompile>
+    <ClCompile Include="Platform\Win32Window.cpp">
+      <Filter>Platform</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Timer.cpp">
+      <Filter>Core</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -25,6 +34,12 @@
     </ClInclude>
     <ClInclude Include="Include\Engine.h">
       <Filter>Include</Filter>
+    </ClInclude>
+    <ClInclude Include="Platform\Win32Window.h">
+      <Filter>Platform</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Timer.h">
+      <Filter>Core</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
