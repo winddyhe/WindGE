@@ -188,3 +188,64 @@ void Application::draw()
 {
 
 }
+
+VkResult Application::_init_global_extension_properties(LayerProperties& layerProps)
+{
+	VkExtensionProperties* instExtensions;
+	uint32_t instExtensionCount = 0;
+	VkResult res;
+	char *layerName = nullptr;
+
+	layerName = layerProps.props.layerName;
+	do {
+		res = vkEnumerateInstanceExtensionProperties(layerName, &instExtensionCount, nullptr);
+		
+		if (res) return res;
+		if (instExtensionCount == 0) res;
+		
+		layerProps.extensionProps.resize(instExtensionCount);
+		instExtensions = layerProps.extensionProps.data();
+		res = vkEnumerateInstanceExtensionProperties(layerName, &instExtensionCount, instExtensions);
+	} while (res == VK_INCOMPLETE);
+	
+	return res;
+}
+
+VkResult Application::_init_global_layer_properties()
+{
+	uint32_t instanceLayerCount = 0;
+	VkLayerProperties *vkProps = nullptr;
+	VkResult res;
+
+	do {
+		res = vkEnumerateInstanceLayerProperties(&instanceLayerCount, nullptr);
+		
+		if (res) return res;
+		if (instanceLayerCount == 0) return res;
+
+		vkProps = (VkLayerProperties*)realloc(vkProps, instanceLayerCount*sizeof(VkLayerProperties));
+		res = vkEnumerateInstanceLayerProperties(&instanceLayerCount, vkProps);
+	} while (res == VK_INCOMPLETE);
+
+	for (uint32_t i = 0; i < instanceLayerCount; i++)
+	{
+		LayerProperties layerProps;
+		layerProps.props = vkProps[i];
+		res = _init_global_extension_properties(layerProps);
+		if (res) return res;
+		__layer_props_vec.push_back(layerProps);
+	}
+	free(vkProps);
+
+	return res;
+}
+
+VkResult Application::_init_instance_extension_names()
+{
+
+}
+
+VkResult Application::_init_device_extension_names()
+{
+
+}

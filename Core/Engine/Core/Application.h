@@ -13,6 +13,12 @@ namespace WindGE
 {
 	class WIND_CORE_API Application
 	{
+		typedef struct 
+		{
+			VkLayerProperties						props;
+			std::vector<VkExtensionProperties>		extensionProps;
+		} LayerProperties;
+
 	public:
 		Application();
 		virtual ~Application();
@@ -26,6 +32,12 @@ namespace WindGE
 		inline VkDevice* device() { return &__vk_device; }
 
 	protected:
+		VkResult _init_global_extension_properties(LayerProperties& layerProps);
+		VkResult _init_global_layer_properties();
+		VkResult _init_instance_extension_names();
+		VkResult _init_device_extension_names();
+
+	protected:
 		VkInstance								__vk_inst;
 		std::vector<VkPhysicalDevice>			__vk_gpus;
 		std::vector<VkQueueFamilyProperties>	__vk_queue_family_props;
@@ -36,6 +48,9 @@ namespace WindGE
 
 		int										__client_width;
 		int										__client_height;
+
+		std::vector<LayerProperties>			__layer_props_vec;
+		std::vector<const char*>				__inst_extension_names;
 	};
 }
 
