@@ -24,6 +24,9 @@
     <ClCompile Include="Core\Timer.cpp">
       <Filter>Core</Filter>
     </ClCompile>
+    <ClCompile Include="Core\Log.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\Application.h">
@@ -39,6 +42,9 @@
       <Filter>Platform</Filter>
     </ClInclude>
     <ClInclude Include="Core\Timer.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Log.h">
       <Filter>Core</Filter>
     </ClInclude>
   </ItemGroup>

@@ -8,168 +8,37 @@ using namespace WindGE;
 
 Application::Application() :
 	__client_width(0),
-	__client_height(0)
+	__client_height(0),
+	__window_instance(nullptr),
+	__window_hwnd(nullptr),
+	__app_short_name("App"),
+	__queue_family_count(0),
+	__queue_family_index(0),
+	__graphics_queue_family_index(0),
+	__present_queue_family_index(0)
 {
 }
 
 Application::~Application()
-{
-	VkCommandBuffer cmdBuffers[1] = { __vk_cmd_buffer };
-	if (__vk_device && __vk_cmd_pool)
-	{
-		vkFreeCommandBuffers(__vk_device, __vk_cmd_pool, 1, cmdBuffers);
-		vkDestroyCommandPool(__vk_device, __vk_cmd_pool, nullptr);
-	}
-	
+{	
 	vkDestroyDevice(__vk_device, nullptr);
 	vkDestroyInstance(__vk_inst, nullptr);
 }
 
 bool Application::init(HINSTANCE inst, HWND hwnd, int width, int height)
 {
-	__client_width = width;
-	__client_height = height;
+	__window_instance = inst;
+	__window_hwnd     = hwnd;
+	__client_width    = width;
+	__client_height   = height;
 
-	VkApplicationInfo appInfo = {};
-	appInfo.sType = VK_STRUCTURE_TYPE_APPLICATION_INFO;
-	appInfo.pNext = nullptr;
-	appInfo.pApplicationName = "App1";
-	appInfo.applicationVersion = 1;
-	appInfo.pEngineName = "App1";
-	appInfo.engineVersion = 1;
-	appInfo.apiVersion = VK_API_VERSION_1_0;
-
-	VkInstanceCreateInfo instInfo = {};
-	instInfo.sType = VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO;
-	instInfo.pNext = nullptr;
-	instInfo.flags = 0;
-	instInfo.pApplicationInfo = &appInfo;
-	instInfo.enabledExtensionCount = 0;
-	instInfo.ppEnabledExtensionNames = nullptr;
-	instInfo.enabledLayerCount = 0;
-	instInfo.ppEnabledLayerNames = nullptr;
-
-	VkResult res;
-
-	// 初始化VkInstance
-	res = vkCreateInstance(&instInfo, nullptr, &__vk_inst);
-	if (res == VK_ERROR_INCOMPATIBLE_DRIVER)
-	{
-		std::cout << "cannot find a compatible Vulkan ICD." << std::endl;
-		return false;
-	}
-	else if (res) 
-	{
-		std::cout << "unknown error." << std::endl;
-		return false;
-	}
-
-	// 枚举物理设备
-	uint32_t gpuCount = 1;
-	res = vkEnumeratePhysicalDevices(__vk_inst, &gpuCount, nullptr);
-	std::cout << "gpu count: " << gpuCount << std::endl;
-	if (res != VK_SUCCESS || gpuCount < 1)
-	{
-		std::cout << "not found gpu devices.." << std::endl;
-		return false;
-	}
-	__vk_gpus.resize(gpuCount);
-	res = vkEnumeratePhysicalDevices(__vk_inst, &gpuCount, __vk_gpus.data());
-
-	// 初始化设备
-    VkDeviceQueueCreateInfo queueInfo = {};
-
-	uint32_t queueFamilyCount = 1;
-	vkGetPhysicalDeviceQueueFamilyProperties(__vk_gpus[0], &queueFamilyCount, nullptr);
-	std::cout << "device queue family prop count: " << queueFamilyCount << std::endl;
-	if (res != 0 || queueFamilyCount < 1)
-	{
-		std::cout << "not found queue family props.." << std::endl;
-		return false;
-	}
-	__vk_queue_family_props.resize(queueFamilyCount);
-	vkGetPhysicalDeviceQueueFamilyProperties(__vk_gpus[0], &queueFamilyCount, __vk_queue_family_props.data());
-
-	bool isFound = false;
-	for (uint32_t i = 0; i < __vk_queue_family_props.size(); ++i)
-	{
-		if (__vk_queue_family_props[i].queueFlags & VK_QUEUE_GRAPHICS_BIT)
-		{
-			queueInfo.queueFamilyIndex = i;
-			isFound = true;
-			break;
-		}
-	}
-	if (!isFound)
-	{
-		std::cout << "create device failed.." << std::endl;
-		return false;
-	}
-
-	float queuePriorities[1] = { 0.0f };
-	queueInfo.sType = VK_STRUCTURE_TYPE_DEVICE_QUEUE_CREATE_INFO;
-	queueInfo.pNext = nullptr;
-	queueInfo.queueCount = 1;
-	queueInfo.pQueuePriorities = queuePriorities;
-
-	VkDeviceCreateInfo deviceInfo = {};
-	deviceInfo.sType = VK_STRUCTURE_TYPE_DEVICE_CREATE_INFO;
-	deviceInfo.pNext = nullptr;
-	deviceInfo.queueCreateInfoCount = 1;
-	deviceInfo.pQueueCreateInfos = &queueInfo;
-	deviceInfo.enabledExtensionCount = 0;
-	deviceInfo.ppEnabledExtensionNames = 0;
-	deviceInfo.enabledLayerCount = 0;
-	deviceInfo.ppEnabledLayerNames = nullptr;
-	deviceInfo.pEnabledFeatures = nullptr;
-
-	res = vkCreateDevice(__vk_gpus[0], &deviceInfo, nullptr, &__vk_device);
-	if (res != VK_SUCCESS)
-	{
-		std::cout << "create device failed.." << std::endl;
-		return false;
-	}
-
-	// 创建Command buffer
-	VkCommandPoolCreateInfo cmdPoolInfo = {};
-	cmdPoolInfo.sType = VK_STRUCTURE_TYPE_COMMAND_POOL_CREATE_INFO;
-	cmdPoolInfo.pNext = nullptr;
-	cmdPoolInfo.queueFamilyIndex = queueInfo.queueFamilyIndex;
-	cmdPoolInfo.flags = 0;
-
-	res = vkCreateCommandPool(__vk_device, &cmdPoolInfo, nullptr, &__vk_cmd_pool);
-	if (res != VK_SUCCESS)
-	{
-		std::cout << "create command pool failed.." << std::endl;
-		return false;
-	}
-
-	VkCommandBufferAllocateInfo cmd = {};
-	cmd.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_ALLOCATE_INFO;
-	cmd.pNext = nullptr;
-	cmd.commandPool = __vk_cmd_pool;
-	cmd.level = VK_COMMAND_BUFFER_LEVEL_PRIMARY;
-	cmd.commandBufferCount = 1;
-		
-	res = vkAllocateCommandBuffers(__vk_device, &cmd, &__vk_cmd_buffer);
-	if (res != VK_SUCCESS)
-	{
-		std::cout << "create command buffer failed.." << std::endl;
-		return false;
-	}
-
-	// 构建Surface
-	VkWin32SurfaceCreateInfoKHR surfaceCreateInfo = {};
-	surfaceCreateInfo.sType = VK_STRUCTURE_TYPE_WIN32_SURFACE_CREATE_INFO_KHR;
-	surfaceCreateInfo.pNext = nullptr;
-	surfaceCreateInfo.hinstance = inst;
-	surfaceCreateInfo.hwnd = hwnd;
-	res = vkCreateWin32SurfaceKHR(__vk_inst, &surfaceCreateInfo, nullptr, &__vk_surface);
-	if (res != VK_SUCCESS)
-	{
-		std::cout << "create surface failed.." << std::endl;
-		return false;
-	}
+	if (_init_global_layer_properties())  return false;
+	if (_init_instance_extension_names()) return false;
+	if (_init_device_extension_names())   return false;
+	if (_init_instance())				  return false;
+	if (!_init_enumerate_device())	      return false;
+	if (!_init_surface_khr())			  return false;
+	if (_init_device())					  return false;
 	
 	return true;
 }
@@ -242,10 +111,182 @@ VkResult Application::_init_global_layer_properties()
 
 VkResult Application::_init_instance_extension_names()
 {
-
+	__inst_extension_names.push_back(VK_KHR_SURFACE_EXTENSION_NAME);
+	__inst_extension_names.push_back(VK_KHR_WIN32_SURFACE_EXTENSION_NAME);
+	return VK_SUCCESS;
 }
 
 VkResult Application::_init_device_extension_names()
 {
+	__device_extension_names.push_back(VK_KHR_SWAPCHAIN_EXTENSION_NAME);
+	return VK_SUCCESS;
+}
 
+VkResult Application::_init_instance()
+{
+	VkApplicationInfo appInfo = {};
+	appInfo.sType = VK_STRUCTURE_TYPE_APPLICATION_INFO;
+	appInfo.pNext = nullptr;
+	appInfo.pApplicationName = __app_short_name.c_str();
+	appInfo.applicationVersion = 1;
+	appInfo.pEngineName = __app_short_name.c_str();
+	appInfo.engineVersion = 1;
+	appInfo.apiVersion = VK_API_VERSION_1_0;
+
+	VkInstanceCreateInfo instInfo = {};
+	instInfo.sType = VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO;
+	instInfo.pNext = nullptr;
+	instInfo.flags = 0;
+	instInfo.pApplicationInfo = &appInfo;
+	instInfo.enabledExtensionCount = __inst_extension_names.size();
+	instInfo.ppEnabledExtensionNames = __inst_extension_names.size() ? __inst_extension_names.data() : nullptr;
+	instInfo.enabledLayerCount = 0;
+	instInfo.ppEnabledLayerNames = nullptr;
+
+	// 初始化VkInstance
+	VkResult res = vkCreateInstance(&instInfo, nullptr, &__vk_inst);
+	if (res == VK_ERROR_INCOMPATIBLE_DRIVER)
+	{
+		Log::error(L"cannot find a compatible Vulkan ICD.");
+	}
+	else if (res)
+	{
+		Log::error(L"unknown error.");
+	}
+	return res;
+}
+
+bool Application::_init_enumerate_device()
+{
+	// 枚举物理设备
+	uint32_t gpuCount = 1;
+	VkResult res = vkEnumeratePhysicalDevices(__vk_inst, &gpuCount, nullptr);
+	Log::info(L"gpu count: %u", gpuCount);
+	if (res != VK_SUCCESS || gpuCount < 1)
+	{
+		Log::error(L"not found gpu devices..");
+		return false;
+	}
+	__vk_gpus.resize(gpuCount);
+	res = vkEnumeratePhysicalDevices(__vk_inst, &gpuCount, __vk_gpus.data());
+
+	// Device Queue Family Properties
+	vkGetPhysicalDeviceQueueFamilyProperties(__vk_gpus[0], &__queue_family_count, nullptr);
+	Log::info(L"device queue family prop count: %u", __queue_family_count);
+	if (__queue_family_count < 1)
+	{
+		Log::error(L"not found queue family props..");
+		return false;
+	}
+
+	__vk_queue_family_props.resize(__queue_family_count);
+	vkGetPhysicalDeviceQueueFamilyProperties(__vk_gpus[0], &__queue_family_count, __vk_queue_family_props.data());
+	
+	bool isFound = false;
+	for (uint32_t i = 0; i < __vk_queue_family_props.size(); ++i)
+	{
+		if (__vk_queue_family_props[i].queueFlags & VK_QUEUE_GRAPHICS_BIT)
+		{
+			__queue_family_index = i;
+			isFound = true;
+			break;
+		}
+	}
+	if (!isFound)
+	{
+		Log::error(L"create device failed..");
+		return false;
+	}
+	return true;
+}
+
+bool Application::_init_surface_khr()
+{
+	VkWin32SurfaceCreateInfoKHR createInfo = {};
+	createInfo.sType = VK_STRUCTURE_TYPE_WIN32_SURFACE_CREATE_INFO_KHR;
+	createInfo.pNext = nullptr;
+	createInfo.hinstance = __window_instance;
+	createInfo.hwnd = __window_hwnd;
+
+	VkResult res = vkCreateWin32SurfaceKHR(__vk_inst, &createInfo, nullptr, &__vk_surface);
+	if (res != VK_SUCCESS)
+	{
+		Log::error(L"create win32 surface khr failed..");
+		return false;
+	}
+	
+	VkBool32 *pSupportsPresent = (VkBool32 *)malloc(__queue_family_count * sizeof(VkBool32));
+	for (uint32_t i = 0; i < __queue_family_count; i++) 
+	{
+		vkGetPhysicalDeviceSurfaceSupportKHR(__vk_gpus[0], i, __vk_surface, &pSupportsPresent[i]);
+	}
+
+	__graphics_queue_family_index = UINT32_MAX;
+	__present_queue_family_index = UINT32_MAX;
+
+	for (uint32_t i = 0; i < __queue_family_count; ++i) 
+	{
+		if ((__vk_queue_family_props[i].queueFlags & VK_QUEUE_GRAPHICS_BIT) != 0) 
+		{
+			if (__graphics_queue_family_index == UINT32_MAX)
+				__graphics_queue_family_index = i;
+
+			if (pSupportsPresent[i] == VK_TRUE) 
+			{
+				__graphics_queue_family_index = i;
+				__present_queue_family_index = i;
+				break;
+			}
+		}
+	}
+
+	if (__present_queue_family_index == UINT32_MAX) 
+	{
+		for (size_t i = 0; i < __queue_family_count; ++i)
+		{
+			if (pSupportsPresent[i] == VK_TRUE)
+			{
+				__present_queue_family_index = i;
+				break;
+			}
+		}
+	}
+	free(pSupportsPresent);
+
+	if (__graphics_queue_family_index == UINT32_MAX || __present_queue_family_index == UINT32_MAX) 
+	{
+		Log::error(L"Could not find a queues for graphics and present.");
+		return false;
+	}
+	return true;
+}
+
+VkResult Application::_init_device()
+{
+	// 初始化设备
+	VkDeviceQueueCreateInfo queueInfo = {};
+	queueInfo.sType = VK_STRUCTURE_TYPE_DEVICE_QUEUE_CREATE_INFO;
+	queueInfo.pNext = nullptr;
+	queueInfo.queueCount = 1;
+	float queuePriorities[1] = { 0.0f };
+	queueInfo.pQueuePriorities = queuePriorities;
+	queueInfo.queueFamilyIndex = __queue_family_index;
+
+	VkDeviceCreateInfo deviceInfo = {};
+	deviceInfo.sType = VK_STRUCTURE_TYPE_DEVICE_CREATE_INFO;
+	deviceInfo.pNext = nullptr;
+	deviceInfo.queueCreateInfoCount = 1;
+	deviceInfo.pQueueCreateInfos = &queueInfo;
+	deviceInfo.enabledExtensionCount = __device_extension_names.size();
+	deviceInfo.ppEnabledExtensionNames = __device_extension_names.size() ? __device_extension_names.data() : nullptr;
+	deviceInfo.enabledLayerCount = 0;
+	deviceInfo.ppEnabledLayerNames = nullptr;
+	deviceInfo.pEnabledFeatures = nullptr;
+
+	VkResult res = vkCreateDevice(__vk_gpus[0], &deviceInfo, nullptr, &__vk_device);
+	if (res != VK_SUCCESS)
+	{
+		Log::error(L"create device failed..");
+	}
+	return res;
 }

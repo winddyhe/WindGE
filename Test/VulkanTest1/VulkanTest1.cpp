@@ -10,6 +10,8 @@ using namespace WindGE;
 int WINAPI WinMain(__in HINSTANCE hInstance, __in_opt HINSTANCE /*hPrevInstance*/, __in LPSTR /*lpCmdLine*/, __in int /*nShowCmd*/)
 {
 	{
+		Log::init();
+
 		Win32Window window(hInstance);
 
 		Application app;
@@ -17,10 +19,12 @@ int WINAPI WinMain(__in HINSTANCE hInstance, __in_opt HINSTANCE /*hPrevInstance*
 
 		if (!res)
 		{
-			std::cout << "vk app init faield.." << std::endl;
+			Log::error(L"vk app init faield..");
 			return 0;
 		}
 		return window.run();
+		
+		Log::destroy();
 	}
 	return 0;
 }

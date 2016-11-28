@@ -5,6 +5,7 @@
 #include "../Core/Config.h"
 #include "../Core/Application.h"
 #include "../Core/Timer.h"
+#include "../Core/Log.h"
 
 #include "../Platform/Win32Window.h"
 

@@ -153,12 +153,14 @@
   <ItemGroup>
     <ClInclude Include="Core\Application.h" />
     <ClInclude Include="Core\Config.h" />
+    <ClInclude Include="Core\Log.h" />
     <ClInclude Include="Core\Timer.h" />
     <ClInclude Include="Include\Engine.h" />
     <ClInclude Include="Platform\Win32Window.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Core\Application.cpp" />
+    <ClCompile Include="Core\Log.cpp" />
     <ClCompile Include="Core\Timer.cpp" />
     <ClCompile Include="Include\Engine.cpp" />
     <ClCompile Include="Platform\Win32Window.cpp" />
