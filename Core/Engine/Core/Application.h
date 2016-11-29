@@ -20,6 +20,12 @@ namespace WindGE
 			std::vector<VkExtensionProperties>		extensionProps;
 		} LayerProperties;
 
+		typedef struct
+		{
+			VkImage									image;
+			VkImageView								view;
+		} SwapChainBuffer;
+
 	public:
 		Application();
 		virtual ~Application();
@@ -43,12 +49,26 @@ namespace WindGE
 		bool	 _init_surface_khr();
 		VkResult _init_device();
 
+		VkResult _init_command_pool();
+		VkResult _init_command_buffer();
+		VkResult _execute_begin_command_buffer();
+
+		void	 _init_device_queue();
+
+		VkResult _init_swap_chain(VkImageUsageFlags usageFlags = VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT | VK_IMAGE_USAGE_TRANSFER_SRC_BIT);
+
 	protected:
 		VkInstance								__vk_inst;
 		std::vector<VkPhysicalDevice>			__vk_gpus;
 		std::vector<VkQueueFamilyProperties>	__vk_queue_family_props;
 		VkDevice								__vk_device;
 		VkSurfaceKHR							__vk_surface;
+		VkCommandPool							__vk_commnad_pool;
+		VkCommandBuffer							__vk_command_buffer;
+		VkQueue									__vk_graphics_queue;
+		VkQueue									__vk_present_queue;
+		VkSwapchainKHR							__vk_swapchain;
+		std::vector<SwapChainBuffer>			__vk_swapchain_buffers;
 
 		int										__client_width;
 		int										__client_height;
@@ -63,6 +83,11 @@ namespace WindGE
 		uint32_t								__queue_family_index;
 		uint32_t								__graphics_queue_family_index;
 		uint32_t								__present_queue_family_index;
+		uint32_t								__current_swapchain_buffer;
+
+		uint32_t								__swapchain_image_count;
+		
+		VkFormat								__surface_format;
 	};
 }
 

@@ -8,10 +8,6 @@ namespace WindGE
 {
 	class WIND_CORE_API Log
 	{
-	private:
-		Log();
-		~Log();
-
 	public:
 		static void init();
 		static void destroy();
