@@ -56,6 +56,13 @@ namespace WindGE
 		void	 _init_device_queue();
 
 		VkResult _init_swap_chain(VkImageUsageFlags usageFlags = VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT | VK_IMAGE_USAGE_TRANSFER_SRC_BIT);
+		
+		VkResult _init_depth_buffer();
+		VkResult _init_uniform_buffer();
+		VkResult _init_descriptor_pipeline_layouts();
+		VkResult _init_renderpass();
+		VkResult _init_shaders();
+		VkResult _init_frame_buffers();
 
 	protected:
 		VkInstance								__vk_inst;
