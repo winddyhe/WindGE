@@ -23,6 +23,21 @@ Application::Application() :
 
 Application::~Application()
 {	
+	vkDestroyRenderPass(__vk_device, __vk_render_pass, nullptr);
+
+	for (int i = 0; i < 1; i++)
+	{
+		vkDestroyDescriptorSetLayout(__vk_device, __vk_desc_layouts[i], nullptr);
+	}
+	vkDestroyPipelineLayout(__vk_device, __vk_pipeline_layout, nullptr);
+
+	vkDestroyBuffer(__vk_device, __uniform_mvp.buf, nullptr);
+	vkFreeMemory(__vk_device, __uniform_mvp.mem, nullptr);
+
+	vkDestroyImageView(__vk_device, __vk_depth.view, nullptr);
+	vkDestroyImage(__vk_device, __vk_depth.image, nullptr);
+	vkFreeMemory(__vk_device, __vk_depth.mem, nullptr);
+
 	if (__vk_device)
 	{
 		for (uint32_t i = 0; i < __swapchain_image_count; i++) 
@@ -61,6 +76,14 @@ bool Application::init(HINSTANCE inst, HWND hwnd, int width, int height)
 	_init_device_queue();
 
 	if (_init_swap_chain())				  return false;
+
+	if (!_init_depth_buffer())			  return false;
+	if (!_init_uniform_buffer())		  return false;
+
+	if (!_init_descriptor_pipeline_layouts(false)) return false;
+
+	if (!_init_renderpass(true))		  return false;
+
 
 	return true;
 }
@@ -219,6 +242,10 @@ bool Application::_init_enumerate_device()
 		Log::error(L"create device failed..");
 		return false;
 	}
+
+	vkGetPhysicalDeviceMemoryProperties(__vk_gpus[0], &__vk_memory_props);
+	vkGetPhysicalDeviceProperties(__vk_gpus[0], &__vk_gpu_props);
+
 	return true;
 }
 
@@ -548,3 +575,376 @@ VkResult Application::_init_swap_chain(VkImageUsageFlags usageFlags)
 	}
 	return res;
 }
+
+bool Application::_init_depth_buffer()
+{
+	VkResult res;
+	bool pass = false;
+	VkImageCreateInfo imageInfo = {};
+
+	if (__vk_depth.format == VK_FORMAT_UNDEFINED)
+		__vk_depth.format = VK_FORMAT_D16_UNORM;
+
+	const VkFormat depthFormat = __vk_depth.format;
+
+	VkFormatProperties props;
+	vkGetPhysicalDeviceFormatProperties(__vk_gpus[0], depthFormat, &props);
+	if (props.linearTilingFeatures & VK_FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT)
+	{
+		imageInfo.tiling = VK_IMAGE_TILING_LINEAR;
+	}
+	else if (props.optimalTilingFeatures & VK_FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT)
+	{
+		imageInfo.tiling = VK_IMAGE_TILING_OPTIMAL;
+	}
+	else
+	{
+		Log::error(L"Depth format %d unsupported.", (int)depthFormat);
+		return false;
+	}
+
+	imageInfo.sType = VK_STRUCTURE_TYPE_IMAGE_CREATE_INFO;
+	imageInfo.pNext = nullptr;
+	imageInfo.imageType = VK_IMAGE_TYPE_2D;
+	imageInfo.format = depthFormat;
+	imageInfo.extent.width = __client_width;
+	imageInfo.extent.height = __client_height;
+	imageInfo.extent.depth = 1;
+	imageInfo.mipLevels = 1;
+	imageInfo.arrayLayers = 1;
+	imageInfo.samples = VK_SAMPLE_COUNT_1_BIT;
+	imageInfo.initialLayout = VK_IMAGE_LAYOUT_UNDEFINED;
+	imageInfo.queueFamilyIndexCount = 0;
+	imageInfo.pQueueFamilyIndices = nullptr;
+	imageInfo.sharingMode = VK_SHARING_MODE_EXCLUSIVE;
+	imageInfo.usage = VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT;
+	imageInfo.flags = 0;
+
+	VkMemoryAllocateInfo memAllocInfo = {};
+	memAllocInfo.sType = VK_STRUCTURE_TYPE_MEMORY_ALLOCATE_INFO;
+	memAllocInfo.pNext = nullptr;
+	memAllocInfo.allocationSize = 0;
+	memAllocInfo.memoryTypeIndex = 0;
+
+	VkImageViewCreateInfo viewInfo = {};
+	viewInfo.sType = VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO;
+	viewInfo.pNext = nullptr;
+	viewInfo.image = VK_NULL_HANDLE;
+	viewInfo.format = depthFormat;
+	viewInfo.components.r = VK_COMPONENT_SWIZZLE_R;
+	viewInfo.components.g = VK_COMPONENT_SWIZZLE_G;
+	viewInfo.components.b = VK_COMPONENT_SWIZZLE_B;
+	viewInfo.components.a = VK_COMPONENT_SWIZZLE_A;
+	viewInfo.subresourceRange.aspectMask = VK_IMAGE_ASPECT_DEPTH_BIT;
+	viewInfo.subresourceRange.baseMipLevel = 0;
+	viewInfo.subresourceRange.levelCount = 1;
+	viewInfo.subresourceRange.baseArrayLayer = 0;
+	viewInfo.subresourceRange.layerCount = 1;
+	viewInfo.viewType = VK_IMAGE_VIEW_TYPE_2D;
+	viewInfo.flags = 0;
+
+	if (depthFormat == VK_FORMAT_D16_UNORM_S8_UINT ||
+		depthFormat == VK_FORMAT_D24_UNORM_S8_UINT ||
+		depthFormat == VK_FORMAT_D32_SFLOAT_S8_UINT)
+	{
+		viewInfo.subresourceRange.aspectMask |= VK_IMAGE_ASPECT_STENCIL_BIT;
+	}
+
+	VkMemoryRequirements memReqs;
+	res = vkCreateImage(__vk_device, &imageInfo, nullptr, &__vk_depth.image);
+	if (res) return false;
+
+	vkGetImageMemoryRequirements(__vk_device, __vk_depth.image, &memReqs);
+	memAllocInfo.allocationSize = memReqs.size;
+
+	pass = _memory_type_from_properties(memReqs.memoryTypeBits, 0, &memAllocInfo.memoryTypeIndex);
+	if (!pass) return false;
+
+	res = vkAllocateMemory(__vk_device, &memAllocInfo, nullptr, &__vk_depth.mem);
+
+	res = vkBindImageMemory(__vk_device, __vk_depth.image, __vk_depth.mem, 0);
+	if (res) return false;
+
+	_set_image_layout(__vk_depth.image, viewInfo.subresourceRange.aspectMask, 
+					  VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL);
+
+	viewInfo.image = __vk_depth.image;
+	res = vkCreateImageView(__vk_device, &viewInfo, nullptr, &__vk_depth.view);
+	if (res) return false;
+
+	return true;
+}
+
+bool Application::_memory_type_from_properties(uint32_t typeBits, VkFlags requirements_mask, uint32_t *typeIndex)
+{
+	for (uint32_t i = 0; i < __vk_memory_props.memoryTypeCount; i++)
+	{
+		if ((typeBits & 1) == 1)
+		{
+			if ((__vk_memory_props.memoryTypes[i].propertyFlags & requirements_mask) == requirements_mask)
+			{
+				*typeIndex = i;
+				return true;
+			}
+		}
+		typeBits >>= 1;
+	}
+	return false;
+}
+
+bool Application::_set_image_layout(VkImage image, VkImageAspectFlags aspectMask, VkImageLayout old_image_layout, VkImageLayout new_image_layout)
+{
+	if (__vk_command_buffer != VK_NULL_HANDLE) return false;
+	if (__vk_graphics_queue != VK_NULL_HANDLE) return false;
+
+	VkImageMemoryBarrier imageMemoryBarrier = {};
+	imageMemoryBarrier.sType = VK_STRUCTURE_TYPE_IMAGE_MEMORY_BARRIER;
+	imageMemoryBarrier.pNext = nullptr;
+	imageMemoryBarrier.srcAccessMask = 0;
+	imageMemoryBarrier.dstAccessMask = 0;
+	imageMemoryBarrier.oldLayout = old_image_layout;
+	imageMemoryBarrier.newLayout = new_image_layout;
+	imageMemoryBarrier.srcQueueFamilyIndex = VK_QUEUE_FAMILY_IGNORED;
+	imageMemoryBarrier.dstQueueFamilyIndex = VK_QUEUE_FAMILY_IGNORED;
+	imageMemoryBarrier.image = image;
+	imageMemoryBarrier.subresourceRange.aspectMask = aspectMask;
+	imageMemoryBarrier.subresourceRange.baseMipLevel = 0;
+	imageMemoryBarrier.subresourceRange.levelCount = 1;
+	imageMemoryBarrier.subresourceRange.baseArrayLayer = 0;
+	imageMemoryBarrier.subresourceRange.layerCount = 1;
+
+	if (new_image_layout == VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL) 
+	{
+		imageMemoryBarrier.dstAccessMask = VK_ACCESS_TRANSFER_WRITE_BIT;
+	}
+
+	if (new_image_layout == VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL) 
+	{
+		imageMemoryBarrier.dstAccessMask = VK_ACCESS_TRANSFER_READ_BIT;
+	}
+
+	if (old_image_layout == VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL) 
+	{
+		imageMemoryBarrier.srcAccessMask = VK_ACCESS_TRANSFER_WRITE_BIT;
+	}
+
+	if (old_image_layout == VK_IMAGE_LAYOUT_PREINITIALIZED) 
+	{
+		imageMemoryBarrier.srcAccessMask = VK_ACCESS_HOST_WRITE_BIT;
+	}
+
+	if (new_image_layout == VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL) 
+	{
+		imageMemoryBarrier.dstAccessMask = VK_ACCESS_SHADER_READ_BIT;
+	}
+
+	if (new_image_layout == VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL) 
+	{
+		imageMemoryBarrier.dstAccessMask = VK_ACCESS_COLOR_ATTACHMENT_WRITE_BIT;
+	}
+
+	if (new_image_layout == VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL) 
+	{
+		imageMemoryBarrier.dstAccessMask = VK_ACCESS_DEPTH_STENCIL_ATTACHMENT_WRITE_BIT;
+	}
+
+	VkPipelineStageFlags src_stages = VK_PIPELINE_STAGE_TOP_OF_PIPE_BIT;
+	VkPipelineStageFlags dest_stages = VK_PIPELINE_STAGE_TOP_OF_PIPE_BIT;
+
+	vkCmdPipelineBarrier(__vk_command_buffer, src_stages, dest_stages, 0, 0, NULL, 0, NULL, 1, &imageMemoryBarrier);
+
+	return true;
+}
+
+bool Application::_init_uniform_buffer()
+{
+	VkResult res;
+	bool pass;
+
+	float fov = glm::radians(45.0f);
+	if (__client_width > __client_height)
+	{
+		fov *= static_cast<float>(__client_height) / static_cast<float>(__client_width);
+	}
+	
+	float aspect = static_cast<float>(__client_width) / static_cast<float>(__client_height);
+	
+	__proj_mat  = glm::perspective(fov, aspect, 0.1f, 100.0f);
+	__view_mat  = glm::lookAt(glm::vec3(-5, 3, -10), glm::vec3(0, 0, 0), glm::vec3(0, -1, 0));
+	__model_mat = glm::mat4(1.0f);
+
+	__clip_mat  = glm::mat4(1.0f,  0.0f, 0.0f, 0.0f,
+							0.0f, -1.0f, 0.0f, 0.0f,
+							0.0f,  0.0f, 0.5f, 0.0f,
+							0.0f,  0.0f, 0.5f, 1.0f);
+
+	__mvp_mat   = __clip_mat * __proj_mat * __view_mat * __model_mat;
+
+	VkBufferCreateInfo bufInfo = {};
+	bufInfo.sType = VK_STRUCTURE_TYPE_BUFFER_CREATE_INFO;
+	bufInfo.pNext = nullptr;
+	bufInfo.usage = VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT;
+	bufInfo.size = sizeof(__mvp_mat);
+	bufInfo.queueFamilyIndexCount = 0;
+	bufInfo.pQueueFamilyIndices = nullptr;
+	bufInfo.sharingMode = VK_SHARING_MODE_EXCLUSIVE;
+	bufInfo.flags = 0;
+	
+	res = vkCreateBuffer(__vk_device, &bufInfo, nullptr, &__uniform_mvp.buf);
+	if (res) return false;
+
+	VkMemoryRequirements memReqs;
+	vkGetBufferMemoryRequirements(__vk_device, __uniform_mvp.buf, &memReqs);
+
+	VkMemoryAllocateInfo allocInfo = {};
+	allocInfo.sType = VK_STRUCTURE_TYPE_MEMORY_ALLOCATE_INFO;
+	allocInfo.pNext = nullptr;
+	allocInfo.memoryTypeIndex = 0;
+	allocInfo.allocationSize = memReqs.size;
+
+	pass = _memory_type_from_properties(
+		memReqs.memoryTypeBits, VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT, &allocInfo.memoryTypeIndex);
+
+	if (!pass) 
+	{
+		Log::error(L"No mappable, coherent memory..");
+		return false;
+	}
+
+	res = vkAllocateMemory(__vk_device, &allocInfo, nullptr, &__uniform_mvp.mem);
+	if (res) return false;
+
+	uint8_t *pData;
+	res = vkMapMemory(__vk_device, __uniform_mvp.mem, 0, memReqs.size, 0, (void**)&pData);
+	if (res) return false;
+
+	memcpy(pData, &__mvp_mat, sizeof(__mvp_mat));
+
+	vkUnmapMemory(__vk_device, __uniform_mvp.mem);
+
+	res = vkBindBufferMemory(__vk_device, __uniform_mvp.buf, __uniform_mvp.mem, 0);
+	if (res) return false;
+
+	__uniform_mvp.bufferInfo.buffer = __uniform_mvp.buf;
+	__uniform_mvp.bufferInfo.offset = 0;
+	__uniform_mvp.bufferInfo.range = sizeof(__mvp_mat);
+
+	return true;
+}
+
+bool Application::_init_descriptor_pipeline_layouts(bool useTexture)
+{
+	VkResult res;
+
+	VkDescriptorSetLayoutBinding layoutBindings[2];
+	layoutBindings[0].binding = 0;
+	layoutBindings[0].descriptorType = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
+	layoutBindings[0].descriptorCount = 1;
+	layoutBindings[0].stageFlags = VK_SHADER_STAGE_VERTEX_BIT;
+	layoutBindings[0].pImmutableSamplers = nullptr;
+
+	if (useTexture)
+	{
+		layoutBindings[1].binding = 1;
+		layoutBindings[1].descriptorType = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
+		layoutBindings[1].descriptorCount = 1;
+		layoutBindings[1].stageFlags = VK_SHADER_STAGE_FRAGMENT_BIT;
+		layoutBindings[1].pImmutableSamplers = nullptr;
+	}
+
+	VkDescriptorSetLayoutCreateInfo descriptorLayoutInfo = {};
+	descriptorLayoutInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_CREATE_INFO;
+	descriptorLayoutInfo.pNext = nullptr;
+	descriptorLayoutInfo.bindingCount = useTexture ? 2 : 1;
+	descriptorLayoutInfo.pBindings = layoutBindings;
+
+	__vk_desc_layouts.resize(1);
+	res = vkCreateDescriptorSetLayout(__vk_device, &descriptorLayoutInfo, nullptr, __vk_desc_layouts.data());
+	if (res)
+	{
+		Log::error(L"Create desc layout failed...");
+		return false;
+	}
+
+	VkPipelineLayoutCreateInfo pipelineLayoutCreateInfo = {};
+	pipelineLayoutCreateInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_LAYOUT_CREATE_INFO;
+	pipelineLayoutCreateInfo.pNext = nullptr;
+	pipelineLayoutCreateInfo.pushConstantRangeCount = 0;
+	pipelineLayoutCreateInfo.pPushConstantRanges = nullptr;
+	pipelineLayoutCreateInfo.setLayoutCount = 1;
+	pipelineLayoutCreateInfo.pSetLayouts = __vk_desc_layouts.data();
+
+	res = vkCreatePipelineLayout(__vk_device, &pipelineLayoutCreateInfo, nullptr, &__vk_pipeline_layout);
+	if (res) return false;
+
+	return true;
+}
+
+bool Application::_init_renderpass(bool includeDepth, bool clear/* = true*/, VkImageLayout finalLayout/* = VK_IMAGE_LAYOUT_PRESENT_SRC_KHR*/)
+{
+	VkResult res;
+
+	VkAttachmentDescription attachments[2];
+	attachments[0].format = __surface_format;
+	attachments[0].samples = VK_SAMPLE_COUNT_1_BIT;
+	attachments[0].loadOp = clear ? VK_ATTACHMENT_LOAD_OP_CLEAR : VK_ATTACHMENT_LOAD_OP_DONT_CARE;
+	attachments[0].storeOp = VK_ATTACHMENT_STORE_OP_STORE;
+	attachments[0].stencilLoadOp = VK_ATTACHMENT_LOAD_OP_DONT_CARE;
+	attachments[0].initialLayout = VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL;
+	attachments[0].finalLayout = finalLayout;
+	attachments[0].flags = 0;
+
+	if (includeDepth)
+	{
+		attachments[1].format = __vk_depth.format;
+		attachments[1].samples = VK_SAMPLE_COUNT_1_BIT;
+		attachments[1].loadOp = clear ? VK_ATTACHMENT_LOAD_OP_CLEAR : VK_ATTACHMENT_LOAD_OP_DONT_CARE;
+		attachments[1].storeOp = VK_ATTACHMENT_STORE_OP_STORE;
+		attachments[1].stencilLoadOp = VK_ATTACHMENT_LOAD_OP_LOAD;
+		attachments[1].stencilStoreOp = VK_ATTACHMENT_STORE_OP_STORE;
+		attachments[1].initialLayout = VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL;
+		attachments[1].finalLayout = VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL;
+		attachments[1].flags = 0;
+	}
+
+	VkAttachmentReference colorRef = {};
+	colorRef.attachment = 0;
+	colorRef.layout = VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL;
+
+	VkAttachmentReference depthRef = {};
+	depthRef.attachment = 1;
+	depthRef.layout = VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL;
+
+	VkSubpassDescription subpass = {};
+	subpass.pipelineBindPoint = VK_PIPELINE_BIND_POINT_GRAPHICS;
+	subpass.flags = 0;
+	subpass.inputAttachmentCount = 0;
+	subpass.pInputAttachments = nullptr;
+	subpass.colorAttachmentCount = 1;
+	subpass.pColorAttachments = &colorRef;
+	subpass.pResolveAttachments = nullptr;
+	subpass.pDepthStencilAttachment = includeDepth ? &depthRef : nullptr;
+	subpass.preserveAttachmentCount = 0;
+	subpass.pPreserveAttachments = nullptr;
+
+	VkRenderPassCreateInfo renderPassInfo = {};
+	renderPassInfo.sType = VK_STRUCTURE_TYPE_RENDER_PASS_CREATE_INFO;
+	renderPassInfo.pNext = nullptr;
+	renderPassInfo.attachmentCount = includeDepth ? 2 : 1;
+	renderPassInfo.pAttachments = attachments;
+	renderPassInfo.subpassCount = 1;
+	renderPassInfo.pSubpasses = &subpass;
+	renderPassInfo.dependencyCount = 0;
+	renderPassInfo.pDependencies = nullptr;
+
+	res = vkCreateRenderPass(__vk_device, &renderPassInfo, nullptr, &__vk_render_pass);
+	if (res)
+	{
+		Log::error(L"Create render pass failed...");
+		return false;
+	}
+
+	return true;
+}
+
+

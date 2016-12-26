@@ -14,6 +14,7 @@
 
 #pragma warning(disable:4251)	//disable warning 4251
 #pragma warning(disable:4996)	//diasble warning 4996
+#pragma warning(disable:4201)	//diasble warning 4201  glm
 
 #include <string>
 #include <vector>
