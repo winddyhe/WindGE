@@ -102,6 +102,7 @@ namespace WindGE
 		std::vector<VkDescriptorSetLayout>		__vk_desc_layouts;
 		VkPipelineLayout						__vk_pipeline_layout;
 		VkRenderPass							__vk_render_pass;
+		VkPipelineShaderStageCreateInfo			__vk_pipeline_shaderstages[2];
 
 		int										__client_width;
 		int										__client_height;

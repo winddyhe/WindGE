@@ -947,4 +947,48 @@ bool Application::_init_renderpass(bool includeDepth, bool clear/* = true*/, VkI
 	return true;
 }
 
+VkResult Application::_init_shaders()
+{
+	VkResult res = VK_SUCCESS;
+
+	static const char* vertShaderText =
+		"#version 400\n"
+		"#extension GL_ARB_separate_shader_objects : enable\n"
+		"#extension GL_ARB_shading_language_420pack : enable\n"
+		"layout (std140, binding = 0) uniform bufferVals\n"
+		"{\n"
+		"	mat4 mvp;\n"
+		"} myBufferVals;\n"
+		"layout (location = 0) in  vec4 pos;\n"
+		"layout (location = 1) in  vec4 inColor;\n"
+		"layout (location = 0) out vec4 outColor;\n"
+		"void main()\n"
+		"{\n"
+		"	outColor = inColor;\n"
+		"	gl_Position = myBufferVals.mvp * pos;\n"
+		"}\n";
+
+	static const char* fragShaderText =
+		"#version 400\n"
+		"#extension GL_ARB_separate_shader_objects : enable\n"
+		"#extension GL_ARB_shading_language_420pack : enable\n"
+		"layout (location = 0) in  vec4 color;\n"
+		"layout (location = 0) out vec4 outColor;\n"
+		"void main()\n"
+		"{\n"
+		"	outColor = color;\n"
+		"}\n";
+
+	std::vector<unsigned int> vertexSpv;
+	__vk_pipeline_shaderstages[0].sType = VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO;
+	__vk_pipeline_shaderstages[0].pNext = nullptr;
+	__vk_pipeline_shaderstages[0].pSpecializationInfo = nullptr;
+	__vk_pipeline_shaderstages[0].flags = 0;
+	__vk_pipeline_shaderstages[0].stage = VK_SHADER_STAGE_VERTEX_BIT;
+	__vk_pipeline_shaderstages[0].pName = "main";
+
+	//glslang::InitializeProcess();
+
+	return res;
+}
 
