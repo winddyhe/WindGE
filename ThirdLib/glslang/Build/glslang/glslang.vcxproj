@@ -1,0 +1,332 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="MinSizeRel|x64">
+      <Configuration>MinSizeRel</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="RelWithDebInfo|x64">
+      <Configuration>RelWithDebInfo</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGUID>{CE815FD8-6BBD-43EA-A128-7F6D74A36052}</ProjectGUID>
+    <Keyword>Win32Proj</Keyword>
+    <Platform>x64</Platform>
+    <ProjectName>glslang</ProjectName>
+    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(SolutionDir)ThirdLib\glslang\Lib\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">glslang.dir\Debug\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">glslangd</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.lib</TargetExt>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">D:\Vulkan\1.0.65.1\glslang\Build\glslang\Release\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">glslang.dir\Release\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">glslang</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.lib</TargetExt>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">D:\Vulkan\1.0.65.1\glslang\Build\glslang\MinSizeRel\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">glslang.dir\MinSizeRel\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">glslang</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">.lib</TargetExt>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">D:\Vulkan\1.0.65.1\glslang\Build\glslang\RelWithDebInfo\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">glslang.dir\RelWithDebInfo\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">glslang</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">.lib</TargetExt>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>Debug/</AssemblerListingLocation>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <Optimization>Disabled</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;AMD_EXTENSIONS;NV_EXTENSIONS;ENABLE_HLSL;GLSLANG_OSINCLUDE_WIN32;ENABLE_OPT;CMAKE_INTDIR="Debug";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;AMD_EXTENSIONS;NV_EXTENSIONS;ENABLE_HLSL;GLSLANG_OSINCLUDE_WIN32;ENABLE_OPT;CMAKE_INTDIR=\"Debug\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>Release/</AssemblerListingLocation>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;AMD_EXTENSIONS;NV_EXTENSIONS;ENABLE_HLSL;GLSLANG_OSINCLUDE_WIN32;ENABLE_OPT;CMAKE_INTDIR="Release";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;AMD_EXTENSIONS;NV_EXTENSIONS;ENABLE_HLSL;GLSLANG_OSINCLUDE_WIN32;ENABLE_OPT;CMAKE_INTDIR=\"Release\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>MinSizeRel/</AssemblerListingLocation>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <Optimization>MinSpace</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;AMD_EXTENSIONS;NV_EXTENSIONS;ENABLE_HLSL;GLSLANG_OSINCLUDE_WIN32;ENABLE_OPT;CMAKE_INTDIR="MinSizeRel";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;AMD_EXTENSIONS;NV_EXTENSIONS;ENABLE_HLSL;GLSLANG_OSINCLUDE_WIN32;ENABLE_OPT;CMAKE_INTDIR=\"MinSizeRel\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">
+    <ClCompile>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>RelWithDebInfo/</AssemblerListingLocation>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <ExceptionHandling>Sync</ExceptionHandling>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;AMD_EXTENSIONS;NV_EXTENSIONS;ENABLE_HLSL;GLSLANG_OSINCLUDE_WIN32;ENABLE_OPT;CMAKE_INTDIR="RelWithDebInfo";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;AMD_EXTENSIONS;NV_EXTENSIONS;ENABLE_HLSL;GLSLANG_OSINCLUDE_WIN32;ENABLE_OPT;CMAKE_INTDIR=\"RelWithDebInfo\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="D:\Vulkan\1.0.65.1\glslang\glslang\CMakeLists.txt">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule D:/Vulkan/1.0.65.1/glslang/glslang/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+"C:\Program Files (x86)\CMake\bin\cmake.exe" -HD:/Vulkan/1.0.65.1/glslang -BD:/Vulkan/1.0.65.1/glslang/Build --check-stamp-file D:\Vulkan\1.0.65.1\glslang\Build\glslang\CMakeFiles\generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">D:/Vulkan/1.0.65.1/glslang/glslang/CMakeLists.txt;D:\Vulkan\1.0.65.1\glslang\glslang\CMakeLists.txt;D:\Vulkan\1.0.65.1\glslang\glslang\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">D:\Vulkan\1.0.65.1\glslang\Build\glslang\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule D:/Vulkan/1.0.65.1/glslang/glslang/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+"C:\Program Files (x86)\CMake\bin\cmake.exe" -HD:/Vulkan/1.0.65.1/glslang -BD:/Vulkan/1.0.65.1/glslang/Build --check-stamp-file D:\Vulkan\1.0.65.1\glslang\Build\glslang\CMakeFiles\generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">D:/Vulkan/1.0.65.1/glslang/glslang/CMakeLists.txt;D:\Vulkan\1.0.65.1\glslang\glslang\CMakeLists.txt;D:\Vulkan\1.0.65.1\glslang\glslang\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">D:\Vulkan\1.0.65.1\glslang\Build\glslang\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Building Custom Rule D:/Vulkan/1.0.65.1/glslang/glslang/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+"C:\Program Files (x86)\CMake\bin\cmake.exe" -HD:/Vulkan/1.0.65.1/glslang -BD:/Vulkan/1.0.65.1/glslang/Build --check-stamp-file D:\Vulkan\1.0.65.1\glslang\Build\glslang\CMakeFiles\generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">D:/Vulkan/1.0.65.1/glslang/glslang/CMakeLists.txt;D:\Vulkan\1.0.65.1\glslang\glslang\CMakeLists.txt;D:\Vulkan\1.0.65.1\glslang\glslang\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">D:\Vulkan\1.0.65.1\glslang\Build\glslang\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Building Custom Rule D:/Vulkan/1.0.65.1/glslang/glslang/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+"C:\Program Files (x86)\CMake\bin\cmake.exe" -HD:/Vulkan/1.0.65.1/glslang -BD:/Vulkan/1.0.65.1/glslang/Build --check-stamp-file D:\Vulkan\1.0.65.1\glslang\Build\glslang\CMakeFiles\generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">D:/Vulkan/1.0.65.1/glslang/glslang/CMakeLists.txt;D:\Vulkan\1.0.65.1\glslang\glslang\CMakeLists.txt;D:\Vulkan\1.0.65.1\glslang\glslang\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">D:\Vulkan\1.0.65.1\glslang\Build\glslang\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="D:\Vulkan\1.0.65.1\glslang\glslang\Public\ShaderLang.h" />
+    <ClInclude Include="D:\Vulkan\1.0.65.1\glslang\glslang\Include\arrays.h" />
+    <ClInclude Include="D:\Vulkan\1.0.65.1\glslang\glslang\Include\BaseTypes.h" />
+    <ClInclude Include="D:\Vulkan\1.0.65.1\glslang\glslang\Include\Common.h" />
+    <ClInclude Include="D:\Vulkan\1.0.65.1\glslang\glslang\Include\ConstantUnion.h" />
+    <ClInclude Include="D:\Vulkan\1.0.65.1\glslang\glslang\Include\InfoSink.h" />
+    <ClInclude Include="D:\Vulkan\1.0.65.1\glslang\glslang\Include\InitializeGlobals.h" />
+    <ClInclude Include="D:\Vulkan\1.0.65.1\glslang\glslang\Include\intermediate.h" />
+    <ClInclude Include="D:\Vulkan\1.0.65.1\glslang\glslang\Include\PoolAlloc.h" />
+    <ClInclude Include="D:\Vulkan\1.0.65.1\glslang\glslang\Include\ResourceLimits.h" />
+    <ClInclude Include="D:\Vulkan\1.0.65.1\glslang\glslang\Include\revision.h" />
+    <ClInclude Include="D:\Vulkan\1.0.65.1\glslang\glslang\Include\ShHandle.h" />
+    <ClInclude Include="D:\Vulkan\1.0.65.1\glslang\glslang\Include\Types.h" />
+    <ClInclude Include="D:\Vulkan\1.0.65.1\glslang\glslang\MachineIndependent\glslang_tab.cpp.h" />
+    <ClInclude Include="D:\Vulkan\1.0.65.1\glslang\glslang\MachineIndependent\gl_types.h" />
+    <ClInclude Include="D:\Vulkan\1.0.65.1\glslang\glslang\MachineIndependent\Initialize.h" />
+    <ClInclude Include="D:\Vulkan\1.0.65.1\glslang\glslang\MachineIndependent\iomapper.h" />
+    <ClInclude Include="D:\Vulkan\1.0.65.1\glslang\glslang\MachineIndependent\LiveTraverser.h" />
+    <ClInclude Include="D:\Vulkan\1.0.65.1\glslang\glslang\MachineIndependent\localintermediate.h" />
+    <ClInclude Include="D:\Vulkan\1.0.65.1\glslang\glslang\MachineIndependent\ParseHelper.h" />
+    <ClInclude Include="D:\Vulkan\1.0.65.1\glslang\glslang\MachineIndependent\reflection.h" />
+    <ClInclude Include="D:\Vulkan\1.0.65.1\glslang\glslang\MachineIndependent\RemoveTree.h" />
+    <ClInclude Include="D:\Vulkan\1.0.65.1\glslang\glslang\MachineIndependent\Scan.h" />
+    <ClInclude Include="D:\Vulkan\1.0.65.1\glslang\glslang\MachineIndependent\ScanContext.h" />
+    <ClInclude Include="D:\Vulkan\1.0.65.1\glslang\glslang\MachineIndependent\SymbolTable.h" />
+    <ClInclude Include="D:\Vulkan\1.0.65.1\glslang\glslang\MachineIndependent\Versions.h" />
+    <ClInclude Include="D:\Vulkan\1.0.65.1\glslang\glslang\MachineIndependent\parseVersions.h" />
+    <ClInclude Include="D:\Vulkan\1.0.65.1\glslang\glslang\MachineIndependent\propagateNoContraction.h" />
+    <ClInclude Include="D:\Vulkan\1.0.65.1\glslang\glslang\MachineIndependent\preprocessor\PpContext.h" />
+    <ClInclude Include="D:\Vulkan\1.0.65.1\glslang\glslang\MachineIndependent\preprocessor\PpTokens.h" />
+    <ClCompile Include="D:\Vulkan\1.0.65.1\glslang\glslang\MachineIndependent\glslang_tab.cpp" />
+    <ClCompile Include="D:\Vulkan\1.0.65.1\glslang\glslang\MachineIndependent\Constant.cpp" />
+    <ClCompile Include="D:\Vulkan\1.0.65.1\glslang\glslang\MachineIndependent\iomapper.cpp" />
+    <ClCompile Include="D:\Vulkan\1.0.65.1\glslang\glslang\MachineIndependent\InfoSink.cpp" />
+    <ClCompile Include="D:\Vulkan\1.0.65.1\glslang\glslang\MachineIndependent\Initialize.cpp" />
+    <ClCompile Include="D:\Vulkan\1.0.65.1\glslang\glslang\MachineIndependent\IntermTraverse.cpp" />
+    <ClCompile Include="D:\Vulkan\1.0.65.1\glslang\glslang\MachineIndependent\Intermediate.cpp" />
+    <ClCompile Include="D:\Vulkan\1.0.65.1\glslang\glslang\MachineIndependent\ParseContextBase.cpp" />
+    <ClCompile Include="D:\Vulkan\1.0.65.1\glslang\glslang\MachineIndependent\ParseHelper.cpp" />
+    <ClCompile Include="D:\Vulkan\1.0.65.1\glslang\glslang\MachineIndependent\PoolAlloc.cpp" />
+    <ClCompile Include="D:\Vulkan\1.0.65.1\glslang\glslang\MachineIndependent\RemoveTree.cpp" />
+    <ClCompile Include="D:\Vulkan\1.0.65.1\glslang\glslang\MachineIndependent\Scan.cpp" />
+    <ClCompile Include="D:\Vulkan\1.0.65.1\glslang\glslang\MachineIndependent\ShaderLang.cpp" />
+    <ClCompile Include="D:\Vulkan\1.0.65.1\glslang\glslang\MachineIndependent\SymbolTable.cpp" />
+    <ClCompile Include="D:\Vulkan\1.0.65.1\glslang\glslang\MachineIndependent\Versions.cpp" />
+    <ClCompile Include="D:\Vulkan\1.0.65.1\glslang\glslang\MachineIndependent\intermOut.cpp" />
+    <ClCompile Include="D:\Vulkan\1.0.65.1\glslang\glslang\MachineIndependent\limits.cpp" />
+    <ClCompile Include="D:\Vulkan\1.0.65.1\glslang\glslang\MachineIndependent\linkValidate.cpp" />
+    <ClCompile Include="D:\Vulkan\1.0.65.1\glslang\glslang\MachineIndependent\parseConst.cpp" />
+    <ClCompile Include="D:\Vulkan\1.0.65.1\glslang\glslang\MachineIndependent\reflection.cpp" />
+    <ClCompile Include="D:\Vulkan\1.0.65.1\glslang\glslang\MachineIndependent\preprocessor\Pp.cpp" />
+    <ClCompile Include="D:\Vulkan\1.0.65.1\glslang\glslang\MachineIndependent\preprocessor\PpAtom.cpp" />
+    <ClCompile Include="D:\Vulkan\1.0.65.1\glslang\glslang\MachineIndependent\preprocessor\PpContext.cpp" />
+    <ClCompile Include="D:\Vulkan\1.0.65.1\glslang\glslang\MachineIndependent\preprocessor\PpScanner.cpp" />
+    <ClCompile Include="D:\Vulkan\1.0.65.1\glslang\glslang\MachineIndependent\preprocessor\PpTokens.cpp" />
+    <ClCompile Include="D:\Vulkan\1.0.65.1\glslang\glslang\MachineIndependent\propagateNoContraction.cpp" />
+    <ClCompile Include="D:\Vulkan\1.0.65.1\glslang\glslang\GenericCodeGen\CodeGen.cpp" />
+    <ClCompile Include="D:\Vulkan\1.0.65.1\glslang\glslang\GenericCodeGen\Link.cpp" />
+    <None Include="D:\Vulkan\1.0.65.1\glslang\glslang\MachineIndependent\glslang.y" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="D:/Vulkan/1.0.65.1/glslang/Build/hlsl/HLSL.vcxproj">
+      <Project>39741C27-2E11-4D12-A9A0-6250CA95E150</Project>
+    </ProjectReference>
+    <ProjectReference Include="D:/Vulkan/1.0.65.1/glslang/Build/OGLCompilersDLL/OGLCompiler.vcxproj">
+      <Project>E5A44831-1A26-4E1E-A89F-CEAE6A181BBD</Project>
+    </ProjectReference>
+    <ProjectReference Include="D:/Vulkan/1.0.65.1/glslang/Build/glslang/OSDependent/Windows/OSDependent.vcxproj">
+      <Project>60EC7584-C146-430C-ACD0-26CEA9578386</Project>
+    </ProjectReference>
+    <ProjectReference Include="D:/Vulkan/1.0.65.1/glslang/Build/ZERO_CHECK.vcxproj">
+      <Project>98A4C49F-A867-475A-86E0-24C6A95F0158</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

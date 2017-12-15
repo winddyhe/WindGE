@@ -1,0 +1,7 @@
+# CMake generation dependency list for this directory.
+D:/Vulkan/1.0.65.1/glslang/External/spirv-tools/CMakeLists.txt
+C:/Program Files (x86)/CMake/share/cmake-3.2/Modules/GNUInstallDirs.cmake
+C:/Program Files (x86)/CMake/share/cmake-3.2/Modules/FindPythonInterp.cmake
+C:/Program Files (x86)/CMake/share/cmake-3.2/Modules/FindPackageHandleStandardArgs.cmake
+C:/Program Files (x86)/CMake/share/cmake-3.2/Modules/FindPackageMessage.cmake
+C:/Program Files (x86)/CMake/share/cmake-3.2/Modules/CMakeParseArguments.cmake

@@ -1,0 +1,273 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\opt\aggressive_dead_code_elim_pass.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\opt\basic_block.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\opt\block_merge_pass.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\opt\build_module.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\opt\cfg_cleanup_pass.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\opt\common_uniform_elim_pass.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\opt\compact_ids_pass.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\opt\decoration_manager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\opt\def_use_manager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\opt\dead_branch_elim_pass.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\opt\dead_variable_elimination.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\opt\eliminate_dead_constant_pass.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\opt\flatten_decoration_pass.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\opt\fold.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\opt\fold_spec_constant_op_and_composite_pass.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\opt\freeze_spec_constant_value_pass.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\opt\function.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\opt\inline_pass.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\opt\inline_exhaustive_pass.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\opt\inline_opaque_pass.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\opt\insert_extract_elim.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\opt\instruction.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\opt\ir_loader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\opt\local_access_chain_convert_pass.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\opt\local_single_block_elim_pass.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\opt\local_single_store_elim_pass.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\opt\local_ssa_elim_pass.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\opt\module.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\opt\eliminate_dead_functions_pass.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\opt\remove_duplicates_pass.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\opt\set_spec_constant_default_value_pass.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\opt\optimizer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\opt\mem_pass.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\opt\pass.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\opt\pass_manager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\opt\strength_reduction_pass.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\opt\strip_debug_info_pass.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\opt\types.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\opt\type_manager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\opt\unify_const_pass.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\opt\instruction_list.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\opt\aggressive_dead_code_elim_pass.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\opt\basic_block.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\opt\block_merge_pass.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\opt\build_module.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\opt\cfg_cleanup_pass.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\opt\common_uniform_elim_pass.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\opt\compact_ids_pass.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\opt\constants.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\opt\dead_branch_elim_pass.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\opt\dead_variable_elimination.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\opt\decoration_manager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\opt\def_use_manager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\opt\eliminate_dead_constant_pass.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\opt\flatten_decoration_pass.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\opt\function.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\opt\fold.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\opt\fold_spec_constant_op_and_composite_pass.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\opt\freeze_spec_constant_value_pass.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\opt\inline_pass.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\opt\inline_exhaustive_pass.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\opt\inline_opaque_pass.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\opt\insert_extract_elim.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\opt\instruction.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\opt\ir_loader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\opt\local_access_chain_convert_pass.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\opt\local_single_block_elim_pass.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\opt\local_single_store_elim_pass.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\opt\local_ssa_elim_pass.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\opt\log.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\opt\module.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\opt\null_pass.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\opt\reflect.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\opt\mem_pass.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\opt\pass.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\opt\passes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\opt\pass_manager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\opt\eliminate_dead_functions_pass.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\opt\remove_duplicates_pass.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\opt\set_spec_constant_default_value_pass.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\opt\strength_reduction_pass.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\opt\strip_debug_info_pass.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\opt\types.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\opt\type_manager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\opt\unify_const_pass.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\opt\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{9A180C9A-1C32-4843-A27D-C440E85C97A6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{FE63BE79-C228-4D0C-8102-69B1572898D6}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

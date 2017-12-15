@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="D:\Vulkan\1.0.65.1\glslang\SPIRV\GlslangToSpv.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Vulkan\1.0.65.1\glslang\SPIRV\InReadableOrder.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Vulkan\1.0.65.1\glslang\SPIRV\Logger.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Vulkan\1.0.65.1\glslang\SPIRV\SpvBuilder.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Vulkan\1.0.65.1\glslang\SPIRV\doc.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="D:\Vulkan\1.0.65.1\glslang\SPIRV\disassemble.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="D:\Vulkan\1.0.65.1\glslang\SPIRV\bitutils.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Vulkan\1.0.65.1\glslang\SPIRV\spirv.hpp">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Vulkan\1.0.65.1\glslang\SPIRV\GLSL.std.450.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Vulkan\1.0.65.1\glslang\SPIRV\GLSL.ext.KHR.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Vulkan\1.0.65.1\glslang\SPIRV\GlslangToSpv.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Vulkan\1.0.65.1\glslang\SPIRV\hex_float.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Vulkan\1.0.65.1\glslang\SPIRV\Logger.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Vulkan\1.0.65.1\glslang\SPIRV\SpvBuilder.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Vulkan\1.0.65.1\glslang\SPIRV\spvIR.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Vulkan\1.0.65.1\glslang\SPIRV\doc.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Vulkan\1.0.65.1\glslang\SPIRV\disassemble.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Vulkan\1.0.65.1\glslang\SPIRV\GLSL.ext.AMD.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="D:\Vulkan\1.0.65.1\glslang\SPIRV\GLSL.ext.NV.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="D:\Vulkan\1.0.65.1\glslang\SPIRV\CMakeLists.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Source">
+      <UniqueIdentifier>{4ADA1908-C2FD-4EBE-8051-753F727EBECE}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,20 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <CustomBuild Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\CMakeLists.txt" />
+    <CustomBuild Include="D:\Vulkan\1.0.65.1\glslang\Build\CMakeFiles\ad80365e0e2f8157d9fc4e465ac4dbb6\spv-amd-shader-trinary-minmax.insts.inc.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+    <CustomBuild Include="D:\Vulkan\1.0.65.1\glslang\Build\CMakeFiles\5d60fab21eaf368f4bbb3880b5959a7f\spirv-tools-spv-amd-shader-trinary-minmax.rule">
+      <Filter>CMake Rules</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="D:\Vulkan\1.0.65.1\glslang\Build\External\spirv-tools\source\CMakeFiles\spirv-tools-spv-amd-shader-trinary-minmax" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="CMake Rules">
+      <UniqueIdentifier>{F8432D43-546D-49BA-8790-EC6D41862DBC}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

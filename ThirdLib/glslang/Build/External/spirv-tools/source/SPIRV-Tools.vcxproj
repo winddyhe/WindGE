@@ -1,0 +1,1024 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="MinSizeRel|x64">
+      <Configuration>MinSizeRel</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="RelWithDebInfo|x64">
+      <Configuration>RelWithDebInfo</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGUID>{EED45E9D-7214-4562-B921-0C36503EFAFB}</ProjectGUID>
+    <Keyword>Win32Proj</Keyword>
+    <Platform>x64</Platform>
+    <ProjectName>SPIRV-Tools</ProjectName>
+    <WindowsTargetPlatformVersion>10.0.16299.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(SolutionDir)\ThirdLib\glslang\Lib\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">SPIRV-Tools.dir\Debug\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">SPIRV-Toolsd</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.lib</TargetExt>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">D:\Vulkan\1.0.65.1\glslang\Build\External\spirv-tools\source\Release\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">SPIRV-Tools.dir\Release\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">SPIRV-Tools</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.lib</TargetExt>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">D:\Vulkan\1.0.65.1\glslang\Build\External\spirv-tools\source\MinSizeRel\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">SPIRV-Tools.dir\MinSizeRel\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">SPIRV-Tools</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">.lib</TargetExt>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">D:\Vulkan\1.0.65.1\glslang\Build\External\spirv-tools\source\RelWithDebInfo\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">SPIRV-Tools.dir\RelWithDebInfo\</IntDir>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">SPIRV-Tools</TargetName>
+    <TargetExt Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">.lib</TargetExt>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <AdditionalOptions> -w %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalIncludeDirectories>D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\include;D:\Vulkan\1.0.65.1\glslang\Build\External\spirv-tools;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\external\spirv-headers\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>Debug/</AssemblerListingLocation>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DisableSpecificWarnings>4800</DisableSpecificWarnings>
+      <ExceptionHandling>SyncCThrow</ExceptionHandling>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <Optimization>Disabled</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;_CRT_SECURE_NO_WARNINGS;AMD_EXTENSIONS;NV_EXTENSIONS;ENABLE_HLSL;GLSLANG_OSINCLUDE_WIN32;SPIRV_WINDOWS;SPIRV_COLOR_TERMINAL;CMAKE_INTDIR="Debug";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;_DEBUG;_CRT_SECURE_NO_WARNINGS;AMD_EXTENSIONS;NV_EXTENSIONS;ENABLE_HLSL;GLSLANG_OSINCLUDE_WIN32;SPIRV_WINDOWS;SPIRV_COLOR_TERMINAL;CMAKE_INTDIR=\"Debug\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\include;D:\Vulkan\1.0.65.1\glslang\Build\External\spirv-tools;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\external\spirv-headers\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\include;D:\Vulkan\1.0.65.1\glslang\Build\External\spirv-tools;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\external\spirv-headers\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <AdditionalOptions> -w %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalIncludeDirectories>D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\include;D:\Vulkan\1.0.65.1\glslang\Build\External\spirv-tools;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\external\spirv-headers\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>Release/</AssemblerListingLocation>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <DisableSpecificWarnings>4800</DisableSpecificWarnings>
+      <ExceptionHandling>SyncCThrow</ExceptionHandling>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;_CRT_SECURE_NO_WARNINGS;AMD_EXTENSIONS;NV_EXTENSIONS;ENABLE_HLSL;GLSLANG_OSINCLUDE_WIN32;SPIRV_WINDOWS;SPIRV_COLOR_TERMINAL;CMAKE_INTDIR="Release";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;_CRT_SECURE_NO_WARNINGS;AMD_EXTENSIONS;NV_EXTENSIONS;ENABLE_HLSL;GLSLANG_OSINCLUDE_WIN32;SPIRV_WINDOWS;SPIRV_COLOR_TERMINAL;CMAKE_INTDIR=\"Release\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\include;D:\Vulkan\1.0.65.1\glslang\Build\External\spirv-tools;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\external\spirv-headers\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\include;D:\Vulkan\1.0.65.1\glslang\Build\External\spirv-tools;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\external\spirv-headers\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">
+    <ClCompile>
+      <AdditionalOptions> -w %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalIncludeDirectories>D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\include;D:\Vulkan\1.0.65.1\glslang\Build\External\spirv-tools;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\external\spirv-headers\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>MinSizeRel/</AssemblerListingLocation>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <DisableSpecificWarnings>4800</DisableSpecificWarnings>
+      <ExceptionHandling>SyncCThrow</ExceptionHandling>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <Optimization>MinSpace</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;_CRT_SECURE_NO_WARNINGS;AMD_EXTENSIONS;NV_EXTENSIONS;ENABLE_HLSL;GLSLANG_OSINCLUDE_WIN32;SPIRV_WINDOWS;SPIRV_COLOR_TERMINAL;CMAKE_INTDIR="MinSizeRel";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <DebugInformationFormat>
+      </DebugInformationFormat>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;_CRT_SECURE_NO_WARNINGS;AMD_EXTENSIONS;NV_EXTENSIONS;ENABLE_HLSL;GLSLANG_OSINCLUDE_WIN32;SPIRV_WINDOWS;SPIRV_COLOR_TERMINAL;CMAKE_INTDIR=\"MinSizeRel\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\include;D:\Vulkan\1.0.65.1\glslang\Build\External\spirv-tools;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\external\spirv-headers\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\include;D:\Vulkan\1.0.65.1\glslang\Build\External\spirv-tools;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\external\spirv-headers\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">
+    <ClCompile>
+      <AdditionalOptions> -w %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalIncludeDirectories>D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\include;D:\Vulkan\1.0.65.1\glslang\Build\External\spirv-tools;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\external\spirv-headers\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AssemblerListingLocation>RelWithDebInfo/</AssemblerListingLocation>
+      <CompileAs>CompileAsCpp</CompileAs>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DisableSpecificWarnings>4800</DisableSpecificWarnings>
+      <ExceptionHandling>SyncCThrow</ExceptionHandling>
+      <InlineFunctionExpansion>OnlyExplicitInline</InlineFunctionExpansion>
+      <Optimization>MaxSpeed</Optimization>
+      <PrecompiledHeader>NotUsing</PrecompiledHeader>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+      <TreatWarningAsError>true</TreatWarningAsError>
+      <WarningLevel>Level3</WarningLevel>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;_CRT_SECURE_NO_WARNINGS;AMD_EXTENSIONS;NV_EXTENSIONS;ENABLE_HLSL;GLSLANG_OSINCLUDE_WIN32;SPIRV_WINDOWS;SPIRV_COLOR_TERMINAL;CMAKE_INTDIR="RelWithDebInfo";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;_CRT_SECURE_NO_WARNINGS;AMD_EXTENSIONS;NV_EXTENSIONS;ENABLE_HLSL;GLSLANG_OSINCLUDE_WIN32;SPIRV_WINDOWS;SPIRV_COLOR_TERMINAL;CMAKE_INTDIR=\"RelWithDebInfo\";%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\include;D:\Vulkan\1.0.65.1\glslang\Build\External\spirv-tools;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\external\spirv-headers\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <Midl>
+      <AdditionalIncludeDirectories>D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\include;D:\Vulkan\1.0.65.1\glslang\Build\External\spirv-tools;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\external\spirv-headers\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\CMakeLists.txt">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule D:/Vulkan/1.0.65.1/glslang/External/spirv-tools/source/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+"C:\Program Files (x86)\CMake\bin\cmake.exe" -HD:/Vulkan/1.0.65.1/glslang -BD:/Vulkan/1.0.65.1/glslang/Build --check-stamp-file D:\Vulkan\1.0.65.1\glslang\Build\External\spirv-tools\source\CMakeFiles\generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">D:/Vulkan/1.0.65.1/glslang/External/spirv-tools/source/CMakeLists.txt;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\CMakeLists.txt;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">D:\Vulkan\1.0.65.1\glslang\Build\External\spirv-tools\source\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule D:/Vulkan/1.0.65.1/glslang/External/spirv-tools/source/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+"C:\Program Files (x86)\CMake\bin\cmake.exe" -HD:/Vulkan/1.0.65.1/glslang -BD:/Vulkan/1.0.65.1/glslang/Build --check-stamp-file D:\Vulkan\1.0.65.1\glslang\Build\External\spirv-tools\source\CMakeFiles\generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">D:/Vulkan/1.0.65.1/glslang/External/spirv-tools/source/CMakeLists.txt;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\CMakeLists.txt;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">D:\Vulkan\1.0.65.1\glslang\Build\External\spirv-tools\source\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Building Custom Rule D:/Vulkan/1.0.65.1/glslang/External/spirv-tools/source/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+"C:\Program Files (x86)\CMake\bin\cmake.exe" -HD:/Vulkan/1.0.65.1/glslang -BD:/Vulkan/1.0.65.1/glslang/Build --check-stamp-file D:\Vulkan\1.0.65.1\glslang\Build\External\spirv-tools\source\CMakeFiles\generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">D:/Vulkan/1.0.65.1/glslang/External/spirv-tools/source/CMakeLists.txt;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\CMakeLists.txt;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">D:\Vulkan\1.0.65.1\glslang\Build\External\spirv-tools\source\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Building Custom Rule D:/Vulkan/1.0.65.1/glslang/External/spirv-tools/source/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+"C:\Program Files (x86)\CMake\bin\cmake.exe" -HD:/Vulkan/1.0.65.1/glslang -BD:/Vulkan/1.0.65.1/glslang/Build --check-stamp-file D:\Vulkan\1.0.65.1\glslang\Build\External\spirv-tools\source\CMakeFiles\generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">D:/Vulkan/1.0.65.1/glslang/External/spirv-tools/source/CMakeLists.txt;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\CMakeLists.txt;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\CMakeLists.txt;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">D:\Vulkan\1.0.65.1\glslang\Build\External\spirv-tools\source\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="D:\Vulkan\1.0.65.1\glslang\Build\CMakeFiles\ad80365e0e2f8157d9fc4e465ac4dbb6\extension_enum.inc.rule">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Generate enum-string mapping for SPIR-V v1.2.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+C:\Python34\python.exe D:/Vulkan/1.0.65.1/glslang/External/spirv-tools/utils/generate_grammar_tables.py --spirv-core-grammar=D:/Vulkan/1.0.65.1/glslang/External/spirv-tools/external/spirv-headers/include/spirv/1.2/spirv.core.grammar.json --extension-enum-output=D:/Vulkan/1.0.65.1/glslang/Build/External/spirv-tools/extension_enum.inc --enum-string-mapping-output=D:/Vulkan/1.0.65.1/glslang/Build/External/spirv-tools/enum_string_mapping.inc
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">D:/Vulkan/1.0.65.1/glslang/Build/CMakeFiles/ad80365e0e2f8157d9fc4e465ac4dbb6/extension_enum.inc.rule;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\utils\generate_grammar_tables.py;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\external\spirv-headers\include\spirv\1.2\spirv.core.grammar.json;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">D:\Vulkan\1.0.65.1\glslang\Build\External\spirv-tools\extension_enum.inc;D:\Vulkan\1.0.65.1\glslang\Build\External\spirv-tools\enum_string_mapping.inc</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Generate enum-string mapping for SPIR-V v1.2.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+C:\Python34\python.exe D:/Vulkan/1.0.65.1/glslang/External/spirv-tools/utils/generate_grammar_tables.py --spirv-core-grammar=D:/Vulkan/1.0.65.1/glslang/External/spirv-tools/external/spirv-headers/include/spirv/1.2/spirv.core.grammar.json --extension-enum-output=D:/Vulkan/1.0.65.1/glslang/Build/External/spirv-tools/extension_enum.inc --enum-string-mapping-output=D:/Vulkan/1.0.65.1/glslang/Build/External/spirv-tools/enum_string_mapping.inc
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">D:/Vulkan/1.0.65.1/glslang/Build/CMakeFiles/ad80365e0e2f8157d9fc4e465ac4dbb6/extension_enum.inc.rule;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\utils\generate_grammar_tables.py;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\external\spirv-headers\include\spirv\1.2\spirv.core.grammar.json;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">D:\Vulkan\1.0.65.1\glslang\Build\External\spirv-tools\extension_enum.inc;D:\Vulkan\1.0.65.1\glslang\Build\External\spirv-tools\enum_string_mapping.inc</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Generate enum-string mapping for SPIR-V v1.2.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+C:\Python34\python.exe D:/Vulkan/1.0.65.1/glslang/External/spirv-tools/utils/generate_grammar_tables.py --spirv-core-grammar=D:/Vulkan/1.0.65.1/glslang/External/spirv-tools/external/spirv-headers/include/spirv/1.2/spirv.core.grammar.json --extension-enum-output=D:/Vulkan/1.0.65.1/glslang/Build/External/spirv-tools/extension_enum.inc --enum-string-mapping-output=D:/Vulkan/1.0.65.1/glslang/Build/External/spirv-tools/enum_string_mapping.inc
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">D:/Vulkan/1.0.65.1/glslang/Build/CMakeFiles/ad80365e0e2f8157d9fc4e465ac4dbb6/extension_enum.inc.rule;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\utils\generate_grammar_tables.py;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\external\spirv-headers\include\spirv\1.2\spirv.core.grammar.json;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">D:\Vulkan\1.0.65.1\glslang\Build\External\spirv-tools\extension_enum.inc;D:\Vulkan\1.0.65.1\glslang\Build\External\spirv-tools\enum_string_mapping.inc</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Generate enum-string mapping for SPIR-V v1.2.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+C:\Python34\python.exe D:/Vulkan/1.0.65.1/glslang/External/spirv-tools/utils/generate_grammar_tables.py --spirv-core-grammar=D:/Vulkan/1.0.65.1/glslang/External/spirv-tools/external/spirv-headers/include/spirv/1.2/spirv.core.grammar.json --extension-enum-output=D:/Vulkan/1.0.65.1/glslang/Build/External/spirv-tools/extension_enum.inc --enum-string-mapping-output=D:/Vulkan/1.0.65.1/glslang/Build/External/spirv-tools/enum_string_mapping.inc
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">D:/Vulkan/1.0.65.1/glslang/Build/CMakeFiles/ad80365e0e2f8157d9fc4e465ac4dbb6/extension_enum.inc.rule;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\utils\generate_grammar_tables.py;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\external\spirv-headers\include\spirv\1.2\spirv.core.grammar.json;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">D:\Vulkan\1.0.65.1\glslang\Build\External\spirv-tools\extension_enum.inc;D:\Vulkan\1.0.65.1\glslang\Build\External\spirv-tools\enum_string_mapping.inc</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="D:\Vulkan\1.0.65.1\glslang\Build\CMakeFiles\ad80365e0e2f8157d9fc4e465ac4dbb6\opencl.std.insts-1.0.inc.rule">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Generate info tables for OpenCL extended instructions and operands v1.0.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+C:\Python34\python.exe D:/Vulkan/1.0.65.1/glslang/External/spirv-tools/utils/generate_grammar_tables.py --spirv-core-grammar=D:/Vulkan/1.0.65.1/glslang/External/spirv-tools/external/spirv-headers/include/spirv/1.0/spirv.core.grammar.json --extinst-opencl-grammar=D:/Vulkan/1.0.65.1/glslang/External/spirv-tools/external/spirv-headers/include/spirv/1.0/extinst.opencl.std.100.grammar.json --opencl-insts-output=D:/Vulkan/1.0.65.1/glslang/Build/External/spirv-tools/opencl.std.insts-1.0.inc
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">D:/Vulkan/1.0.65.1/glslang/Build/CMakeFiles/ad80365e0e2f8157d9fc4e465ac4dbb6/opencl.std.insts-1.0.inc.rule;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\utils\generate_grammar_tables.py;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\external\spirv-headers\include\spirv\1.0\spirv.core.grammar.json;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\external\spirv-headers\include\spirv\1.0\extinst.opencl.std.100.grammar.json;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">D:\Vulkan\1.0.65.1\glslang\Build\External\spirv-tools\opencl.std.insts-1.0.inc</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Generate info tables for OpenCL extended instructions and operands v1.0.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+C:\Python34\python.exe D:/Vulkan/1.0.65.1/glslang/External/spirv-tools/utils/generate_grammar_tables.py --spirv-core-grammar=D:/Vulkan/1.0.65.1/glslang/External/spirv-tools/external/spirv-headers/include/spirv/1.0/spirv.core.grammar.json --extinst-opencl-grammar=D:/Vulkan/1.0.65.1/glslang/External/spirv-tools/external/spirv-headers/include/spirv/1.0/extinst.opencl.std.100.grammar.json --opencl-insts-output=D:/Vulkan/1.0.65.1/glslang/Build/External/spirv-tools/opencl.std.insts-1.0.inc
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">D:/Vulkan/1.0.65.1/glslang/Build/CMakeFiles/ad80365e0e2f8157d9fc4e465ac4dbb6/opencl.std.insts-1.0.inc.rule;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\utils\generate_grammar_tables.py;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\external\spirv-headers\include\spirv\1.0\spirv.core.grammar.json;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\external\spirv-headers\include\spirv\1.0\extinst.opencl.std.100.grammar.json;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">D:\Vulkan\1.0.65.1\glslang\Build\External\spirv-tools\opencl.std.insts-1.0.inc</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Generate info tables for OpenCL extended instructions and operands v1.0.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+C:\Python34\python.exe D:/Vulkan/1.0.65.1/glslang/External/spirv-tools/utils/generate_grammar_tables.py --spirv-core-grammar=D:/Vulkan/1.0.65.1/glslang/External/spirv-tools/external/spirv-headers/include/spirv/1.0/spirv.core.grammar.json --extinst-opencl-grammar=D:/Vulkan/1.0.65.1/glslang/External/spirv-tools/external/spirv-headers/include/spirv/1.0/extinst.opencl.std.100.grammar.json --opencl-insts-output=D:/Vulkan/1.0.65.1/glslang/Build/External/spirv-tools/opencl.std.insts-1.0.inc
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">D:/Vulkan/1.0.65.1/glslang/Build/CMakeFiles/ad80365e0e2f8157d9fc4e465ac4dbb6/opencl.std.insts-1.0.inc.rule;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\utils\generate_grammar_tables.py;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\external\spirv-headers\include\spirv\1.0\spirv.core.grammar.json;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\external\spirv-headers\include\spirv\1.0\extinst.opencl.std.100.grammar.json;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">D:\Vulkan\1.0.65.1\glslang\Build\External\spirv-tools\opencl.std.insts-1.0.inc</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Generate info tables for OpenCL extended instructions and operands v1.0.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+C:\Python34\python.exe D:/Vulkan/1.0.65.1/glslang/External/spirv-tools/utils/generate_grammar_tables.py --spirv-core-grammar=D:/Vulkan/1.0.65.1/glslang/External/spirv-tools/external/spirv-headers/include/spirv/1.0/spirv.core.grammar.json --extinst-opencl-grammar=D:/Vulkan/1.0.65.1/glslang/External/spirv-tools/external/spirv-headers/include/spirv/1.0/extinst.opencl.std.100.grammar.json --opencl-insts-output=D:/Vulkan/1.0.65.1/glslang/Build/External/spirv-tools/opencl.std.insts-1.0.inc
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">D:/Vulkan/1.0.65.1/glslang/Build/CMakeFiles/ad80365e0e2f8157d9fc4e465ac4dbb6/opencl.std.insts-1.0.inc.rule;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\utils\generate_grammar_tables.py;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\external\spirv-headers\include\spirv\1.0\spirv.core.grammar.json;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\external\spirv-headers\include\spirv\1.0\extinst.opencl.std.100.grammar.json;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">D:\Vulkan\1.0.65.1\glslang\Build\External\spirv-tools\opencl.std.insts-1.0.inc</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="D:\Vulkan\1.0.65.1\glslang\Build\CMakeFiles\ad80365e0e2f8157d9fc4e465ac4dbb6\glsl.std.450.insts-1.0.inc.rule">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Generate info tables for GLSL extended instructions and operands v1.0.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+C:\Python34\python.exe D:/Vulkan/1.0.65.1/glslang/External/spirv-tools/utils/generate_grammar_tables.py --spirv-core-grammar=D:/Vulkan/1.0.65.1/glslang/External/spirv-tools/external/spirv-headers/include/spirv/1.0/spirv.core.grammar.json --extinst-glsl-grammar=D:/Vulkan/1.0.65.1/glslang/External/spirv-tools/external/spirv-headers/include/spirv/1.0/extinst.glsl.std.450.grammar.json --glsl-insts-output=D:/Vulkan/1.0.65.1/glslang/Build/External/spirv-tools/glsl.std.450.insts-1.0.inc
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">D:/Vulkan/1.0.65.1/glslang/Build/CMakeFiles/ad80365e0e2f8157d9fc4e465ac4dbb6/glsl.std.450.insts-1.0.inc.rule;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\utils\generate_grammar_tables.py;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\external\spirv-headers\include\spirv\1.0\spirv.core.grammar.json;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\external\spirv-headers\include\spirv\1.0\extinst.glsl.std.450.grammar.json;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">D:\Vulkan\1.0.65.1\glslang\Build\External\spirv-tools\glsl.std.450.insts-1.0.inc</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Generate info tables for GLSL extended instructions and operands v1.0.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+C:\Python34\python.exe D:/Vulkan/1.0.65.1/glslang/External/spirv-tools/utils/generate_grammar_tables.py --spirv-core-grammar=D:/Vulkan/1.0.65.1/glslang/External/spirv-tools/external/spirv-headers/include/spirv/1.0/spirv.core.grammar.json --extinst-glsl-grammar=D:/Vulkan/1.0.65.1/glslang/External/spirv-tools/external/spirv-headers/include/spirv/1.0/extinst.glsl.std.450.grammar.json --glsl-insts-output=D:/Vulkan/1.0.65.1/glslang/Build/External/spirv-tools/glsl.std.450.insts-1.0.inc
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">D:/Vulkan/1.0.65.1/glslang/Build/CMakeFiles/ad80365e0e2f8157d9fc4e465ac4dbb6/glsl.std.450.insts-1.0.inc.rule;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\utils\generate_grammar_tables.py;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\external\spirv-headers\include\spirv\1.0\spirv.core.grammar.json;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\external\spirv-headers\include\spirv\1.0\extinst.glsl.std.450.grammar.json;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">D:\Vulkan\1.0.65.1\glslang\Build\External\spirv-tools\glsl.std.450.insts-1.0.inc</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Generate info tables for GLSL extended instructions and operands v1.0.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+C:\Python34\python.exe D:/Vulkan/1.0.65.1/glslang/External/spirv-tools/utils/generate_grammar_tables.py --spirv-core-grammar=D:/Vulkan/1.0.65.1/glslang/External/spirv-tools/external/spirv-headers/include/spirv/1.0/spirv.core.grammar.json --extinst-glsl-grammar=D:/Vulkan/1.0.65.1/glslang/External/spirv-tools/external/spirv-headers/include/spirv/1.0/extinst.glsl.std.450.grammar.json --glsl-insts-output=D:/Vulkan/1.0.65.1/glslang/Build/External/spirv-tools/glsl.std.450.insts-1.0.inc
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">D:/Vulkan/1.0.65.1/glslang/Build/CMakeFiles/ad80365e0e2f8157d9fc4e465ac4dbb6/glsl.std.450.insts-1.0.inc.rule;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\utils\generate_grammar_tables.py;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\external\spirv-headers\include\spirv\1.0\spirv.core.grammar.json;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\external\spirv-headers\include\spirv\1.0\extinst.glsl.std.450.grammar.json;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">D:\Vulkan\1.0.65.1\glslang\Build\External\spirv-tools\glsl.std.450.insts-1.0.inc</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Generate info tables for GLSL extended instructions and operands v1.0.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+C:\Python34\python.exe D:/Vulkan/1.0.65.1/glslang/External/spirv-tools/utils/generate_grammar_tables.py --spirv-core-grammar=D:/Vulkan/1.0.65.1/glslang/External/spirv-tools/external/spirv-headers/include/spirv/1.0/spirv.core.grammar.json --extinst-glsl-grammar=D:/Vulkan/1.0.65.1/glslang/External/spirv-tools/external/spirv-headers/include/spirv/1.0/extinst.glsl.std.450.grammar.json --glsl-insts-output=D:/Vulkan/1.0.65.1/glslang/Build/External/spirv-tools/glsl.std.450.insts-1.0.inc
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">D:/Vulkan/1.0.65.1/glslang/Build/CMakeFiles/ad80365e0e2f8157d9fc4e465ac4dbb6/glsl.std.450.insts-1.0.inc.rule;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\utils\generate_grammar_tables.py;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\external\spirv-headers\include\spirv\1.0\spirv.core.grammar.json;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\external\spirv-headers\include\spirv\1.0\extinst.glsl.std.450.grammar.json;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">D:\Vulkan\1.0.65.1\glslang\Build\External\spirv-tools\glsl.std.450.insts-1.0.inc</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="D:\Vulkan\1.0.65.1\glslang\Build\CMakeFiles\ad80365e0e2f8157d9fc4e465ac4dbb6\spv-amd-shader-explicit-vertex-parameter.insts.inc.rule">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Generate extended instruction tables for spv-amd-shader-explicit-vertex-parameter.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+C:\Python34\python.exe D:/Vulkan/1.0.65.1/glslang/External/spirv-tools/utils/generate_grammar_tables.py --extinst-vendor-grammar=D:/Vulkan/1.0.65.1/glslang/External/spirv-tools/source/extinst.spv-amd-shader-explicit-vertex-parameter.grammar.json --vendor-insts-output=D:/Vulkan/1.0.65.1/glslang/Build/External/spirv-tools/spv-amd-shader-explicit-vertex-parameter.insts.inc
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">D:/Vulkan/1.0.65.1/glslang/Build/CMakeFiles/ad80365e0e2f8157d9fc4e465ac4dbb6/spv-amd-shader-explicit-vertex-parameter.insts.inc.rule;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\utils\generate_grammar_tables.py;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\extinst.spv-amd-shader-explicit-vertex-parameter.grammar.json;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">D:\Vulkan\1.0.65.1\glslang\Build\External\spirv-tools\spv-amd-shader-explicit-vertex-parameter.insts.inc</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Generate extended instruction tables for spv-amd-shader-explicit-vertex-parameter.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+C:\Python34\python.exe D:/Vulkan/1.0.65.1/glslang/External/spirv-tools/utils/generate_grammar_tables.py --extinst-vendor-grammar=D:/Vulkan/1.0.65.1/glslang/External/spirv-tools/source/extinst.spv-amd-shader-explicit-vertex-parameter.grammar.json --vendor-insts-output=D:/Vulkan/1.0.65.1/glslang/Build/External/spirv-tools/spv-amd-shader-explicit-vertex-parameter.insts.inc
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">D:/Vulkan/1.0.65.1/glslang/Build/CMakeFiles/ad80365e0e2f8157d9fc4e465ac4dbb6/spv-amd-shader-explicit-vertex-parameter.insts.inc.rule;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\utils\generate_grammar_tables.py;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\extinst.spv-amd-shader-explicit-vertex-parameter.grammar.json;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">D:\Vulkan\1.0.65.1\glslang\Build\External\spirv-tools\spv-amd-shader-explicit-vertex-parameter.insts.inc</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Generate extended instruction tables for spv-amd-shader-explicit-vertex-parameter.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+C:\Python34\python.exe D:/Vulkan/1.0.65.1/glslang/External/spirv-tools/utils/generate_grammar_tables.py --extinst-vendor-grammar=D:/Vulkan/1.0.65.1/glslang/External/spirv-tools/source/extinst.spv-amd-shader-explicit-vertex-parameter.grammar.json --vendor-insts-output=D:/Vulkan/1.0.65.1/glslang/Build/External/spirv-tools/spv-amd-shader-explicit-vertex-parameter.insts.inc
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">D:/Vulkan/1.0.65.1/glslang/Build/CMakeFiles/ad80365e0e2f8157d9fc4e465ac4dbb6/spv-amd-shader-explicit-vertex-parameter.insts.inc.rule;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\utils\generate_grammar_tables.py;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\extinst.spv-amd-shader-explicit-vertex-parameter.grammar.json;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">D:\Vulkan\1.0.65.1\glslang\Build\External\spirv-tools\spv-amd-shader-explicit-vertex-parameter.insts.inc</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Generate extended instruction tables for spv-amd-shader-explicit-vertex-parameter.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+C:\Python34\python.exe D:/Vulkan/1.0.65.1/glslang/External/spirv-tools/utils/generate_grammar_tables.py --extinst-vendor-grammar=D:/Vulkan/1.0.65.1/glslang/External/spirv-tools/source/extinst.spv-amd-shader-explicit-vertex-parameter.grammar.json --vendor-insts-output=D:/Vulkan/1.0.65.1/glslang/Build/External/spirv-tools/spv-amd-shader-explicit-vertex-parameter.insts.inc
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">D:/Vulkan/1.0.65.1/glslang/Build/CMakeFiles/ad80365e0e2f8157d9fc4e465ac4dbb6/spv-amd-shader-explicit-vertex-parameter.insts.inc.rule;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\utils\generate_grammar_tables.py;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\extinst.spv-amd-shader-explicit-vertex-parameter.grammar.json;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">D:\Vulkan\1.0.65.1\glslang\Build\External\spirv-tools\spv-amd-shader-explicit-vertex-parameter.insts.inc</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="D:\Vulkan\1.0.65.1\glslang\Build\CMakeFiles\ad80365e0e2f8157d9fc4e465ac4dbb6\spv-amd-shader-trinary-minmax.insts.inc.rule">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Generate extended instruction tables for spv-amd-shader-trinary-minmax.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+C:\Python34\python.exe D:/Vulkan/1.0.65.1/glslang/External/spirv-tools/utils/generate_grammar_tables.py --extinst-vendor-grammar=D:/Vulkan/1.0.65.1/glslang/External/spirv-tools/source/extinst.spv-amd-shader-trinary-minmax.grammar.json --vendor-insts-output=D:/Vulkan/1.0.65.1/glslang/Build/External/spirv-tools/spv-amd-shader-trinary-minmax.insts.inc
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">D:/Vulkan/1.0.65.1/glslang/Build/CMakeFiles/ad80365e0e2f8157d9fc4e465ac4dbb6/spv-amd-shader-trinary-minmax.insts.inc.rule;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\utils\generate_grammar_tables.py;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\extinst.spv-amd-shader-trinary-minmax.grammar.json;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">D:\Vulkan\1.0.65.1\glslang\Build\External\spirv-tools\spv-amd-shader-trinary-minmax.insts.inc</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Generate extended instruction tables for spv-amd-shader-trinary-minmax.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+C:\Python34\python.exe D:/Vulkan/1.0.65.1/glslang/External/spirv-tools/utils/generate_grammar_tables.py --extinst-vendor-grammar=D:/Vulkan/1.0.65.1/glslang/External/spirv-tools/source/extinst.spv-amd-shader-trinary-minmax.grammar.json --vendor-insts-output=D:/Vulkan/1.0.65.1/glslang/Build/External/spirv-tools/spv-amd-shader-trinary-minmax.insts.inc
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">D:/Vulkan/1.0.65.1/glslang/Build/CMakeFiles/ad80365e0e2f8157d9fc4e465ac4dbb6/spv-amd-shader-trinary-minmax.insts.inc.rule;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\utils\generate_grammar_tables.py;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\extinst.spv-amd-shader-trinary-minmax.grammar.json;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">D:\Vulkan\1.0.65.1\glslang\Build\External\spirv-tools\spv-amd-shader-trinary-minmax.insts.inc</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Generate extended instruction tables for spv-amd-shader-trinary-minmax.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+C:\Python34\python.exe D:/Vulkan/1.0.65.1/glslang/External/spirv-tools/utils/generate_grammar_tables.py --extinst-vendor-grammar=D:/Vulkan/1.0.65.1/glslang/External/spirv-tools/source/extinst.spv-amd-shader-trinary-minmax.grammar.json --vendor-insts-output=D:/Vulkan/1.0.65.1/glslang/Build/External/spirv-tools/spv-amd-shader-trinary-minmax.insts.inc
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">D:/Vulkan/1.0.65.1/glslang/Build/CMakeFiles/ad80365e0e2f8157d9fc4e465ac4dbb6/spv-amd-shader-trinary-minmax.insts.inc.rule;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\utils\generate_grammar_tables.py;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\extinst.spv-amd-shader-trinary-minmax.grammar.json;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">D:\Vulkan\1.0.65.1\glslang\Build\External\spirv-tools\spv-amd-shader-trinary-minmax.insts.inc</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Generate extended instruction tables for spv-amd-shader-trinary-minmax.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+C:\Python34\python.exe D:/Vulkan/1.0.65.1/glslang/External/spirv-tools/utils/generate_grammar_tables.py --extinst-vendor-grammar=D:/Vulkan/1.0.65.1/glslang/External/spirv-tools/source/extinst.spv-amd-shader-trinary-minmax.grammar.json --vendor-insts-output=D:/Vulkan/1.0.65.1/glslang/Build/External/spirv-tools/spv-amd-shader-trinary-minmax.insts.inc
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">D:/Vulkan/1.0.65.1/glslang/Build/CMakeFiles/ad80365e0e2f8157d9fc4e465ac4dbb6/spv-amd-shader-trinary-minmax.insts.inc.rule;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\utils\generate_grammar_tables.py;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\extinst.spv-amd-shader-trinary-minmax.grammar.json;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">D:\Vulkan\1.0.65.1\glslang\Build\External\spirv-tools\spv-amd-shader-trinary-minmax.insts.inc</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="D:\Vulkan\1.0.65.1\glslang\Build\CMakeFiles\ad80365e0e2f8157d9fc4e465ac4dbb6\spv-amd-gcn-shader.insts.inc.rule">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Generate extended instruction tables for spv-amd-gcn-shader.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+C:\Python34\python.exe D:/Vulkan/1.0.65.1/glslang/External/spirv-tools/utils/generate_grammar_tables.py --extinst-vendor-grammar=D:/Vulkan/1.0.65.1/glslang/External/spirv-tools/source/extinst.spv-amd-gcn-shader.grammar.json --vendor-insts-output=D:/Vulkan/1.0.65.1/glslang/Build/External/spirv-tools/spv-amd-gcn-shader.insts.inc
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">D:/Vulkan/1.0.65.1/glslang/Build/CMakeFiles/ad80365e0e2f8157d9fc4e465ac4dbb6/spv-amd-gcn-shader.insts.inc.rule;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\utils\generate_grammar_tables.py;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\extinst.spv-amd-gcn-shader.grammar.json;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">D:\Vulkan\1.0.65.1\glslang\Build\External\spirv-tools\spv-amd-gcn-shader.insts.inc</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Generate extended instruction tables for spv-amd-gcn-shader.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+C:\Python34\python.exe D:/Vulkan/1.0.65.1/glslang/External/spirv-tools/utils/generate_grammar_tables.py --extinst-vendor-grammar=D:/Vulkan/1.0.65.1/glslang/External/spirv-tools/source/extinst.spv-amd-gcn-shader.grammar.json --vendor-insts-output=D:/Vulkan/1.0.65.1/glslang/Build/External/spirv-tools/spv-amd-gcn-shader.insts.inc
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">D:/Vulkan/1.0.65.1/glslang/Build/CMakeFiles/ad80365e0e2f8157d9fc4e465ac4dbb6/spv-amd-gcn-shader.insts.inc.rule;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\utils\generate_grammar_tables.py;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\extinst.spv-amd-gcn-shader.grammar.json;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">D:\Vulkan\1.0.65.1\glslang\Build\External\spirv-tools\spv-amd-gcn-shader.insts.inc</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Generate extended instruction tables for spv-amd-gcn-shader.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+C:\Python34\python.exe D:/Vulkan/1.0.65.1/glslang/External/spirv-tools/utils/generate_grammar_tables.py --extinst-vendor-grammar=D:/Vulkan/1.0.65.1/glslang/External/spirv-tools/source/extinst.spv-amd-gcn-shader.grammar.json --vendor-insts-output=D:/Vulkan/1.0.65.1/glslang/Build/External/spirv-tools/spv-amd-gcn-shader.insts.inc
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">D:/Vulkan/1.0.65.1/glslang/Build/CMakeFiles/ad80365e0e2f8157d9fc4e465ac4dbb6/spv-amd-gcn-shader.insts.inc.rule;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\utils\generate_grammar_tables.py;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\extinst.spv-amd-gcn-shader.grammar.json;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">D:\Vulkan\1.0.65.1\glslang\Build\External\spirv-tools\spv-amd-gcn-shader.insts.inc</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Generate extended instruction tables for spv-amd-gcn-shader.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+C:\Python34\python.exe D:/Vulkan/1.0.65.1/glslang/External/spirv-tools/utils/generate_grammar_tables.py --extinst-vendor-grammar=D:/Vulkan/1.0.65.1/glslang/External/spirv-tools/source/extinst.spv-amd-gcn-shader.grammar.json --vendor-insts-output=D:/Vulkan/1.0.65.1/glslang/Build/External/spirv-tools/spv-amd-gcn-shader.insts.inc
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">D:/Vulkan/1.0.65.1/glslang/Build/CMakeFiles/ad80365e0e2f8157d9fc4e465ac4dbb6/spv-amd-gcn-shader.insts.inc.rule;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\utils\generate_grammar_tables.py;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\extinst.spv-amd-gcn-shader.grammar.json;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">D:\Vulkan\1.0.65.1\glslang\Build\External\spirv-tools\spv-amd-gcn-shader.insts.inc</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="D:\Vulkan\1.0.65.1\glslang\Build\CMakeFiles\ad80365e0e2f8157d9fc4e465ac4dbb6\spv-amd-shader-ballot.insts.inc.rule">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Generate extended instruction tables for spv-amd-shader-ballot.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+C:\Python34\python.exe D:/Vulkan/1.0.65.1/glslang/External/spirv-tools/utils/generate_grammar_tables.py --extinst-vendor-grammar=D:/Vulkan/1.0.65.1/glslang/External/spirv-tools/source/extinst.spv-amd-shader-ballot.grammar.json --vendor-insts-output=D:/Vulkan/1.0.65.1/glslang/Build/External/spirv-tools/spv-amd-shader-ballot.insts.inc
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">D:/Vulkan/1.0.65.1/glslang/Build/CMakeFiles/ad80365e0e2f8157d9fc4e465ac4dbb6/spv-amd-shader-ballot.insts.inc.rule;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\utils\generate_grammar_tables.py;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\extinst.spv-amd-shader-ballot.grammar.json;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">D:\Vulkan\1.0.65.1\glslang\Build\External\spirv-tools\spv-amd-shader-ballot.insts.inc</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Generate extended instruction tables for spv-amd-shader-ballot.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+C:\Python34\python.exe D:/Vulkan/1.0.65.1/glslang/External/spirv-tools/utils/generate_grammar_tables.py --extinst-vendor-grammar=D:/Vulkan/1.0.65.1/glslang/External/spirv-tools/source/extinst.spv-amd-shader-ballot.grammar.json --vendor-insts-output=D:/Vulkan/1.0.65.1/glslang/Build/External/spirv-tools/spv-amd-shader-ballot.insts.inc
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">D:/Vulkan/1.0.65.1/glslang/Build/CMakeFiles/ad80365e0e2f8157d9fc4e465ac4dbb6/spv-amd-shader-ballot.insts.inc.rule;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\utils\generate_grammar_tables.py;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\extinst.spv-amd-shader-ballot.grammar.json;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">D:\Vulkan\1.0.65.1\glslang\Build\External\spirv-tools\spv-amd-shader-ballot.insts.inc</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Generate extended instruction tables for spv-amd-shader-ballot.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+C:\Python34\python.exe D:/Vulkan/1.0.65.1/glslang/External/spirv-tools/utils/generate_grammar_tables.py --extinst-vendor-grammar=D:/Vulkan/1.0.65.1/glslang/External/spirv-tools/source/extinst.spv-amd-shader-ballot.grammar.json --vendor-insts-output=D:/Vulkan/1.0.65.1/glslang/Build/External/spirv-tools/spv-amd-shader-ballot.insts.inc
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">D:/Vulkan/1.0.65.1/glslang/Build/CMakeFiles/ad80365e0e2f8157d9fc4e465ac4dbb6/spv-amd-shader-ballot.insts.inc.rule;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\utils\generate_grammar_tables.py;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\extinst.spv-amd-shader-ballot.grammar.json;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">D:\Vulkan\1.0.65.1\glslang\Build\External\spirv-tools\spv-amd-shader-ballot.insts.inc</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Generate extended instruction tables for spv-amd-shader-ballot.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+C:\Python34\python.exe D:/Vulkan/1.0.65.1/glslang/External/spirv-tools/utils/generate_grammar_tables.py --extinst-vendor-grammar=D:/Vulkan/1.0.65.1/glslang/External/spirv-tools/source/extinst.spv-amd-shader-ballot.grammar.json --vendor-insts-output=D:/Vulkan/1.0.65.1/glslang/Build/External/spirv-tools/spv-amd-shader-ballot.insts.inc
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">D:/Vulkan/1.0.65.1/glslang/Build/CMakeFiles/ad80365e0e2f8157d9fc4e465ac4dbb6/spv-amd-shader-ballot.insts.inc.rule;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\utils\generate_grammar_tables.py;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\extinst.spv-amd-shader-ballot.grammar.json;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">D:\Vulkan\1.0.65.1\glslang\Build\External\spirv-tools\spv-amd-shader-ballot.insts.inc</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="D:\Vulkan\1.0.65.1\glslang\Build\CMakeFiles\ad80365e0e2f8157d9fc4e465ac4dbb6\core.insts-1.0.inc.rule">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Generate info tables for SPIR-V v1.0 core instructions and operands.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+C:\Python34\python.exe D:/Vulkan/1.0.65.1/glslang/External/spirv-tools/utils/generate_grammar_tables.py --spirv-core-grammar=D:/Vulkan/1.0.65.1/glslang/External/spirv-tools/external/spirv-headers/include/spirv/1.0/spirv.core.grammar.json --core-insts-output=D:/Vulkan/1.0.65.1/glslang/Build/External/spirv-tools/core.insts-1.0.inc --operand-kinds-output=D:/Vulkan/1.0.65.1/glslang/Build/External/spirv-tools/operand.kinds-1.0.inc
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">D:/Vulkan/1.0.65.1/glslang/Build/CMakeFiles/ad80365e0e2f8157d9fc4e465ac4dbb6/core.insts-1.0.inc.rule;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\utils\generate_grammar_tables.py;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\external\spirv-headers\include\spirv\1.0\spirv.core.grammar.json;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">D:\Vulkan\1.0.65.1\glslang\Build\External\spirv-tools\core.insts-1.0.inc;D:\Vulkan\1.0.65.1\glslang\Build\External\spirv-tools\operand.kinds-1.0.inc</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Generate info tables for SPIR-V v1.0 core instructions and operands.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+C:\Python34\python.exe D:/Vulkan/1.0.65.1/glslang/External/spirv-tools/utils/generate_grammar_tables.py --spirv-core-grammar=D:/Vulkan/1.0.65.1/glslang/External/spirv-tools/external/spirv-headers/include/spirv/1.0/spirv.core.grammar.json --core-insts-output=D:/Vulkan/1.0.65.1/glslang/Build/External/spirv-tools/core.insts-1.0.inc --operand-kinds-output=D:/Vulkan/1.0.65.1/glslang/Build/External/spirv-tools/operand.kinds-1.0.inc
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">D:/Vulkan/1.0.65.1/glslang/Build/CMakeFiles/ad80365e0e2f8157d9fc4e465ac4dbb6/core.insts-1.0.inc.rule;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\utils\generate_grammar_tables.py;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\external\spirv-headers\include\spirv\1.0\spirv.core.grammar.json;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">D:\Vulkan\1.0.65.1\glslang\Build\External\spirv-tools\core.insts-1.0.inc;D:\Vulkan\1.0.65.1\glslang\Build\External\spirv-tools\operand.kinds-1.0.inc</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Generate info tables for SPIR-V v1.0 core instructions and operands.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+C:\Python34\python.exe D:/Vulkan/1.0.65.1/glslang/External/spirv-tools/utils/generate_grammar_tables.py --spirv-core-grammar=D:/Vulkan/1.0.65.1/glslang/External/spirv-tools/external/spirv-headers/include/spirv/1.0/spirv.core.grammar.json --core-insts-output=D:/Vulkan/1.0.65.1/glslang/Build/External/spirv-tools/core.insts-1.0.inc --operand-kinds-output=D:/Vulkan/1.0.65.1/glslang/Build/External/spirv-tools/operand.kinds-1.0.inc
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">D:/Vulkan/1.0.65.1/glslang/Build/CMakeFiles/ad80365e0e2f8157d9fc4e465ac4dbb6/core.insts-1.0.inc.rule;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\utils\generate_grammar_tables.py;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\external\spirv-headers\include\spirv\1.0\spirv.core.grammar.json;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">D:\Vulkan\1.0.65.1\glslang\Build\External\spirv-tools\core.insts-1.0.inc;D:\Vulkan\1.0.65.1\glslang\Build\External\spirv-tools\operand.kinds-1.0.inc</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Generate info tables for SPIR-V v1.0 core instructions and operands.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+C:\Python34\python.exe D:/Vulkan/1.0.65.1/glslang/External/spirv-tools/utils/generate_grammar_tables.py --spirv-core-grammar=D:/Vulkan/1.0.65.1/glslang/External/spirv-tools/external/spirv-headers/include/spirv/1.0/spirv.core.grammar.json --core-insts-output=D:/Vulkan/1.0.65.1/glslang/Build/External/spirv-tools/core.insts-1.0.inc --operand-kinds-output=D:/Vulkan/1.0.65.1/glslang/Build/External/spirv-tools/operand.kinds-1.0.inc
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">D:/Vulkan/1.0.65.1/glslang/Build/CMakeFiles/ad80365e0e2f8157d9fc4e465ac4dbb6/core.insts-1.0.inc.rule;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\utils\generate_grammar_tables.py;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\external\spirv-headers\include\spirv\1.0\spirv.core.grammar.json;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">D:\Vulkan\1.0.65.1\glslang\Build\External\spirv-tools\core.insts-1.0.inc;D:\Vulkan\1.0.65.1\glslang\Build\External\spirv-tools\operand.kinds-1.0.inc</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="D:\Vulkan\1.0.65.1\glslang\Build\CMakeFiles\ad80365e0e2f8157d9fc4e465ac4dbb6\core.insts-1.1.inc.rule">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Generate info tables for SPIR-V v1.1 core instructions and operands.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+C:\Python34\python.exe D:/Vulkan/1.0.65.1/glslang/External/spirv-tools/utils/generate_grammar_tables.py --spirv-core-grammar=D:/Vulkan/1.0.65.1/glslang/External/spirv-tools/external/spirv-headers/include/spirv/1.1/spirv.core.grammar.json --core-insts-output=D:/Vulkan/1.0.65.1/glslang/Build/External/spirv-tools/core.insts-1.1.inc --operand-kinds-output=D:/Vulkan/1.0.65.1/glslang/Build/External/spirv-tools/operand.kinds-1.1.inc
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">D:/Vulkan/1.0.65.1/glslang/Build/CMakeFiles/ad80365e0e2f8157d9fc4e465ac4dbb6/core.insts-1.1.inc.rule;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\utils\generate_grammar_tables.py;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\external\spirv-headers\include\spirv\1.1\spirv.core.grammar.json;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">D:\Vulkan\1.0.65.1\glslang\Build\External\spirv-tools\core.insts-1.1.inc;D:\Vulkan\1.0.65.1\glslang\Build\External\spirv-tools\operand.kinds-1.1.inc</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Generate info tables for SPIR-V v1.1 core instructions and operands.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+C:\Python34\python.exe D:/Vulkan/1.0.65.1/glslang/External/spirv-tools/utils/generate_grammar_tables.py --spirv-core-grammar=D:/Vulkan/1.0.65.1/glslang/External/spirv-tools/external/spirv-headers/include/spirv/1.1/spirv.core.grammar.json --core-insts-output=D:/Vulkan/1.0.65.1/glslang/Build/External/spirv-tools/core.insts-1.1.inc --operand-kinds-output=D:/Vulkan/1.0.65.1/glslang/Build/External/spirv-tools/operand.kinds-1.1.inc
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">D:/Vulkan/1.0.65.1/glslang/Build/CMakeFiles/ad80365e0e2f8157d9fc4e465ac4dbb6/core.insts-1.1.inc.rule;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\utils\generate_grammar_tables.py;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\external\spirv-headers\include\spirv\1.1\spirv.core.grammar.json;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">D:\Vulkan\1.0.65.1\glslang\Build\External\spirv-tools\core.insts-1.1.inc;D:\Vulkan\1.0.65.1\glslang\Build\External\spirv-tools\operand.kinds-1.1.inc</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Generate info tables for SPIR-V v1.1 core instructions and operands.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+C:\Python34\python.exe D:/Vulkan/1.0.65.1/glslang/External/spirv-tools/utils/generate_grammar_tables.py --spirv-core-grammar=D:/Vulkan/1.0.65.1/glslang/External/spirv-tools/external/spirv-headers/include/spirv/1.1/spirv.core.grammar.json --core-insts-output=D:/Vulkan/1.0.65.1/glslang/Build/External/spirv-tools/core.insts-1.1.inc --operand-kinds-output=D:/Vulkan/1.0.65.1/glslang/Build/External/spirv-tools/operand.kinds-1.1.inc
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">D:/Vulkan/1.0.65.1/glslang/Build/CMakeFiles/ad80365e0e2f8157d9fc4e465ac4dbb6/core.insts-1.1.inc.rule;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\utils\generate_grammar_tables.py;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\external\spirv-headers\include\spirv\1.1\spirv.core.grammar.json;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">D:\Vulkan\1.0.65.1\glslang\Build\External\spirv-tools\core.insts-1.1.inc;D:\Vulkan\1.0.65.1\glslang\Build\External\spirv-tools\operand.kinds-1.1.inc</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Generate info tables for SPIR-V v1.1 core instructions and operands.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+C:\Python34\python.exe D:/Vulkan/1.0.65.1/glslang/External/spirv-tools/utils/generate_grammar_tables.py --spirv-core-grammar=D:/Vulkan/1.0.65.1/glslang/External/spirv-tools/external/spirv-headers/include/spirv/1.1/spirv.core.grammar.json --core-insts-output=D:/Vulkan/1.0.65.1/glslang/Build/External/spirv-tools/core.insts-1.1.inc --operand-kinds-output=D:/Vulkan/1.0.65.1/glslang/Build/External/spirv-tools/operand.kinds-1.1.inc
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">D:/Vulkan/1.0.65.1/glslang/Build/CMakeFiles/ad80365e0e2f8157d9fc4e465ac4dbb6/core.insts-1.1.inc.rule;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\utils\generate_grammar_tables.py;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\external\spirv-headers\include\spirv\1.1\spirv.core.grammar.json;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">D:\Vulkan\1.0.65.1\glslang\Build\External\spirv-tools\core.insts-1.1.inc;D:\Vulkan\1.0.65.1\glslang\Build\External\spirv-tools\operand.kinds-1.1.inc</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="D:\Vulkan\1.0.65.1\glslang\Build\CMakeFiles\ad80365e0e2f8157d9fc4e465ac4dbb6\core.insts-1.2.inc.rule">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Generate info tables for SPIR-V v1.2 core instructions and operands.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+C:\Python34\python.exe D:/Vulkan/1.0.65.1/glslang/External/spirv-tools/utils/generate_grammar_tables.py --spirv-core-grammar=D:/Vulkan/1.0.65.1/glslang/External/spirv-tools/external/spirv-headers/include/spirv/1.2/spirv.core.grammar.json --core-insts-output=D:/Vulkan/1.0.65.1/glslang/Build/External/spirv-tools/core.insts-1.2.inc --operand-kinds-output=D:/Vulkan/1.0.65.1/glslang/Build/External/spirv-tools/operand.kinds-1.2.inc
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">D:/Vulkan/1.0.65.1/glslang/Build/CMakeFiles/ad80365e0e2f8157d9fc4e465ac4dbb6/core.insts-1.2.inc.rule;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\utils\generate_grammar_tables.py;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\external\spirv-headers\include\spirv\1.2\spirv.core.grammar.json;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">D:\Vulkan\1.0.65.1\glslang\Build\External\spirv-tools\core.insts-1.2.inc;D:\Vulkan\1.0.65.1\glslang\Build\External\spirv-tools\operand.kinds-1.2.inc</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Generate info tables for SPIR-V v1.2 core instructions and operands.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+C:\Python34\python.exe D:/Vulkan/1.0.65.1/glslang/External/spirv-tools/utils/generate_grammar_tables.py --spirv-core-grammar=D:/Vulkan/1.0.65.1/glslang/External/spirv-tools/external/spirv-headers/include/spirv/1.2/spirv.core.grammar.json --core-insts-output=D:/Vulkan/1.0.65.1/glslang/Build/External/spirv-tools/core.insts-1.2.inc --operand-kinds-output=D:/Vulkan/1.0.65.1/glslang/Build/External/spirv-tools/operand.kinds-1.2.inc
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">D:/Vulkan/1.0.65.1/glslang/Build/CMakeFiles/ad80365e0e2f8157d9fc4e465ac4dbb6/core.insts-1.2.inc.rule;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\utils\generate_grammar_tables.py;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\external\spirv-headers\include\spirv\1.2\spirv.core.grammar.json;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">D:\Vulkan\1.0.65.1\glslang\Build\External\spirv-tools\core.insts-1.2.inc;D:\Vulkan\1.0.65.1\glslang\Build\External\spirv-tools\operand.kinds-1.2.inc</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Generate info tables for SPIR-V v1.2 core instructions and operands.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+C:\Python34\python.exe D:/Vulkan/1.0.65.1/glslang/External/spirv-tools/utils/generate_grammar_tables.py --spirv-core-grammar=D:/Vulkan/1.0.65.1/glslang/External/spirv-tools/external/spirv-headers/include/spirv/1.2/spirv.core.grammar.json --core-insts-output=D:/Vulkan/1.0.65.1/glslang/Build/External/spirv-tools/core.insts-1.2.inc --operand-kinds-output=D:/Vulkan/1.0.65.1/glslang/Build/External/spirv-tools/operand.kinds-1.2.inc
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">D:/Vulkan/1.0.65.1/glslang/Build/CMakeFiles/ad80365e0e2f8157d9fc4e465ac4dbb6/core.insts-1.2.inc.rule;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\utils\generate_grammar_tables.py;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\external\spirv-headers\include\spirv\1.2\spirv.core.grammar.json;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">D:\Vulkan\1.0.65.1\glslang\Build\External\spirv-tools\core.insts-1.2.inc;D:\Vulkan\1.0.65.1\glslang\Build\External\spirv-tools\operand.kinds-1.2.inc</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Generate info tables for SPIR-V v1.2 core instructions and operands.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+C:\Python34\python.exe D:/Vulkan/1.0.65.1/glslang/External/spirv-tools/utils/generate_grammar_tables.py --spirv-core-grammar=D:/Vulkan/1.0.65.1/glslang/External/spirv-tools/external/spirv-headers/include/spirv/1.2/spirv.core.grammar.json --core-insts-output=D:/Vulkan/1.0.65.1/glslang/Build/External/spirv-tools/core.insts-1.2.inc --operand-kinds-output=D:/Vulkan/1.0.65.1/glslang/Build/External/spirv-tools/operand.kinds-1.2.inc
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">D:/Vulkan/1.0.65.1/glslang/Build/CMakeFiles/ad80365e0e2f8157d9fc4e465ac4dbb6/core.insts-1.2.inc.rule;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\utils\generate_grammar_tables.py;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\external\spirv-headers\include\spirv\1.2\spirv.core.grammar.json;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">D:\Vulkan\1.0.65.1\glslang\Build\External\spirv-tools\core.insts-1.2.inc;D:\Vulkan\1.0.65.1\glslang\Build\External\spirv-tools\operand.kinds-1.2.inc</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="D:\Vulkan\1.0.65.1\glslang\Build\CMakeFiles\ad80365e0e2f8157d9fc4e465ac4dbb6\generators.inc.rule">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Generate tables based on the SPIR-V XML registry.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+C:\Python34\python.exe D:/Vulkan/1.0.65.1/glslang/External/spirv-tools/utils/generate_registry_tables.py --xml=D:/Vulkan/1.0.65.1/glslang/External/spirv-tools/external/spirv-headers/include/spirv/spir-v.xml --generator-output=D:/Vulkan/1.0.65.1/glslang/Build/External/spirv-tools/generators.inc
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">D:/Vulkan/1.0.65.1/glslang/Build/CMakeFiles/ad80365e0e2f8157d9fc4e465ac4dbb6/generators.inc.rule;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\utils\generate_registry_tables.py;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\external\spirv-headers\include\spirv\spir-v.xml;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">D:\Vulkan\1.0.65.1\glslang\Build\External\spirv-tools\generators.inc</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Generate tables based on the SPIR-V XML registry.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+C:\Python34\python.exe D:/Vulkan/1.0.65.1/glslang/External/spirv-tools/utils/generate_registry_tables.py --xml=D:/Vulkan/1.0.65.1/glslang/External/spirv-tools/external/spirv-headers/include/spirv/spir-v.xml --generator-output=D:/Vulkan/1.0.65.1/glslang/Build/External/spirv-tools/generators.inc
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">D:/Vulkan/1.0.65.1/glslang/Build/CMakeFiles/ad80365e0e2f8157d9fc4e465ac4dbb6/generators.inc.rule;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\utils\generate_registry_tables.py;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\external\spirv-headers\include\spirv\spir-v.xml;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">D:\Vulkan\1.0.65.1\glslang\Build\External\spirv-tools\generators.inc</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Generate tables based on the SPIR-V XML registry.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+C:\Python34\python.exe D:/Vulkan/1.0.65.1/glslang/External/spirv-tools/utils/generate_registry_tables.py --xml=D:/Vulkan/1.0.65.1/glslang/External/spirv-tools/external/spirv-headers/include/spirv/spir-v.xml --generator-output=D:/Vulkan/1.0.65.1/glslang/Build/External/spirv-tools/generators.inc
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">D:/Vulkan/1.0.65.1/glslang/Build/CMakeFiles/ad80365e0e2f8157d9fc4e465ac4dbb6/generators.inc.rule;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\utils\generate_registry_tables.py;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\external\spirv-headers\include\spirv\spir-v.xml;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">D:\Vulkan\1.0.65.1\glslang\Build\External\spirv-tools\generators.inc</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Generate tables based on the SPIR-V XML registry.</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+C:\Python34\python.exe D:/Vulkan/1.0.65.1/glslang/External/spirv-tools/utils/generate_registry_tables.py --xml=D:/Vulkan/1.0.65.1/glslang/External/spirv-tools/external/spirv-headers/include/spirv/spir-v.xml --generator-output=D:/Vulkan/1.0.65.1/glslang/Build/External/spirv-tools/generators.inc
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">D:/Vulkan/1.0.65.1/glslang/Build/CMakeFiles/ad80365e0e2f8157d9fc4e465ac4dbb6/generators.inc.rule;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\utils\generate_registry_tables.py;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\external\spirv-headers\include\spirv\spir-v.xml;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">D:\Vulkan\1.0.65.1\glslang\Build\External\spirv-tools\generators.inc</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="D:\Vulkan\1.0.65.1\glslang\Build\CMakeFiles\ad80365e0e2f8157d9fc4e465ac4dbb6\build-version.inc.rule">
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Update build-version.inc in the SPIRV-Tools build directory (if necessary).</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+C:\Python34\python.exe D:/Vulkan/1.0.65.1/glslang/External/spirv-tools/utils/update_build_version.py D:/Vulkan/1.0.65.1/glslang/External/spirv-tools D:/Vulkan/1.0.65.1/glslang/Build/External/spirv-tools/build-version.inc
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">D:/Vulkan/1.0.65.1/glslang/Build/CMakeFiles/ad80365e0e2f8157d9fc4e465ac4dbb6/build-version.inc.rule;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\utils\update_build_version.py;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\CHANGES;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">D:\Vulkan\1.0.65.1\glslang\Build\External\spirv-tools\build-version.inc</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Update build-version.inc in the SPIRV-Tools build directory (if necessary).</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+C:\Python34\python.exe D:/Vulkan/1.0.65.1/glslang/External/spirv-tools/utils/update_build_version.py D:/Vulkan/1.0.65.1/glslang/External/spirv-tools D:/Vulkan/1.0.65.1/glslang/Build/External/spirv-tools/build-version.inc
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">D:/Vulkan/1.0.65.1/glslang/Build/CMakeFiles/ad80365e0e2f8157d9fc4e465ac4dbb6/build-version.inc.rule;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\utils\update_build_version.py;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\CHANGES;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">D:\Vulkan\1.0.65.1\glslang\Build\External\spirv-tools\build-version.inc</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Update build-version.inc in the SPIRV-Tools build directory (if necessary).</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+C:\Python34\python.exe D:/Vulkan/1.0.65.1/glslang/External/spirv-tools/utils/update_build_version.py D:/Vulkan/1.0.65.1/glslang/External/spirv-tools D:/Vulkan/1.0.65.1/glslang/Build/External/spirv-tools/build-version.inc
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">D:/Vulkan/1.0.65.1/glslang/Build/CMakeFiles/ad80365e0e2f8157d9fc4e465ac4dbb6/build-version.inc.rule;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\utils\update_build_version.py;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\CHANGES;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">D:\Vulkan\1.0.65.1\glslang\Build\External\spirv-tools\build-version.inc</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Update build-version.inc in the SPIRV-Tools build directory (if necessary).</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+C:\Python34\python.exe D:/Vulkan/1.0.65.1/glslang/External/spirv-tools/utils/update_build_version.py D:/Vulkan/1.0.65.1/glslang/External/spirv-tools D:/Vulkan/1.0.65.1/glslang/Build/External/spirv-tools/build-version.inc
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">D:/Vulkan/1.0.65.1/glslang/Build/CMakeFiles/ad80365e0e2f8157d9fc4e465ac4dbb6/build-version.inc.rule;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\utils\update_build_version.py;D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\CHANGES;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">D:\Vulkan\1.0.65.1\glslang\Build\External\spirv-tools\build-version.inc</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\include\spirv-tools\libspirv.h" />
+    <ClInclude Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\util\bitutils.h" />
+    <ClInclude Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\util\bit_stream.h" />
+    <ClInclude Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\util\hex_float.h" />
+    <ClInclude Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\util\parse_number.h" />
+    <ClInclude Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\util\string_utils.h" />
+    <ClInclude Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\assembly_grammar.h" />
+    <ClInclude Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\binary.h" />
+    <ClInclude Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\cfa.h" />
+    <ClInclude Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\diagnostic.h" />
+    <ClInclude Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\enum_set.h" />
+    <ClInclude Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\enum_string_mapping.h" />
+    <ClInclude Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\ext_inst.h" />
+    <ClInclude Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\extensions.h" />
+    <ClInclude Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\id_descriptor.h" />
+    <ClInclude Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\instruction.h" />
+    <ClInclude Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\macro.h" />
+    <ClInclude Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\name_mapper.h" />
+    <ClInclude Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\opcode.h" />
+    <ClInclude Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\operand.h" />
+    <ClInclude Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\parsed_operand.h" />
+    <ClInclude Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\print.h" />
+    <ClInclude Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\spirv_constant.h" />
+    <ClInclude Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\spirv_definition.h" />
+    <ClInclude Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\spirv_endian.h" />
+    <ClInclude Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\spirv_target_env.h" />
+    <ClInclude Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\spirv_validator_options.h" />
+    <ClInclude Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\table.h" />
+    <ClInclude Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\text.h" />
+    <ClInclude Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\text_handler.h" />
+    <ClInclude Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\validate.h" />
+    <ClInclude Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\val\decoration.h" />
+    <ClCompile Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\util\bit_stream.cpp" />
+    <ClCompile Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\util\parse_number.cpp" />
+    <ClCompile Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\util\string_utils.cpp" />
+    <ClCompile Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\assembly_grammar.cpp" />
+    <ClCompile Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\binary.cpp" />
+    <ClCompile Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\diagnostic.cpp" />
+    <ClCompile Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\disassemble.cpp" />
+    <ClCompile Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\enum_string_mapping.cpp" />
+    <ClCompile Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\ext_inst.cpp" />
+    <ClCompile Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\extensions.cpp" />
+    <ClCompile Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\id_descriptor.cpp" />
+    <ClCompile Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\libspirv.cpp" />
+    <ClCompile Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\message.cpp" />
+    <ClCompile Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\name_mapper.cpp" />
+    <ClCompile Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\opcode.cpp" />
+    <ClCompile Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\operand.cpp" />
+    <ClCompile Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\parsed_operand.cpp" />
+    <ClCompile Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\print.cpp" />
+    <ClCompile Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\software_version.cpp" />
+    <ClCompile Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\spirv_endian.cpp" />
+    <ClCompile Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\spirv_stats.cpp" />
+    <ClCompile Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\spirv_target_env.cpp" />
+    <ClCompile Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\spirv_validator_options.cpp" />
+    <ClCompile Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\table.cpp" />
+    <ClCompile Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\text.cpp" />
+    <ClCompile Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\text_handler.cpp" />
+    <ClCompile Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\validate.cpp" />
+    <ClCompile Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\validate_arithmetics.cpp" />
+    <ClCompile Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\validate_bitwise.cpp" />
+    <ClCompile Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\validate_capability.cpp" />
+    <ClCompile Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\validate_cfg.cpp" />
+    <ClCompile Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\validate_conversion.cpp" />
+    <ClCompile Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\validate_datarules.cpp" />
+    <ClCompile Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\validate_decorations.cpp" />
+    <ClCompile Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\validate_id.cpp" />
+    <ClCompile Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\validate_instruction.cpp" />
+    <ClCompile Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\validate_layout.cpp" />
+    <ClCompile Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\validate_logicals.cpp" />
+    <ClCompile Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\validate_type_unique.cpp" />
+    <ClCompile Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\val\basic_block.cpp" />
+    <ClCompile Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\val\construct.cpp" />
+    <ClCompile Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\val\function.cpp" />
+    <ClCompile Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\val\instruction.cpp" />
+    <ClCompile Include="D:\Vulkan\1.0.65.1\glslang\External\spirv-tools\source\val\validation_state.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="D:/Vulkan/1.0.65.1/glslang/Build/ZERO_CHECK.vcxproj">
+      <Project>98A4C49F-A867-475A-86E0-24C6A95F0158</Project>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

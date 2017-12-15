@@ -16,6 +16,10 @@ namespace WindGE
 		static void warning(wchar_t const* fmt, ...);
 		static void info(wchar_t const* fmt, ...);
 
+		static void error(char const* fmt, ...);
+		static void warning(char const* fmt, ...);
+		static void info(char const* fmt, ...);
+
 	private:
 		static FILE* __file;
 	};

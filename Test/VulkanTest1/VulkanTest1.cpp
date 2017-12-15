@@ -20,11 +20,12 @@ int WINAPI WinMain(__in HINSTANCE hInstance, __in_opt HINSTANCE /*hPrevInstance*
 		if (!res)
 		{
 			Log::error(L"vk app init faield..");
+			system("pause");
 			return 0;
 		}
 		return window.run();
-		
 		Log::destroy();
 	}
+	system("pause");
 	return 0;
 }

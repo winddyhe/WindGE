@@ -6,11 +6,15 @@
 #include <vector>
 
 #include "Config.h"
-#include "vulkan\vulkan.hpp"
-#include "vulkan\vk_sdk_platform.h"
+#include "vulkan/vulkan.hpp"
+#include "vulkan/vk_sdk_platform.h"
 #include "glm.hpp"
 #include "gtc/matrix_transform.hpp"
+#include "glslang/Public/ShaderLang.h"
+#include "SPIRV/GlslangToSpv.h"
 #include "Log.h"
+
+#define FENCE_TIMEOUT 100000000
 
 namespace WindGE
 {
@@ -69,6 +73,8 @@ namespace WindGE
 		VkResult _init_command_pool();
 		VkResult _init_command_buffer();
 		VkResult _execute_begin_command_buffer();
+		VkResult _execute_end_command_buffer();
+		VkResult _execute_queue_command_buffer();
 
 		void	 _init_device_queue();
 
@@ -78,11 +84,15 @@ namespace WindGE
 		bool	 _init_uniform_buffer();
 		bool     _init_descriptor_pipeline_layouts(bool useTexture);
 		bool	 _init_renderpass(bool includeDepth, bool clear = true, VkImageLayout finalLayout = VK_IMAGE_LAYOUT_PRESENT_SRC_KHR);
-		VkResult _init_shaders();
-		VkResult _init_frame_buffers();
+		bool	 _init_shaders();
+		bool	 _init_frame_buffers(bool includeDepth);
 
 		bool	 _memory_type_from_properties(uint32_t typeBits, VkFlags requirements_mask, uint32_t *typeIndex);
-		bool     _set_image_layout(VkImage image, VkImageAspectFlags aspectMask, VkImageLayout old_image_layout, VkImageLayout new_image_layout);
+		bool     _set_image_layout(VkImage image, VkImageAspectFlags aspectMask, VkImageLayout oldImageLayout, VkImageLayout newImageLayout);
+
+		EShLanguage __find_language(const VkShaderStageFlagBits shaderType);
+		bool		__glsl_to_spv(const VkShaderStageFlagBits shaderType, const char* pShader, std::vector<unsigned int> &spirv);
+		void		__init_shader_resources(TBuiltInResource &resources);
 
 	protected:
 		VkInstance								__vk_inst;
@@ -103,6 +113,7 @@ namespace WindGE
 		VkPipelineLayout						__vk_pipeline_layout;
 		VkRenderPass							__vk_render_pass;
 		VkPipelineShaderStageCreateInfo			__vk_pipeline_shaderstages[2];
+		VkFramebuffer*							__vk_framebuffers;
 
 		int										__client_width;
 		int										__client_height;
