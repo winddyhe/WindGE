@@ -13,6 +13,7 @@
 #include "glslang/Public/ShaderLang.h"
 #include "SPIRV/GlslangToSpv.h"
 #include "Log.h"
+#include "../../Data/cube_data.h"
 
 #define FENCE_TIMEOUT 100000000
 
@@ -46,6 +47,13 @@ namespace WindGE
 			VkDeviceMemory							mem;
 			VkDescriptorBufferInfo					bufferInfo;
 		} UniformData;
+
+		typedef struct 
+		{
+			VkBuffer buf;
+			VkDeviceMemory mem;
+			VkDescriptorBufferInfo buffer_info;
+		} VertexBufferData;
 
 	public:
 		Application();
@@ -86,13 +94,14 @@ namespace WindGE
 		bool	 _init_renderpass(bool includeDepth, bool clear = true, VkImageLayout finalLayout = VK_IMAGE_LAYOUT_PRESENT_SRC_KHR);
 		bool	 _init_shaders();
 		bool	 _init_frame_buffers(bool includeDepth);
+		bool	 _init_vertex_buffer(const void* vertexData, uint32_t dataSize, uint32_t dataStride, bool useTexture);
 
 		bool	 _memory_type_from_properties(uint32_t typeBits, VkFlags requirements_mask, uint32_t *typeIndex);
 		bool     _set_image_layout(VkImage image, VkImageAspectFlags aspectMask, VkImageLayout oldImageLayout, VkImageLayout newImageLayout);
 
-		EShLanguage __find_language(const VkShaderStageFlagBits shaderType);
-		bool		__glsl_to_spv(const VkShaderStageFlagBits shaderType, const char* pShader, std::vector<unsigned int> &spirv);
-		void		__init_shader_resources(TBuiltInResource &resources);
+		EShLanguage _find_language(const VkShaderStageFlagBits shaderType);
+		bool		_glsl_to_spv(const VkShaderStageFlagBits shaderType, const char* pShader, std::vector<unsigned int> &spirv);
+		void		_init_shader_resources(TBuiltInResource &resources);
 
 	protected:
 		VkInstance								__vk_inst;
@@ -114,6 +123,7 @@ namespace WindGE
 		VkRenderPass							__vk_render_pass;
 		VkPipelineShaderStageCreateInfo			__vk_pipeline_shaderstages[2];
 		VkFramebuffer*							__vk_framebuffers;
+		VertexBufferData						__vk_vertex_buffer;
 
 		int										__client_width;
 		int										__client_height;

@@ -7,6 +7,7 @@
 using namespace WindGE;
 
 Application::Application() :
+	__vk_framebuffers(nullptr),
 	__client_width(0),
 	__client_height(0),
 	__window_instance(nullptr),
@@ -999,7 +1000,7 @@ bool Application::_init_renderpass(bool includeDepth, bool clear/* = true*/, VkI
 	return true;
 }
 
-EShLanguage Application::__find_language(const VkShaderStageFlagBits shaderType) 
+EShLanguage Application::_find_language(const VkShaderStageFlagBits shaderType) 
 {
 	switch (shaderType) 
 	{
@@ -1026,7 +1027,7 @@ EShLanguage Application::__find_language(const VkShaderStageFlagBits shaderType)
 	}
 }
 
-void Application::__init_shader_resources(TBuiltInResource &resources)
+void Application::_init_shader_resources(TBuiltInResource &resources)
 {
 	resources.maxLights = 32;
 	resources.maxClipPlanes = 6;
@@ -1122,15 +1123,15 @@ void Application::__init_shader_resources(TBuiltInResource &resources)
 	resources.limits.generalConstantMatrixVectorIndexing = 1;
 }
 
-bool Application::__glsl_to_spv(const VkShaderStageFlagBits shaderType, const char* pShader, std::vector<unsigned int> &spirv)
+bool Application::_glsl_to_spv(const VkShaderStageFlagBits shaderType, const char* pShader, std::vector<unsigned int> &spirv)
 {
-	EShLanguage stage = __find_language(shaderType);
+	EShLanguage stage = _find_language(shaderType);
 	glslang::TShader shader(stage);
 	glslang::TProgram program;
 
 	const char* shaderString[1];
 	TBuiltInResource shaderResource;
-	__init_shader_resources(shaderResource);
+	_init_shader_resources(shaderResource);
 
 	EShMessages messages = (EShMessages)(EShMsgSpvRules | EShMsgVulkanRules);
 	shaderString[0] = pShader;
@@ -1195,7 +1196,7 @@ bool Application::_init_shaders()
 
 	glslang::InitializeProcess();
 
-	if (!this->__glsl_to_spv(VK_SHADER_STAGE_VERTEX_BIT, vertShaderText, vertexSpv))
+	if (!this->_glsl_to_spv(VK_SHADER_STAGE_VERTEX_BIT, vertShaderText, vertexSpv))
 	{
 		Log::error(L"Vertex shader compile error!");
 		return false;
@@ -1221,7 +1222,7 @@ bool Application::_init_shaders()
 	__vk_pipeline_shaderstages[1].stage = VK_SHADER_STAGE_FRAGMENT_BIT;
 	__vk_pipeline_shaderstages[1].pName = "main";
 
-	if (!this->__glsl_to_spv(VK_SHADER_STAGE_FRAGMENT_BIT, fragShaderText, fragSpv))
+	if (!this->_glsl_to_spv(VK_SHADER_STAGE_FRAGMENT_BIT, fragShaderText, fragSpv))
 	{
 		Log::error(L"Frag shader compile error!");
 		return false;
@@ -1285,5 +1286,54 @@ bool Application::_init_frame_buffers(bool includeDepth)
 		return false;
 	}
 	Log::info("Init framebuffers success");
+	return true;
+}
+
+bool Application::_init_vertex_buffer(const void* vertexData, uint32_t dataSize, uint32_t dataStride, bool useTexture)
+{
+	VkResult res;
+	bool pass;
+
+	VkBufferCreateInfo bufferCreateInfo = {};
+	bufferCreateInfo.sType = VK_STRUCTURE_TYPE_BUFFER_CREATE_INFO;
+	bufferCreateInfo.pNext = nullptr;
+	bufferCreateInfo.usage = VK_BUFFER_USAGE_VERTEX_BUFFER_BIT;
+	bufferCreateInfo.size = dataSize;
+	bufferCreateInfo.queueFamilyIndexCount = 0;
+	bufferCreateInfo.pQueueFamilyIndices = nullptr;
+	bufferCreateInfo.sharingMode = VK_SHARING_MODE_EXCLUSIVE;
+	bufferCreateInfo.flags = 0;
+
+	res = vkCreateBuffer(__vk_device, &bufferCreateInfo, nullptr, &__vk_vertex_buffer.buf);
+	if (res != VK_SUCCESS)
+	{
+		Log::error("Create vertex buffer error!");
+		return false;
+	}
+
+	VkMemoryRequirements memRequires;
+	vkGetBufferMemoryRequirements(__vk_device, __vk_vertex_buffer.buf, &memRequires);
+
+	VkMemoryAllocateInfo memAllocInfo = {};
+	memAllocInfo.sType = VK_STRUCTURE_TYPE_MEMORY_ALLOCATE_INFO;
+	memAllocInfo.pNext = nullptr;
+	memAllocInfo.memoryTypeIndex = 0;
+	memAllocInfo.allocationSize = memRequires.size;
+
+	pass = _memory_type_from_properties(memRequires.memoryTypeBits, 
+										VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT | VK_MEMORY_PROPERTY_HOST_COHERENT_BIT,
+										&memAllocInfo.memoryTypeIndex);
+	if (!pass)
+	{
+		Log::error("Create vertex info error, No mappable, coherent memory!");
+		return false;
+	}
+	
+	res = vkAllocateMemory(__vk_device, &memAllocInfo, nullptr, &__vk_vertex_buffer.mem);
+	if (res != VK_SUCCESS)
+	{
+		Log::error("");
+		return false;
+	}
 	return true;
 }
