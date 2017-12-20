@@ -23,7 +23,13 @@ Application::Application() :
 }
 
 Application::~Application()
-{	
+{
+	vkDestroyPipeline(__vk_device, __vk_pipeline, nullptr);
+	vkDestroyPipelineCache(__vk_device, __vk_pipeline_cache, nullptr);
+	vkDestroyDescriptorPool(__vk_device, __vk_descriptor_pool, nullptr);
+	vkDestroyBuffer(__vk_device, __vk_vertex_buffer.buf, nullptr);
+	vkFreeMemory(__vk_device, __vk_vertex_buffer.mem, nullptr);
+
 	for (uint32_t i = 0; i < __swapchain_image_count; i++) 
 	{
 		vkDestroyFramebuffer(__vk_device, __vk_framebuffers[i], NULL);
@@ -98,6 +104,13 @@ bool Application::init(HINSTANCE inst, HWND hwnd, int width, int height)
 	if (!_init_shaders())				  return false;
 
 	if (!_init_frame_buffers(true))		  return false;
+	if (!_init_vertex_buffer(g_vb_solid_face_colors_Data, sizeof(g_vb_solid_face_colors_Data), sizeof(g_vb_solid_face_colors_Data[0]), false)) return false;
+	if (!_init_descriptor_pool(false))	  return false;
+	if (!_init_descriptor_set(false))	  return false;
+	if (!_init_pipeline_cache())		  return false;
+	if (!_init_pipeline(true))			  return false;
+
+	if (!_draw_cube())					  return false;
 
 	return true;
 }
@@ -1325,15 +1338,427 @@ bool Application::_init_vertex_buffer(const void* vertexData, uint32_t dataSize,
 										&memAllocInfo.memoryTypeIndex);
 	if (!pass)
 	{
-		Log::error("Create vertex info error, No mappable, coherent memory!");
+		Log::error("Create vertex buffer info error, No mappable, coherent memory!");
 		return false;
 	}
 	
 	res = vkAllocateMemory(__vk_device, &memAllocInfo, nullptr, &__vk_vertex_buffer.mem);
 	if (res != VK_SUCCESS)
 	{
-		Log::error("");
+		Log::error("Create vertex buffer info error, allocate memory failed!");
+		return false;
+	}
+	__vk_vertex_buffer.buffer_info.range = memRequires.size;
+	__vk_vertex_buffer.buffer_info.offset = 0;
+
+	uint8_t *pData;
+	res = vkMapMemory(__vk_device, __vk_vertex_buffer.mem, 0, memRequires.size, 0, (void**)&pData);
+	if (res != VK_SUCCESS)
+	{
+		Log::error("Create vertex buffer info error, map memory failed!");
+		return false;
+	}
+	memcpy(pData, vertexData, dataSize);
+	vkUnmapMemory(__vk_device, __vk_vertex_buffer.mem);
+
+	res = vkBindBufferMemory(__vk_device, __vk_vertex_buffer.buf, __vk_vertex_buffer.mem, 0);
+	if (res != VK_SUCCESS)
+	{
+		Log::error("Create vertex buffer info error, bind buffer memory failed!");
+		return false;
+	}
+
+	__vk_vi_binding.binding = 0;
+	__vk_vi_binding.inputRate = VK_VERTEX_INPUT_RATE_VERTEX;
+	__vk_vi_binding.stride = dataStride;
+
+	__vk_vi_attribs[0].binding = 0;
+	__vk_vi_attribs[0].location = 0;
+	__vk_vi_attribs[0].format = VK_FORMAT_R32G32B32A32_SFLOAT;
+	__vk_vi_attribs[0].offset = 0;
+
+	__vk_vi_attribs[1].binding = 0;
+	__vk_vi_attribs[1].location = 1;
+	__vk_vi_attribs[1].format = useTexture ? VK_FORMAT_R32G32_SFLOAT : VK_FORMAT_R32G32B32A32_SFLOAT;
+	__vk_vi_attribs[1].offset = 16;
+
+	Log::info("Init vertexbuffer success");
+	return true;
+}
+
+bool Application::_init_descriptor_pool(bool useTexture)
+{
+	VkResult res;
+	
+	VkDescriptorPoolSize typeCount[2];
+	typeCount[0].type = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
+	typeCount[0].descriptorCount = 1;
+	if (useTexture)
+	{
+		typeCount[1].type = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
+		typeCount[1].descriptorCount = 1;
+	}
+	VkDescriptorPoolCreateInfo descriptorPoolCreateInfo = {};
+	descriptorPoolCreateInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_POOL_CREATE_INFO;
+	descriptorPoolCreateInfo.pNext = nullptr;
+	descriptorPoolCreateInfo.maxSets = 1;
+	descriptorPoolCreateInfo.poolSizeCount = useTexture ? 2 : 1;
+	descriptorPoolCreateInfo.pPoolSizes = typeCount;
+
+	res = vkCreateDescriptorPool(__vk_device, &descriptorPoolCreateInfo, nullptr, &__vk_descriptor_pool);
+	if (res != VK_SUCCESS)
+	{
+		Log::error("Create descriptor pool error.");
+		return false;
+	}
+
+	return true;
+}
+
+bool Application::_init_descriptor_set(bool useTexture)
+{
+	VkResult res;
+
+	VkDescriptorSetAllocateInfo descriptorAllocInfo = {};
+	descriptorAllocInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_ALLOCATE_INFO;
+	descriptorAllocInfo.pNext = nullptr;
+	descriptorAllocInfo.descriptorPool = __vk_descriptor_pool;
+	descriptorAllocInfo.descriptorSetCount = NUM_DESCRIPTOR_SETS;
+	descriptorAllocInfo.pSetLayouts = __vk_desc_layouts.data();
+
+	__vk_descriptor_sets.resize(NUM_DESCRIPTOR_SETS);
+	res = vkAllocateDescriptorSets(__vk_device, &descriptorAllocInfo, __vk_descriptor_sets.data());
+	if (res != VK_SUCCESS)
+	{
+		Log::error("Create descriptor set error.");
+		return false;
+	}
+
+	VkWriteDescriptorSet writes[2];
+	writes[0] = {};
+	writes[0].sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
+	writes[0].pNext = nullptr;
+	writes[0].dstSet = __vk_descriptor_sets[0];
+	writes[0].descriptorCount = 1;
+	writes[0].descriptorType = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
+	writes[0].pBufferInfo = &__uniform_mvp.bufferInfo;
+	writes[0].dstArrayElement = 0;
+	writes[0].dstBinding = 0;
+
+	if (useTexture)
+	{
+		//TODO:
+	}
+
+	vkUpdateDescriptorSets(__vk_device, useTexture ? 2 : 1, writes, 0, nullptr);
+	return true;
+}
+
+bool Application::_init_pipeline_cache() 
+{
+	VkResult res;
+
+	VkPipelineCacheCreateInfo pipelineCacheCreateInfo;
+	pipelineCacheCreateInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_CACHE_CREATE_INFO;
+	pipelineCacheCreateInfo.pNext = nullptr;
+	pipelineCacheCreateInfo.initialDataSize = 0;
+	pipelineCacheCreateInfo.pInitialData = nullptr;
+	pipelineCacheCreateInfo.flags = 0;
+
+	res = vkCreatePipelineCache(__vk_device, &pipelineCacheCreateInfo, nullptr, &__vk_pipeline_cache);
+	if (res != VK_SUCCESS)
+	{
+		Log::error("Create pipline cache error.");
 		return false;
 	}
 	return true;
+}
+
+bool Application::_init_pipeline(bool includeDepth, bool includeVi/* = true*/)
+{
+	VkResult res;
+
+	VkDynamicState dynamicStateEnables[VK_DYNAMIC_STATE_RANGE_SIZE];
+	memset(dynamicStateEnables, 0, sizeof dynamicStateEnables);
+	
+	VkPipelineDynamicStateCreateInfo dynamicStateCreateInfo = {};
+	dynamicStateCreateInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_DYNAMIC_STATE_CREATE_INFO;
+	dynamicStateCreateInfo.pNext = nullptr;
+	dynamicStateCreateInfo.pDynamicStates = dynamicStateEnables;
+	dynamicStateCreateInfo.dynamicStateCount = 0;
+
+	VkPipelineVertexInputStateCreateInfo viStateCreateInfo = {};
+	viStateCreateInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_VERTEX_INPUT_STATE_CREATE_INFO;
+	if (includeVi)
+	{
+		viStateCreateInfo.pNext = nullptr;
+		viStateCreateInfo.flags = 0;
+		viStateCreateInfo.vertexBindingDescriptionCount = 1;
+		viStateCreateInfo.pVertexBindingDescriptions = &__vk_vi_binding;
+		viStateCreateInfo.vertexAttributeDescriptionCount = 2;
+		viStateCreateInfo.pVertexAttributeDescriptions = __vk_vi_attribs;
+	}
+
+	VkPipelineInputAssemblyStateCreateInfo iaStateCreateInfo = {};
+	iaStateCreateInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_INPUT_ASSEMBLY_STATE_CREATE_INFO;
+	iaStateCreateInfo.pNext = nullptr;
+	iaStateCreateInfo.flags = 0;
+	iaStateCreateInfo.primitiveRestartEnable = VK_FALSE;
+	iaStateCreateInfo.topology = VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST;
+
+	VkPipelineRasterizationStateCreateInfo rsStateCreateInfo = {};
+	rsStateCreateInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_RASTERIZATION_STATE_CREATE_INFO;
+	rsStateCreateInfo.pNext = nullptr;
+	rsStateCreateInfo.flags = 0;
+	rsStateCreateInfo.polygonMode = VK_POLYGON_MODE_FILL;
+	rsStateCreateInfo.cullMode = VK_CULL_MODE_BACK_BIT;
+	rsStateCreateInfo.frontFace = VK_FRONT_FACE_CLOCKWISE;
+	rsStateCreateInfo.depthClampEnable = VK_FALSE;
+	rsStateCreateInfo.rasterizerDiscardEnable = VK_FALSE;
+	rsStateCreateInfo.depthBiasEnable = VK_FALSE;
+	rsStateCreateInfo.depthBiasConstantFactor = 0;
+	rsStateCreateInfo.depthBiasClamp = 0;
+	rsStateCreateInfo.depthBiasSlopeFactor = 0;
+	rsStateCreateInfo.lineWidth = 1.0f;
+
+	VkPipelineColorBlendStateCreateInfo cbStateCreateInfo = {};
+	cbStateCreateInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_COLOR_BLEND_STATE_CREATE_INFO;
+	cbStateCreateInfo.flags = 0;
+	cbStateCreateInfo.pNext = nullptr;
+	VkPipelineColorBlendAttachmentState attState[1];
+	attState[0].colorWriteMask = 0xf;
+	attState[0].blendEnable = VK_FALSE;
+	attState[0].alphaBlendOp = VK_BLEND_OP_ADD;
+	attState[0].colorBlendOp = VK_BLEND_OP_ADD;
+	attState[0].srcColorBlendFactor = VK_BLEND_FACTOR_ZERO;
+	attState[0].dstColorBlendFactor = VK_BLEND_FACTOR_ZERO;
+	attState[0].srcAlphaBlendFactor = VK_BLEND_FACTOR_ZERO;
+	attState[0].dstAlphaBlendFactor = VK_BLEND_FACTOR_ZERO;
+	cbStateCreateInfo.attachmentCount = 1;
+	cbStateCreateInfo.pAttachments = attState;
+	cbStateCreateInfo.logicOpEnable = VK_FALSE;
+	cbStateCreateInfo.logicOp = VK_LOGIC_OP_NO_OP;
+	cbStateCreateInfo.blendConstants[0] = 1.0f;
+	cbStateCreateInfo.blendConstants[1] = 1.0f;
+	cbStateCreateInfo.blendConstants[2] = 1.0f;
+	cbStateCreateInfo.blendConstants[3] = 1.0f;
+
+	VkPipelineViewportStateCreateInfo vpStateCreateInfo = {};
+	vpStateCreateInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_VIEWPORT_STATE_CREATE_INFO;
+	vpStateCreateInfo.pNext = nullptr;
+	vpStateCreateInfo.flags = 0;
+
+	vpStateCreateInfo.viewportCount = NUM_VIEWPORTS;
+	dynamicStateEnables[dynamicStateCreateInfo.dynamicStateCount++] = VK_DYNAMIC_STATE_VIEWPORT;
+	vpStateCreateInfo.scissorCount = NUM_SCISSORS;
+	dynamicStateEnables[dynamicStateCreateInfo.dynamicStateCount++] = VK_DYNAMIC_STATE_SCISSOR;
+	vpStateCreateInfo.pScissors = nullptr;
+	vpStateCreateInfo.pViewports = nullptr;
+
+	VkPipelineDepthStencilStateCreateInfo dsStateCreateInfo;
+	dsStateCreateInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_DEPTH_STENCIL_STATE_CREATE_INFO;
+	dsStateCreateInfo.pNext = nullptr;
+	dsStateCreateInfo.flags = 0;
+	dsStateCreateInfo.depthTestEnable = includeDepth;
+	dsStateCreateInfo.depthWriteEnable = includeDepth;
+	dsStateCreateInfo.depthCompareOp = VK_COMPARE_OP_LESS_OR_EQUAL;
+	dsStateCreateInfo.depthBoundsTestEnable = VK_FALSE;
+	dsStateCreateInfo.stencilTestEnable = VK_FALSE;
+	dsStateCreateInfo.back.failOp = VK_STENCIL_OP_KEEP;
+	dsStateCreateInfo.back.passOp = VK_STENCIL_OP_KEEP;
+	dsStateCreateInfo.back.compareOp = VK_COMPARE_OP_ALWAYS;
+	dsStateCreateInfo.back.compareMask = 0;
+	dsStateCreateInfo.back.reference = 0;
+	dsStateCreateInfo.back.depthFailOp = VK_STENCIL_OP_KEEP;
+	dsStateCreateInfo.back.writeMask = 0;
+	dsStateCreateInfo.minDepthBounds = 0;
+	dsStateCreateInfo.maxDepthBounds = 0;
+	dsStateCreateInfo.stencilTestEnable = VK_FALSE;
+	dsStateCreateInfo.front = dsStateCreateInfo.back;
+
+	VkPipelineMultisampleStateCreateInfo msStateCreateInfo;
+	msStateCreateInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_MULTISAMPLE_STATE_CREATE_INFO;
+	msStateCreateInfo.pNext = nullptr;
+	msStateCreateInfo.flags = 0;
+	msStateCreateInfo.pSampleMask = nullptr;
+	msStateCreateInfo.rasterizationSamples = NUM_SAMPLES;
+	msStateCreateInfo.sampleShadingEnable = VK_FALSE;
+	msStateCreateInfo.alphaToCoverageEnable = VK_FALSE;
+	msStateCreateInfo.alphaToOneEnable = VK_FALSE;
+	msStateCreateInfo.minSampleShading = 0.0;
+
+	VkGraphicsPipelineCreateInfo pipelineCreateInfo = {};
+	pipelineCreateInfo.sType = VK_STRUCTURE_TYPE_GRAPHICS_PIPELINE_CREATE_INFO;
+	pipelineCreateInfo.pNext = nullptr;
+	pipelineCreateInfo.layout = __vk_pipeline_layout;
+	pipelineCreateInfo.basePipelineHandle = VK_NULL_HANDLE;
+	pipelineCreateInfo.basePipelineIndex = 0;
+	pipelineCreateInfo.flags = 0;
+	pipelineCreateInfo.pVertexInputState = &viStateCreateInfo;
+	pipelineCreateInfo.pInputAssemblyState = &iaStateCreateInfo;
+	pipelineCreateInfo.pRasterizationState = &rsStateCreateInfo;
+	pipelineCreateInfo.pColorBlendState = &cbStateCreateInfo;
+	pipelineCreateInfo.pTessellationState = nullptr;
+	pipelineCreateInfo.pMultisampleState = &msStateCreateInfo;
+	pipelineCreateInfo.pDynamicState = &dynamicStateCreateInfo;
+	pipelineCreateInfo.pViewportState = &vpStateCreateInfo;
+	pipelineCreateInfo.pDepthStencilState = &dsStateCreateInfo;
+	pipelineCreateInfo.pStages = __vk_pipeline_shaderstages;
+	pipelineCreateInfo.stageCount = 2;
+	pipelineCreateInfo.renderPass = __vk_render_pass;
+	pipelineCreateInfo.subpass = 0;
+
+	res = vkCreateGraphicsPipelines(__vk_device, __vk_pipeline_cache, 1, &pipelineCreateInfo, nullptr, &__vk_pipeline);
+	if (res != VK_SUCCESS)
+	{
+		Log::error("Init pipeline error, create failed.");
+		return false;
+	}
+
+	Log::info("Init pipeline completed..");
+	return true;
+}
+
+bool Application::_draw_cube() 
+{
+	VkResult res;
+
+	VkClearValue clearValues[2];
+	clearValues[0].color.float32[0] = 0.2f;
+	clearValues[0].color.float32[1] = 0.2f;
+	clearValues[0].color.float32[2] = 0.2f;
+	clearValues[0].color.float32[3] = 0.2f;
+	clearValues[1].depthStencil.depth = 1.0f;
+	clearValues[1].depthStencil.stencil = 0;
+
+	VkSemaphore imageAcquiredSemaphore;
+	VkSemaphoreCreateInfo imageAcquiredSemaphoreCreateInfo;
+	imageAcquiredSemaphoreCreateInfo.sType = VK_STRUCTURE_TYPE_SEMAPHORE_CREATE_INFO;
+	imageAcquiredSemaphoreCreateInfo.pNext = NULL;
+	imageAcquiredSemaphoreCreateInfo.flags = 0;
+
+	res = vkCreateSemaphore(__vk_device, &imageAcquiredSemaphoreCreateInfo, NULL, &imageAcquiredSemaphore);
+	if (res != VK_SUCCESS)
+	{
+		Log::error("vkCreateSemaphore failed.");
+		return false;
+	}
+
+	res = vkAcquireNextImageKHR(__vk_device, __vk_swapchain, UINT64_MAX, imageAcquiredSemaphore, VK_NULL_HANDLE, &__current_swapchain_buffer);
+	if (res != VK_SUCCESS)
+	{
+		Log::error("vkAcquireNextImageKHR failed.");
+		return false;
+	}
+
+	VkRenderPassBeginInfo rpBeginInfo;
+	rpBeginInfo.sType = VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO;
+	rpBeginInfo.pNext = nullptr;
+	rpBeginInfo.renderPass = __vk_render_pass;
+	rpBeginInfo.framebuffer = __vk_framebuffers[__current_swapchain_buffer];
+	rpBeginInfo.renderArea.offset.x = 0;
+	rpBeginInfo.renderArea.offset.y = 0;
+	rpBeginInfo.renderArea.extent.width = __client_width;
+	rpBeginInfo.renderArea.extent.height = __client_height;
+	rpBeginInfo.clearValueCount = 2;
+	rpBeginInfo.pClearValues = clearValues;
+
+	vkCmdBeginRenderPass(__vk_command_buffer, &rpBeginInfo, VK_SUBPASS_CONTENTS_INLINE);
+
+	vkCmdBindPipeline(__vk_command_buffer, VK_PIPELINE_BIND_POINT_GRAPHICS, __vk_pipeline);
+	vkCmdBindDescriptorSets(__vk_command_buffer, VK_PIPELINE_BIND_POINT_GRAPHICS, __vk_pipeline_layout, 0, NUM_DESCRIPTOR_SETS,
+							__vk_descriptor_sets.data(), 0, nullptr);
+
+	const VkDeviceSize offsets[1] = { 0 };
+	vkCmdBindVertexBuffers(__vk_command_buffer, 0, 1, &__vk_vertex_buffer.buf, offsets);
+
+	_init_viewports();
+	_init_scissors();
+
+	vkCmdDraw(__vk_command_buffer, 12 * 3, 1, 0, 0);
+	vkCmdEndRenderPass(__vk_command_buffer);
+	res = vkEndCommandBuffer(__vk_command_buffer);
+	const VkCommandBuffer cmd_bufs[] = { __vk_command_buffer };
+
+	VkFenceCreateInfo fenceInfo;
+	VkFence drawFence;
+	fenceInfo.sType = VK_STRUCTURE_TYPE_FENCE_CREATE_INFO;
+	fenceInfo.pNext = nullptr;
+	fenceInfo.flags = 0;
+	vkCreateFence(__vk_device, &fenceInfo, nullptr, &drawFence);
+
+	VkPipelineStageFlags pipeStageFlags = VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT;
+	VkSubmitInfo submitInfo[1] = {};
+	submitInfo[0].pNext = nullptr;
+	submitInfo[0].sType = VK_STRUCTURE_TYPE_SUBMIT_INFO;
+	submitInfo[0].waitSemaphoreCount = 1;
+	submitInfo[0].pWaitSemaphores = &imageAcquiredSemaphore;
+	submitInfo[0].pWaitDstStageMask = &pipeStageFlags;
+	submitInfo[0].commandBufferCount = 1;
+	submitInfo[0].pCommandBuffers = cmd_bufs;
+	submitInfo[0].signalSemaphoreCount = 0;
+	submitInfo[0].pSignalSemaphores = nullptr;
+
+	res = vkQueueSubmit(__vk_graphics_queue, 1, submitInfo, drawFence);
+	if (res != VK_SUCCESS)
+	{
+		Log::error("vkQueueSubmit failed.");
+		return false;
+	}
+
+	VkPresentInfoKHR present;
+	present.sType = VK_STRUCTURE_TYPE_PRESENT_INFO_KHR;
+	present.pNext = nullptr;
+	present.swapchainCount = 1;
+	present.pSwapchains = &__vk_swapchain;
+	present.pImageIndices = &__current_swapchain_buffer;
+	present.pWaitSemaphores = nullptr;
+	present.waitSemaphoreCount = 0;
+	present.pResults = nullptr;
+
+	do 
+	{
+		res = vkWaitForFences(__vk_device, 1, &drawFence, VK_TRUE, FENCE_TIMEOUT);
+	} 
+	while (res == VK_TIMEOUT);
+	if (res != VK_SUCCESS)
+	{
+		Log::error("vkWaitForFences failed.");
+		return false;
+	}
+
+	res = vkQueuePresentKHR(__vk_present_queue, &present);
+	if (res != VK_SUCCESS)
+	{
+		Log::error("vkQueuePresentKHR failed.");
+		return false;
+	}
+
+	Sleep(1 * 1000);
+
+	vkDestroySemaphore(__vk_device, imageAcquiredSemaphore, nullptr);
+	vkDestroyFence(__vk_device, drawFence, nullptr);
+	return true;
+}
+
+void Application::_init_viewports() 
+{
+	__vk_viewport.height = (float)__client_height;
+	__vk_viewport.width = (float)__client_width;
+	__vk_viewport.minDepth = (float)0.0f;
+	__vk_viewport.maxDepth = (float)1.0f;
+	__vk_viewport.x = 0;
+	__vk_viewport.y = 0;
+
+	vkCmdSetViewport(__vk_command_buffer, 0, NUM_VIEWPORTS, &__vk_viewport);
+}
+
+void Application::_init_scissors() 
+{
+	__vk_scissor.extent.width = __client_width;
+	__vk_scissor.extent.height = __client_height;
+	__vk_scissor.offset.x = 0;
+	__vk_scissor.offset.y = 0;
+
+	vkCmdSetScissor(__vk_command_buffer, 0, NUM_SCISSORS, &__vk_scissor);
 }

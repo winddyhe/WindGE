@@ -15,10 +15,14 @@
 #include "Log.h"
 #include "../../Data/cube_data.h"
 
-#define FENCE_TIMEOUT 100000000
-
 namespace WindGE
 {
+	#define FENCE_TIMEOUT			100000000
+	#define NUM_DESCRIPTOR_SETS		1
+	#define NUM_SAMPLES				VK_SAMPLE_COUNT_1_BIT
+	#define NUM_VIEWPORTS			1
+	#define NUM_SCISSORS			NUM_VIEWPORTS
+
 	class WIND_CORE_API Application
 	{
 		typedef struct 
@@ -95,6 +99,12 @@ namespace WindGE
 		bool	 _init_shaders();
 		bool	 _init_frame_buffers(bool includeDepth);
 		bool	 _init_vertex_buffer(const void* vertexData, uint32_t dataSize, uint32_t dataStride, bool useTexture);
+		bool	 _init_descriptor_pool(bool useTexture);
+		bool	 _init_descriptor_set(bool useTexture);
+		bool	 _init_pipeline_cache();
+		bool	 _init_pipeline(bool includeDepth, bool includeVi = true);
+
+		bool	 _draw_cube();
 
 		bool	 _memory_type_from_properties(uint32_t typeBits, VkFlags requirements_mask, uint32_t *typeIndex);
 		bool     _set_image_layout(VkImage image, VkImageAspectFlags aspectMask, VkImageLayout oldImageLayout, VkImageLayout newImageLayout);
@@ -102,6 +112,9 @@ namespace WindGE
 		EShLanguage _find_language(const VkShaderStageFlagBits shaderType);
 		bool		_glsl_to_spv(const VkShaderStageFlagBits shaderType, const char* pShader, std::vector<unsigned int> &spirv);
 		void		_init_shader_resources(TBuiltInResource &resources);
+
+		void		_init_viewports();
+		void		_init_scissors();
 
 	protected:
 		VkInstance								__vk_inst;
@@ -124,6 +137,14 @@ namespace WindGE
 		VkPipelineShaderStageCreateInfo			__vk_pipeline_shaderstages[2];
 		VkFramebuffer*							__vk_framebuffers;
 		VertexBufferData						__vk_vertex_buffer;
+		VkVertexInputBindingDescription			__vk_vi_binding;
+		VkVertexInputAttributeDescription		__vk_vi_attribs[2];
+		VkDescriptorPool						__vk_descriptor_pool;
+		std::vector<VkDescriptorSet>			__vk_descriptor_sets;
+		VkPipelineCache							__vk_pipeline_cache;
+		VkPipeline								__vk_pipeline;
+		VkViewport								__vk_viewport;
+		VkRect2D								__vk_scissor;
 
 		int										__client_width;
 		int										__client_height;
