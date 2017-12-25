@@ -162,6 +162,7 @@
     <ClInclude Include="Core\Timer.h" />
     <ClInclude Include="Include\Engine.h" />
     <ClInclude Include="Platform\Win32Window.h" />
+    <ClInclude Include="Render\RenderDevice.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Core\Application.cpp" />
@@ -169,6 +170,7 @@
     <ClCompile Include="Core\Timer.cpp" />
     <ClCompile Include="Include\Engine.cpp" />
     <ClCompile Include="Platform\Win32Window.cpp" />
+    <ClCompile Include="Render\RenderDevice.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -9,4 +9,6 @@
 
 #include "../Platform/Win32Window.h"
 
+#include "../Render/RenderDevice.h"
+
 #endif // !__ENGINE_H__

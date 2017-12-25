@@ -10,6 +10,9 @@
     <Filter Include="Platform">
       <UniqueIdentifier>{e771f26c-df2d-4a51-810e-1b77d1a006d6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Render">
+      <UniqueIdentifier>{d8ee53b7-785f-425a-85e6-fde0ca6fdea2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Core\Application.cpp">
@@ -26,6 +29,9 @@
     </ClCompile>
     <ClCompile Include="Core\Log.cpp">
       <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Render\RenderDevice.cpp">
+      <Filter>Render</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -46,6 +52,9 @@
     </ClInclude>
     <ClInclude Include="Core\Log.h">
       <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Render\RenderDevice.h">
+      <Filter>Render</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
