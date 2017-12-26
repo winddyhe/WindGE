@@ -99,7 +99,7 @@ LRESULT Win32Window::msg_proc(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 	case WM_SIZE:
 		__width = LOWORD(lParam);
 		__height = HIWORD(lParam);
-		if (__app && __app->device())
+		if (__app)
 		{
 			if (wParam == SIZE_MINIMIZED)
 			{

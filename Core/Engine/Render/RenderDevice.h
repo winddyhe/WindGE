@@ -32,6 +32,16 @@ namespace WindGE
 		bool init(HINSTANCE inst, HWND hwnd);
 		void release();
 
+	public:
+		inline const VkDevice& device()	const								{ return __vk_device;					}
+		inline const VkSurfaceKHR& surface() const							{ return __vk_surface;					}
+		inline const std::vector<VkPhysicalDevice>& gpus() const			{ return __vk_gpus;						}
+		inline const VkPhysicalDeviceMemoryProperties& memory_props() const { return __vk_memory_props;				}
+
+		inline uint32_t graphics_queue_family_index() const					{ return __graphics_queue_family_index;	}
+		inline uint32_t	present_queue_family_index() const					{ return __present_queue_family_index;	}
+		inline VkFormat	surface_format() const								{ return __surface_format;				}
+
 	protected:
 		bool _init_global_extension_properties(LayerProperties& layerProps);
 		bool _init_global_layer_properties();

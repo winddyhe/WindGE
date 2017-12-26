@@ -22,13 +22,13 @@ bool RenderDevice::init(HINSTANCE inst, HWND hwnd)
 	__window_instance = inst;
 	__window_hwnd = hwnd;
 
-	if (_init_global_layer_properties())  return false;
-	if (_init_instance_extension_names()) return false;
-	if (_init_device_extension_names())   return false;
-	if (_init_instance())				  return false;
-	if (!_init_enumerate_device())	      return false;
-	if (!_init_surface_khr())			  return false;
-	if (_init_device())					  return false;
+	if (!_init_global_layer_properties())	return false;
+	if (!_init_instance_extension_names())	return false;
+	if (!_init_device_extension_names())	return false;
+	if (!_init_instance())					return false;
+	if (!_init_enumerate_device())			return false;
+	if (!_init_surface_khr())				return false;
+	if (!_init_device())					return false;
 
 	return true;
 }

@@ -14,6 +14,7 @@
 #include "SPIRV/GlslangToSpv.h"
 #include "Log.h"
 #include "../../Data/cube_data.h"
+#include "../Render/RenderDevice.h"
 
 namespace WindGE
 {
@@ -69,19 +70,7 @@ namespace WindGE
 		virtual void draw();
 		virtual void resize(int w, int h);
 
-		inline VkDevice* device() { return &__vk_device; }
-
 	protected:
-		VkResult _init_global_extension_properties(LayerProperties& layerProps);
-		VkResult _init_global_layer_properties();
-		VkResult _init_instance_extension_names();
-		VkResult _init_device_extension_names();
-
-		VkResult _init_instance();
-		bool	 _init_enumerate_device();
-		bool	 _init_surface_khr();
-		VkResult _init_device();
-
 		VkResult _init_command_pool();
 		VkResult _init_command_buffer();
 		VkResult _execute_begin_command_buffer();
@@ -117,13 +106,8 @@ namespace WindGE
 		void		_init_scissors();
 
 	protected:
-		VkInstance								__vk_inst;
-		std::vector<VkPhysicalDevice>			__vk_gpus;
-		std::vector<VkQueueFamilyProperties>	__vk_queue_family_props;
-		VkPhysicalDeviceMemoryProperties		__vk_memory_props;
-		VkPhysicalDeviceProperties				__vk_gpu_props;
-		VkDevice								__vk_device;
-		VkSurfaceKHR							__vk_surface;
+		RenderDevice&							__render_device;
+
 		VkCommandPool							__vk_commnad_pool;
 		VkCommandBuffer							__vk_command_buffer;
 		VkQueue									__vk_graphics_queue;
@@ -148,22 +132,8 @@ namespace WindGE
 
 		int										__client_width;
 		int										__client_height;
-		HINSTANCE								__window_instance;
-		HWND									__window_hwnd;
-		std::string								__app_short_name;
-
-		std::vector<LayerProperties>			__layer_props_vec;
-		std::vector<const char*>				__inst_extension_names;
-		std::vector<const char*>				__device_extension_names;
-		uint32_t								__queue_family_count;
-		uint32_t								__queue_family_index;
-		uint32_t								__graphics_queue_family_index;
-		uint32_t								__present_queue_family_index;
 		uint32_t								__current_swapchain_buffer;
-
 		uint32_t								__swapchain_image_count;
-		
-		VkFormat								__surface_format;
 
 		glm::mat4								__proj_mat;
 		glm::mat4								__view_mat;

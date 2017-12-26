@@ -7,16 +7,10 @@
 using namespace WindGE;
 
 Application::Application() :
+	__render_device(RenderDevice::instance()),
 	__vk_framebuffers(nullptr),
 	__client_width(0),
 	__client_height(0),
-	__window_instance(nullptr),
-	__window_hwnd(nullptr),
-	__app_short_name("App"),
-	__queue_family_count(0),
-	__queue_family_index(0),
-	__graphics_queue_family_index(0),
-	__present_queue_family_index(0),
 	__swapchain_image_count(0),
 	__current_swapchain_buffer(0)
 {
@@ -24,67 +18,58 @@ Application::Application() :
 
 Application::~Application()
 {
-	vkDestroyPipeline(__vk_device, __vk_pipeline, nullptr);
-	vkDestroyPipelineCache(__vk_device, __vk_pipeline_cache, nullptr);
-	vkDestroyDescriptorPool(__vk_device, __vk_descriptor_pool, nullptr);
-	vkDestroyBuffer(__vk_device, __vk_vertex_buffer.buf, nullptr);
-	vkFreeMemory(__vk_device, __vk_vertex_buffer.mem, nullptr);
+	vkDestroyPipeline(__render_device.device(), __vk_pipeline, nullptr);
+	vkDestroyPipelineCache(__render_device.device(), __vk_pipeline_cache, nullptr);
+	vkDestroyDescriptorPool(__render_device.device(), __vk_descriptor_pool, nullptr);
+	vkDestroyBuffer(__render_device.device(), __vk_vertex_buffer.buf, nullptr);
+	vkFreeMemory(__render_device.device(), __vk_vertex_buffer.mem, nullptr);
 
 	for (uint32_t i = 0; i < __swapchain_image_count; i++) 
 	{
-		vkDestroyFramebuffer(__vk_device, __vk_framebuffers[i], NULL);
+		vkDestroyFramebuffer(__render_device.device(), __vk_framebuffers[i], NULL);
 	}
 	free(__vk_framebuffers);
 	__vk_framebuffers = nullptr;
 
-	vkDestroyShaderModule(__vk_device, __vk_pipeline_shaderstages[0].module, nullptr);
-	vkDestroyShaderModule(__vk_device, __vk_pipeline_shaderstages[1].module, nullptr);
+	vkDestroyShaderModule(__render_device.device(), __vk_pipeline_shaderstages[0].module, nullptr);
+	vkDestroyShaderModule(__render_device.device(), __vk_pipeline_shaderstages[1].module, nullptr);
 
-	vkDestroyRenderPass(__vk_device, __vk_render_pass, nullptr);
+	vkDestroyRenderPass(__render_device.device(), __vk_render_pass, nullptr);
 
 	for (int i = 0; i < 1; i++)
 	{
-		vkDestroyDescriptorSetLayout(__vk_device, __vk_desc_layouts[i], nullptr);
+		vkDestroyDescriptorSetLayout(__render_device.device(), __vk_desc_layouts[i], nullptr);
 	}
-	vkDestroyPipelineLayout(__vk_device, __vk_pipeline_layout, nullptr);
+	vkDestroyPipelineLayout(__render_device.device(), __vk_pipeline_layout, nullptr);
 
-	vkDestroyBuffer(__vk_device, __uniform_mvp.buf, nullptr);
-	vkFreeMemory(__vk_device, __uniform_mvp.mem, nullptr);
+	vkDestroyBuffer(__render_device.device(), __uniform_mvp.buf, nullptr);
+	vkFreeMemory(__render_device.device(), __uniform_mvp.mem, nullptr);
 
-	vkDestroyImageView(__vk_device, __vk_depth.view, nullptr);
-	vkDestroyImage(__vk_device, __vk_depth.image, nullptr);
-	vkFreeMemory(__vk_device, __vk_depth.mem, nullptr);
+	vkDestroyImageView(__render_device.device(), __vk_depth.view, nullptr);
+	vkDestroyImage(__render_device.device(), __vk_depth.image, nullptr);
+	vkFreeMemory(__render_device.device(), __vk_depth.mem, nullptr);
 
-	if (__vk_device)
+	if (__render_device.device())
 	{
 		for (uint32_t i = 0; i < __swapchain_image_count; i++) 
 		{
-			vkDestroyImageView(__vk_device, __vk_swapchain_buffers[i].view, NULL);
+			vkDestroyImageView(__render_device.device(), __vk_swapchain_buffers[i].view, NULL);
 		}
-		vkDestroySwapchainKHR(__vk_device, __vk_swapchain, NULL);
+		vkDestroySwapchainKHR(__render_device.device(), __vk_swapchain, NULL);
 
 		VkCommandBuffer cmdBufs[1] = { __vk_command_buffer };
-		vkFreeCommandBuffers(__vk_device, __vk_commnad_pool, 1, cmdBufs);
-		vkDestroyCommandPool(__vk_device, __vk_commnad_pool, nullptr);
+		vkFreeCommandBuffers(__render_device.device(), __vk_commnad_pool, 1, cmdBufs);
+		vkDestroyCommandPool(__render_device.device(), __vk_commnad_pool, nullptr);
 	}
-	vkDestroyDevice(__vk_device, nullptr);
-	vkDestroyInstance(__vk_inst, nullptr);
+	__render_device.release();
 }
 
 bool Application::init(HINSTANCE inst, HWND hwnd, int width, int height)
 {
-	__window_instance = inst;
-	__window_hwnd     = hwnd;
 	__client_width    = width;
 	__client_height   = height;
 
-	if (_init_global_layer_properties())  return false;
-	if (_init_instance_extension_names()) return false;
-	if (_init_device_extension_names())   return false;
-	if (_init_instance())				  return false;
-	if (!_init_enumerate_device())	      return false;
-	if (!_init_surface_khr())			  return false;
-	if (_init_device())					  return false;
+	if (!__render_device.init(inst, hwnd))return false;
 
 	if (_init_command_pool())			  return false;
 	if (_init_command_buffer())			  return false;
@@ -130,272 +115,14 @@ void Application::draw()
 
 }
 
-VkResult Application::_init_global_extension_properties(LayerProperties& layerProps)
-{
-	VkExtensionProperties* instExtensions;
-	uint32_t instExtensionCount = 0;
-	VkResult res;
-	char *layerName = nullptr;
-
-	layerName = layerProps.props.layerName;
-	do {
-		res = vkEnumerateInstanceExtensionProperties(layerName, &instExtensionCount, nullptr);
-		
-		if (res) return res;
-		if (instExtensionCount == 0) res;
-		
-		layerProps.extensionProps.resize(instExtensionCount);
-		instExtensions = layerProps.extensionProps.data();
-		res = vkEnumerateInstanceExtensionProperties(layerName, &instExtensionCount, instExtensions);
-	} while (res == VK_INCOMPLETE);
-	
-	return res;
-}
-
-VkResult Application::_init_global_layer_properties()
-{
-	uint32_t instanceLayerCount = 0;
-	VkLayerProperties *vkProps = nullptr;
-	VkResult res;
-
-	do {
-		res = vkEnumerateInstanceLayerProperties(&instanceLayerCount, nullptr);
-		
-		if (res) return res;
-		if (instanceLayerCount == 0) return res;
-
-		vkProps = (VkLayerProperties*)realloc(vkProps, instanceLayerCount*sizeof(VkLayerProperties));
-		res = vkEnumerateInstanceLayerProperties(&instanceLayerCount, vkProps);
-	} while (res == VK_INCOMPLETE);
-
-	for (uint32_t i = 0; i < instanceLayerCount; i++)
-	{
-		LayerProperties layerProps;
-		layerProps.props = vkProps[i];
-		res = _init_global_extension_properties(layerProps);
-		if (res) return res;
-		__layer_props_vec.push_back(layerProps);
-	}
-	free(vkProps);
-
-	return res;
-}
-
-VkResult Application::_init_instance_extension_names()
-{
-	__inst_extension_names.push_back(VK_KHR_SURFACE_EXTENSION_NAME);
-	__inst_extension_names.push_back(VK_KHR_WIN32_SURFACE_EXTENSION_NAME);
-	return VK_SUCCESS;
-}
-
-VkResult Application::_init_device_extension_names()
-{
-	__device_extension_names.push_back(VK_KHR_SWAPCHAIN_EXTENSION_NAME);
-	return VK_SUCCESS;
-}
-
-VkResult Application::_init_instance()
-{
-	VkApplicationInfo appInfo = {};
-	appInfo.sType = VK_STRUCTURE_TYPE_APPLICATION_INFO;
-	appInfo.pNext = nullptr;
-	appInfo.pApplicationName = __app_short_name.c_str();
-	appInfo.applicationVersion = 1;
-	appInfo.pEngineName = __app_short_name.c_str();
-	appInfo.engineVersion = 1;
-	appInfo.apiVersion = VK_API_VERSION_1_0;
-
-	VkInstanceCreateInfo instInfo = {};
-	instInfo.sType = VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO;
-	instInfo.pNext = nullptr;
-	instInfo.flags = 0;
-	instInfo.pApplicationInfo = &appInfo;
-	instInfo.enabledExtensionCount = (unsigned int)__inst_extension_names.size();
-	instInfo.ppEnabledExtensionNames = __inst_extension_names.size() ? __inst_extension_names.data() : nullptr;
-	instInfo.enabledLayerCount = 0;
-	instInfo.ppEnabledLayerNames = nullptr;
-
-	// 初始化VkInstance
-	VkResult res = vkCreateInstance(&instInfo, nullptr, &__vk_inst);
-	if (res == VK_ERROR_INCOMPATIBLE_DRIVER)
-	{
-		Log::error(L"cannot find a compatible Vulkan ICD.");
-	}
-	else if (res)
-	{
-		Log::error(L"unknown error.");
-	}
-	return res;
-}
-
-bool Application::_init_enumerate_device()
-{
-	// 枚举物理设备
-	uint32_t gpuCount = 1;
-	VkResult res = vkEnumeratePhysicalDevices(__vk_inst, &gpuCount, nullptr);
-	Log::info(L"gpu count: %u", gpuCount);
-	if (res != VK_SUCCESS || gpuCount < 1)
-	{
-		Log::error(L"not found gpu devices..");
-		return false;
-	}
-	__vk_gpus.resize(gpuCount);
-	res = vkEnumeratePhysicalDevices(__vk_inst, &gpuCount, __vk_gpus.data());
-
-	// Device Queue Family Properties
-	vkGetPhysicalDeviceQueueFamilyProperties(__vk_gpus[0], &__queue_family_count, nullptr);
-	Log::info(L"device queue family prop count: %u", __queue_family_count);
-	if (__queue_family_count < 1)
-	{
-		Log::error(L"not found queue family props..");
-		return false;
-	}
-
-	__vk_queue_family_props.resize(__queue_family_count);
-	vkGetPhysicalDeviceQueueFamilyProperties(__vk_gpus[0], &__queue_family_count, __vk_queue_family_props.data());
-	
-	bool isFound = false;
-	for (uint32_t i = 0; i < __vk_queue_family_props.size(); ++i)
-	{
-		if (__vk_queue_family_props[i].queueFlags & VK_QUEUE_GRAPHICS_BIT)
-		{
-			__queue_family_index = i;
-			isFound = true;
-			break;
-		}
-	}
-	if (!isFound)
-	{
-		Log::error(L"create device failed..");
-		return false;
-	}
-
-	vkGetPhysicalDeviceMemoryProperties(__vk_gpus[0], &__vk_memory_props);
-	vkGetPhysicalDeviceProperties(__vk_gpus[0], &__vk_gpu_props);
-
-	return true;
-}
-
-bool Application::_init_surface_khr()
-{
-	VkWin32SurfaceCreateInfoKHR createInfo = {};
-	createInfo.sType = VK_STRUCTURE_TYPE_WIN32_SURFACE_CREATE_INFO_KHR;
-	createInfo.pNext = nullptr;
-	createInfo.hinstance = __window_instance;
-	createInfo.hwnd = __window_hwnd;
-
-	VkResult res = vkCreateWin32SurfaceKHR(__vk_inst, &createInfo, nullptr, &__vk_surface);
-	if (res != VK_SUCCESS)
-	{
-		Log::error(L"create win32 surface khr failed..");
-		return false;
-	}
-	
-	VkBool32 *pSupportsPresent = (VkBool32 *)malloc(__queue_family_count * sizeof(VkBool32));
-	for (uint32_t i = 0; i < __queue_family_count; i++) 
-	{
-		vkGetPhysicalDeviceSurfaceSupportKHR(__vk_gpus[0], i, __vk_surface, &pSupportsPresent[i]);
-	}
-
-	__graphics_queue_family_index = UINT32_MAX;
-	__present_queue_family_index = UINT32_MAX;
-
-	for (uint32_t i = 0; i < __queue_family_count; ++i) 
-	{
-		if ((__vk_queue_family_props[i].queueFlags & VK_QUEUE_GRAPHICS_BIT) != 0) 
-		{
-			if (__graphics_queue_family_index == UINT32_MAX)
-				__graphics_queue_family_index = i;
-
-			if (pSupportsPresent[i] == VK_TRUE) 
-			{
-				__graphics_queue_family_index = i;
-				__present_queue_family_index = i;
-				break;
-			}
-		}
-	}
-
-	if (__present_queue_family_index == UINT32_MAX) 
-	{
-		for (size_t i = 0; i < __queue_family_count; ++i)
-		{
-			if (pSupportsPresent[i] == VK_TRUE)
-			{
-				__present_queue_family_index = (unsigned int)i;
-				break;
-			}
-		}
-	}
-	free(pSupportsPresent);
-
-	if (__graphics_queue_family_index == UINT32_MAX || __present_queue_family_index == UINT32_MAX) 
-	{
-		Log::error(L"Could not find a queues for graphics and present.");
-		return false;
-	}
-
-	uint32_t formatCount = 0;
-	res = vkGetPhysicalDeviceSurfaceFormatsKHR(__vk_gpus[0], __vk_surface, &formatCount, nullptr);
-	if (res != VK_SUCCESS)
-	{
-		Log::error(L"get physical device surface formats KHR failed.");
-		return false;
-	}
-	Log::info(L"physical device surface formats KHR Count: %u", formatCount);
-	VkSurfaceFormatKHR* surfFormats = (VkSurfaceFormatKHR*)malloc(formatCount * sizeof(VkSurfaceFormatKHR));
-	res = vkGetPhysicalDeviceSurfaceFormatsKHR(__vk_gpus[0], __vk_surface, &formatCount, surfFormats);
-	if (formatCount == 1 && surfFormats[0].format == VK_FORMAT_UNDEFINED)
-	{
-		__surface_format = VK_FORMAT_B8G8R8A8_UNORM;
-	}
-	else
-	{
-		__surface_format = surfFormats[0].format;
-	}
-	free(surfFormats);
-
-	return true;
-}
-
-VkResult Application::_init_device()
-{
-	// 初始化设备
-	VkDeviceQueueCreateInfo queueInfo = {};
-	queueInfo.sType = VK_STRUCTURE_TYPE_DEVICE_QUEUE_CREATE_INFO;
-	queueInfo.pNext = nullptr;
-	queueInfo.queueCount = 1;
-	float queuePriorities[1] = { 0.0f };
-	queueInfo.pQueuePriorities = queuePriorities;
-	queueInfo.queueFamilyIndex = __queue_family_index;
-
-	VkDeviceCreateInfo deviceInfo = {};
-	deviceInfo.sType = VK_STRUCTURE_TYPE_DEVICE_CREATE_INFO;
-	deviceInfo.pNext = nullptr;
-	deviceInfo.queueCreateInfoCount = 1;
-	deviceInfo.pQueueCreateInfos = &queueInfo;
-	deviceInfo.enabledExtensionCount = (unsigned int)__device_extension_names.size();
-	deviceInfo.ppEnabledExtensionNames = __device_extension_names.size() ? __device_extension_names.data() : nullptr;
-	deviceInfo.enabledLayerCount = 0;
-	deviceInfo.ppEnabledLayerNames = nullptr;
-	deviceInfo.pEnabledFeatures = nullptr;
-
-	VkResult res = vkCreateDevice(__vk_gpus[0], &deviceInfo, nullptr, &__vk_device);
-	if (res != VK_SUCCESS)
-	{
-		Log::error(L"create device failed..");
-	}
-	return res;
-}
-
 VkResult Application::_init_command_pool()
 {
 	VkCommandPoolCreateInfo cmdPoolInfo = {};
 	cmdPoolInfo.sType = VK_STRUCTURE_TYPE_COMMAND_POOL_CREATE_INFO;
 	cmdPoolInfo.pNext = nullptr;
-	cmdPoolInfo.queueFamilyIndex = __graphics_queue_family_index;
+	cmdPoolInfo.queueFamilyIndex = __render_device.graphics_queue_family_index();
 	cmdPoolInfo.flags = VK_COMMAND_POOL_CREATE_RESET_COMMAND_BUFFER_BIT;
-	VkResult res = vkCreateCommandPool(__vk_device, &cmdPoolInfo, nullptr, &__vk_commnad_pool);
+	VkResult res = vkCreateCommandPool(__render_device.device(), &cmdPoolInfo, nullptr, &__vk_commnad_pool);
 	if (res != VK_SUCCESS)
 	{
 		Log::error(L"create command pool failed..");
@@ -412,7 +139,7 @@ VkResult Application::_init_command_buffer()
 	cmd.level = VK_COMMAND_BUFFER_LEVEL_PRIMARY;
 	cmd.commandBufferCount = 1;
 
-	VkResult res = vkAllocateCommandBuffers(__vk_device, &cmd, &__vk_command_buffer);
+	VkResult res = vkAllocateCommandBuffers(__render_device.device(), &cmd, &__vk_command_buffer);
 	if (res != VK_SUCCESS)
 	{
 		Log::error(L"create command buffer failed..");
@@ -450,7 +177,7 @@ VkResult Application::_execute_queue_command_buffer()
 	fenceInfo.sType = VK_STRUCTURE_TYPE_FENCE_CREATE_INFO;
 	fenceInfo.pNext = NULL;
 	fenceInfo.flags = 0;
-	res = vkCreateFence(__vk_device, &fenceInfo, NULL, &drawFence);
+	res = vkCreateFence(__render_device.device(), &fenceInfo, NULL, &drawFence);
 
 	VkPipelineStageFlags pipeStageFlags = VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT;
 	VkSubmitInfo submitInfo[1] = {};
@@ -467,24 +194,24 @@ VkResult Application::_execute_queue_command_buffer()
 	res = vkQueueSubmit(__vk_graphics_queue, 1, submitInfo, drawFence);
 	
 	do {
-		res = vkWaitForFences(__vk_device, 1, &drawFence, VK_TRUE, FENCE_TIMEOUT);
+		res = vkWaitForFences(__render_device.device(), 1, &drawFence, VK_TRUE, FENCE_TIMEOUT);
 	} while (res == VK_TIMEOUT);
 	
-	vkDestroyFence(__vk_device, drawFence, NULL);
+	vkDestroyFence(__render_device.device(), drawFence, NULL);
 
 	return res;
 }
 
 void Application::_init_device_queue()
 {
-	vkGetDeviceQueue(__vk_device, __graphics_queue_family_index, 0, &__vk_graphics_queue);
-	if (__graphics_queue_family_index == __present_queue_family_index)
+	vkGetDeviceQueue(__render_device.device(), __render_device.graphics_queue_family_index(), 0, &__vk_graphics_queue);
+	if (__render_device.graphics_queue_family_index() == __render_device.present_queue_family_index())
 	{
 		__vk_present_queue = __vk_graphics_queue;
 	}
 	else
 	{
-		vkGetDeviceQueue(__vk_device, __present_queue_family_index, 0, &__vk_present_queue);
+		vkGetDeviceQueue(__render_device.device(), __render_device.present_queue_family_index(), 0, &__vk_present_queue);
 	}
 }
 
@@ -492,7 +219,7 @@ VkResult Application::_init_swap_chain(VkImageUsageFlags usageFlags)
 {
 	VkResult res;
 	VkSurfaceCapabilitiesKHR surfCapabilities;
-	res = vkGetPhysicalDeviceSurfaceCapabilitiesKHR(__vk_gpus[0], __vk_surface, &surfCapabilities);
+	res = vkGetPhysicalDeviceSurfaceCapabilitiesKHR(__render_device.gpus()[0], __render_device.surface(), &surfCapabilities);
 	if (res != VK_SUCCESS)
 	{
 		Log::error(L"vkGetPhysicalDeviceSurfaceCapabilitiesKHR failed..");
@@ -500,7 +227,7 @@ VkResult Application::_init_swap_chain(VkImageUsageFlags usageFlags)
 	}
 
 	uint32_t presentModeCount = 0;
-	res = vkGetPhysicalDeviceSurfacePresentModesKHR(__vk_gpus[0], __vk_surface, &presentModeCount, nullptr);
+	res = vkGetPhysicalDeviceSurfacePresentModesKHR(__render_device.gpus()[0], __render_device.surface(), &presentModeCount, nullptr);
 	if (res != VK_SUCCESS)
 	{
 		Log::error(L"vkGetPhysicalDeviceSurfacePresentModesKHR failed..");
@@ -508,7 +235,7 @@ VkResult Application::_init_swap_chain(VkImageUsageFlags usageFlags)
 	}
 
 	VkPresentModeKHR *presentModes = (VkPresentModeKHR*)malloc(presentModeCount * sizeof(VkPresentModeKHR));
-	res = vkGetPhysicalDeviceSurfacePresentModesKHR(__vk_gpus[0], __vk_surface, &presentModeCount, presentModes);
+	res = vkGetPhysicalDeviceSurfacePresentModesKHR(__render_device.gpus()[0], __render_device.surface(), &presentModeCount, presentModes);
 	
 	VkExtent2D swapchainExtent;
 	if (surfCapabilities.currentExtent.width == 0xFFFFFFFF)
@@ -554,9 +281,9 @@ VkResult Application::_init_swap_chain(VkImageUsageFlags usageFlags)
 	VkSwapchainCreateInfoKHR swapchainCreateInfo = { };
 	swapchainCreateInfo.sType = VK_STRUCTURE_TYPE_SWAPCHAIN_CREATE_INFO_KHR;
 	swapchainCreateInfo.pNext = nullptr;
-	swapchainCreateInfo.surface = __vk_surface;
+	swapchainCreateInfo.surface = __render_device.surface();
 	swapchainCreateInfo.minImageCount = desiredNumberOfSwapChainImages;
-	swapchainCreateInfo.imageFormat = __surface_format;
+	swapchainCreateInfo.imageFormat = __render_device.surface_format();
 	swapchainCreateInfo.imageExtent.width = swapchainExtent.width;
 	swapchainCreateInfo.imageExtent.height = swapchainExtent.height;
 	swapchainCreateInfo.preTransform = preTransform;
@@ -573,24 +300,24 @@ VkResult Application::_init_swap_chain(VkImageUsageFlags usageFlags)
 	swapchainCreateInfo.queueFamilyIndexCount = 0;
 	swapchainCreateInfo.pQueueFamilyIndices = nullptr;
 	uint32_t queueFamilyIndices[2] = {
-		(uint32_t)__graphics_queue_family_index,
-		(uint32_t)__present_queue_family_index
+		(uint32_t)__render_device.graphics_queue_family_index(),
+		(uint32_t)__render_device.present_queue_family_index()
 	};
 
-	if (__graphics_queue_family_index != __present_queue_family_index)
+	if (__render_device.graphics_queue_family_index() != __render_device.present_queue_family_index())
 	{
 		swapchainCreateInfo.imageSharingMode = VK_SHARING_MODE_CONCURRENT;
 		swapchainCreateInfo.queueFamilyIndexCount = 2;
 		swapchainCreateInfo.pQueueFamilyIndices = queueFamilyIndices;
 	}
 
-	res = vkCreateSwapchainKHR(__vk_device, &swapchainCreateInfo, nullptr, &__vk_swapchain);
+	res = vkCreateSwapchainKHR(__render_device.device(), &swapchainCreateInfo, nullptr, &__vk_swapchain);
 	if (res)
 	{
 		Log::error(L"vkCreateSwapchainKHR failed..");
 		return res;
 	}
-	res = vkGetSwapchainImagesKHR(__vk_device, __vk_swapchain, &__swapchain_image_count, nullptr);
+	res = vkGetSwapchainImagesKHR(__render_device.device(), __vk_swapchain, &__swapchain_image_count, nullptr);
 	if (res)
 	{
 		Log::error(L"vkGetSwapchainImagesKHR failed..");
@@ -599,7 +326,7 @@ VkResult Application::_init_swap_chain(VkImageUsageFlags usageFlags)
 	Log::info(L"swapchain image count: %u", __swapchain_image_count);
 
 	VkImage* swapchainImages = (VkImage*)malloc(__swapchain_image_count * sizeof(VkImage));
-	res = vkGetSwapchainImagesKHR(__vk_device, __vk_swapchain, &__swapchain_image_count, swapchainImages);
+	res = vkGetSwapchainImagesKHR(__render_device.device(), __vk_swapchain, &__swapchain_image_count, swapchainImages);
 
 	for (uint32_t i = 0; i < __swapchain_image_count; i++)
 	{
@@ -607,7 +334,7 @@ VkResult Application::_init_swap_chain(VkImageUsageFlags usageFlags)
 		VkImageViewCreateInfo colorImageViewCreateInfo = {};
 		colorImageViewCreateInfo.sType = VK_STRUCTURE_TYPE_IMAGE_VIEW_CREATE_INFO;
 		colorImageViewCreateInfo.pNext = nullptr;
-		colorImageViewCreateInfo.format = __surface_format;
+		colorImageViewCreateInfo.format = __render_device.surface_format();
 		colorImageViewCreateInfo.components.r = VK_COMPONENT_SWIZZLE_R;
 		colorImageViewCreateInfo.components.g = VK_COMPONENT_SWIZZLE_G;
 		colorImageViewCreateInfo.components.b = VK_COMPONENT_SWIZZLE_B;
@@ -623,7 +350,7 @@ VkResult Application::_init_swap_chain(VkImageUsageFlags usageFlags)
 		scBuffer.image = swapchainImages[i];
 		colorImageViewCreateInfo.image = scBuffer.image;
 
-		res = vkCreateImageView(__vk_device, &colorImageViewCreateInfo, nullptr, &scBuffer.view);
+		res = vkCreateImageView(__render_device.device(), &colorImageViewCreateInfo, nullptr, &scBuffer.view);
 		if (res)
 		{
 			Log::error(L"vkCreateImageView failed..");
@@ -654,7 +381,7 @@ bool Application::_init_depth_buffer()
 	const VkFormat depthFormat = __vk_depth.format;
 
 	VkFormatProperties props;
-	vkGetPhysicalDeviceFormatProperties(__vk_gpus[0], depthFormat, &props);
+	vkGetPhysicalDeviceFormatProperties(__render_device.gpus()[0], depthFormat, &props);
 	if (props.linearTilingFeatures & VK_FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT)
 	{
 		imageInfo.tiling = VK_IMAGE_TILING_LINEAR;
@@ -717,25 +444,25 @@ bool Application::_init_depth_buffer()
 	}
 
 	VkMemoryRequirements memReqs;
-	res = vkCreateImage(__vk_device, &imageInfo, nullptr, &__vk_depth.image);
+	res = vkCreateImage(__render_device.device(), &imageInfo, nullptr, &__vk_depth.image);
 	if (res) return false;
 
-	vkGetImageMemoryRequirements(__vk_device, __vk_depth.image, &memReqs);
+	vkGetImageMemoryRequirements(__render_device.device(), __vk_depth.image, &memReqs);
 	memAllocInfo.allocationSize = memReqs.size;
 
 	pass = _memory_type_from_properties(memReqs.memoryTypeBits, 0, &memAllocInfo.memoryTypeIndex);
 	if (!pass) return false;
 
-	res = vkAllocateMemory(__vk_device, &memAllocInfo, nullptr, &__vk_depth.mem);
+	res = vkAllocateMemory(__render_device.device(), &memAllocInfo, nullptr, &__vk_depth.mem);
 
-	res = vkBindImageMemory(__vk_device, __vk_depth.image, __vk_depth.mem, 0);
+	res = vkBindImageMemory(__render_device.device(), __vk_depth.image, __vk_depth.mem, 0);
 	if (res) return false;
 
 	_set_image_layout(__vk_depth.image, viewInfo.subresourceRange.aspectMask, 
 					  VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_DEPTH_STENCIL_ATTACHMENT_OPTIMAL);
 
 	viewInfo.image = __vk_depth.image;
-	res = vkCreateImageView(__vk_device, &viewInfo, nullptr, &__vk_depth.view);
+	res = vkCreateImageView(__render_device.device(), &viewInfo, nullptr, &__vk_depth.view);
 	if (res) return false;
 
 	return true;
@@ -743,11 +470,11 @@ bool Application::_init_depth_buffer()
 
 bool Application::_memory_type_from_properties(uint32_t typeBits, VkFlags requirements_mask, uint32_t *typeIndex)
 {
-	for (uint32_t i = 0; i < __vk_memory_props.memoryTypeCount; i++)
+	for (uint32_t i = 0; i < __render_device.memory_props().memoryTypeCount; i++)
 	{
 		if ((typeBits & 1) == 1)
 		{
-			if ((__vk_memory_props.memoryTypes[i].propertyFlags & requirements_mask) == requirements_mask)
+			if ((__render_device.memory_props().memoryTypes[i].propertyFlags & requirements_mask) == requirements_mask)
 			{
 				*typeIndex = i;
 				return true;
@@ -856,11 +583,11 @@ bool Application::_init_uniform_buffer()
 	bufInfo.sharingMode = VK_SHARING_MODE_EXCLUSIVE;
 	bufInfo.flags = 0;
 	
-	res = vkCreateBuffer(__vk_device, &bufInfo, nullptr, &__uniform_mvp.buf);
+	res = vkCreateBuffer(__render_device.device(), &bufInfo, nullptr, &__uniform_mvp.buf);
 	if (res) return false;
 
 	VkMemoryRequirements memReqs;
-	vkGetBufferMemoryRequirements(__vk_device, __uniform_mvp.buf, &memReqs);
+	vkGetBufferMemoryRequirements(__render_device.device(), __uniform_mvp.buf, &memReqs);
 
 	VkMemoryAllocateInfo allocInfo = {};
 	allocInfo.sType = VK_STRUCTURE_TYPE_MEMORY_ALLOCATE_INFO;
@@ -877,18 +604,18 @@ bool Application::_init_uniform_buffer()
 		return false;
 	}
 
-	res = vkAllocateMemory(__vk_device, &allocInfo, nullptr, &__uniform_mvp.mem);
+	res = vkAllocateMemory(__render_device.device(), &allocInfo, nullptr, &__uniform_mvp.mem);
 	if (res) return false;
 
 	uint8_t *pData;
-	res = vkMapMemory(__vk_device, __uniform_mvp.mem, 0, memReqs.size, 0, (void**)&pData);
+	res = vkMapMemory(__render_device.device(), __uniform_mvp.mem, 0, memReqs.size, 0, (void**)&pData);
 	if (res) return false;
 
 	memcpy(pData, &__mvp_mat, sizeof(__mvp_mat));
 
-	vkUnmapMemory(__vk_device, __uniform_mvp.mem);
+	vkUnmapMemory(__render_device.device(), __uniform_mvp.mem);
 
-	res = vkBindBufferMemory(__vk_device, __uniform_mvp.buf, __uniform_mvp.mem, 0);
+	res = vkBindBufferMemory(__render_device.device(), __uniform_mvp.buf, __uniform_mvp.mem, 0);
 	if (res) return false;
 
 	__uniform_mvp.bufferInfo.buffer = __uniform_mvp.buf;
@@ -925,7 +652,7 @@ bool Application::_init_descriptor_pipeline_layouts(bool useTexture)
 	descriptorLayoutInfo.pBindings = layoutBindings;
 
 	__vk_desc_layouts.resize(1);
-	res = vkCreateDescriptorSetLayout(__vk_device, &descriptorLayoutInfo, nullptr, __vk_desc_layouts.data());
+	res = vkCreateDescriptorSetLayout(__render_device.device(), &descriptorLayoutInfo, nullptr, __vk_desc_layouts.data());
 	if (res)
 	{
 		Log::error(L"Create desc layout failed...");
@@ -940,7 +667,7 @@ bool Application::_init_descriptor_pipeline_layouts(bool useTexture)
 	pipelineLayoutCreateInfo.setLayoutCount = 1;
 	pipelineLayoutCreateInfo.pSetLayouts = __vk_desc_layouts.data();
 
-	res = vkCreatePipelineLayout(__vk_device, &pipelineLayoutCreateInfo, nullptr, &__vk_pipeline_layout);
+	res = vkCreatePipelineLayout(__render_device.device(), &pipelineLayoutCreateInfo, nullptr, &__vk_pipeline_layout);
 	if (res) return false;
 
 	return true;
@@ -951,7 +678,7 @@ bool Application::_init_renderpass(bool includeDepth, bool clear/* = true*/, VkI
 	VkResult res;
 
 	VkAttachmentDescription attachments[2];
-	attachments[0].format = __surface_format;
+	attachments[0].format = __render_device.surface_format();
 	attachments[0].samples = VK_SAMPLE_COUNT_1_BIT;
 	attachments[0].loadOp = clear ? VK_ATTACHMENT_LOAD_OP_CLEAR : VK_ATTACHMENT_LOAD_OP_DONT_CARE;
 	attachments[0].storeOp = VK_ATTACHMENT_STORE_OP_STORE;
@@ -1003,7 +730,7 @@ bool Application::_init_renderpass(bool includeDepth, bool clear/* = true*/, VkI
 	renderPassInfo.dependencyCount = 0;
 	renderPassInfo.pDependencies = nullptr;
 
-	res = vkCreateRenderPass(__vk_device, &renderPassInfo, nullptr, &__vk_render_pass);
+	res = vkCreateRenderPass(__render_device.device(), &renderPassInfo, nullptr, &__vk_render_pass);
 	if (res)
 	{
 		Log::error(L"Create render pass failed...");
@@ -1221,7 +948,7 @@ bool Application::_init_shaders()
 	shaderModuleCreateInfo.flags = 0;
 	shaderModuleCreateInfo.codeSize = vertexSpv.size() * sizeof(unsigned int);
 	shaderModuleCreateInfo.pCode = vertexSpv.data();
-	if (vkCreateShaderModule(__vk_device, &shaderModuleCreateInfo, nullptr, &__vk_pipeline_shaderstages[0].module))
+	if (vkCreateShaderModule(__render_device.device(), &shaderModuleCreateInfo, nullptr, &__vk_pipeline_shaderstages[0].module))
 	{
 		Log::error(L"Create vertex shader error!");
 		return false;
@@ -1246,7 +973,7 @@ bool Application::_init_shaders()
 	shaderModuleCreateInfo.flags = 0;
 	shaderModuleCreateInfo.codeSize = fragSpv.size() * sizeof(unsigned int);
 	shaderModuleCreateInfo.pCode = fragSpv.data();
-	if (vkCreateShaderModule(__vk_device, &shaderModuleCreateInfo, nullptr, &__vk_pipeline_shaderstages[1].module))
+	if (vkCreateShaderModule(__render_device.device(), &shaderModuleCreateInfo, nullptr, &__vk_pipeline_shaderstages[1].module))
 	{
 		Log::error(L"Create frag shader error!");
 		return false;
@@ -1280,7 +1007,7 @@ bool Application::_init_frame_buffers(bool includeDepth)
 	for (i = 0; i < __swapchain_image_count; i++)
 	{
 		attachments[0] = __vk_swapchain_buffers[i].view;
-		if (vkCreateFramebuffer(__vk_device, &frameBufferCreateInfo, nullptr, &__vk_framebuffers[i]))
+		if (vkCreateFramebuffer(__render_device.device(), &frameBufferCreateInfo, nullptr, &__vk_framebuffers[i]))
 		{
 			Log::error("Create framebuffer error!");
 			return false;
@@ -1317,7 +1044,7 @@ bool Application::_init_vertex_buffer(const void* vertexData, uint32_t dataSize,
 	bufferCreateInfo.sharingMode = VK_SHARING_MODE_EXCLUSIVE;
 	bufferCreateInfo.flags = 0;
 
-	res = vkCreateBuffer(__vk_device, &bufferCreateInfo, nullptr, &__vk_vertex_buffer.buf);
+	res = vkCreateBuffer(__render_device.device(), &bufferCreateInfo, nullptr, &__vk_vertex_buffer.buf);
 	if (res != VK_SUCCESS)
 	{
 		Log::error("Create vertex buffer error!");
@@ -1325,7 +1052,7 @@ bool Application::_init_vertex_buffer(const void* vertexData, uint32_t dataSize,
 	}
 
 	VkMemoryRequirements memRequires;
-	vkGetBufferMemoryRequirements(__vk_device, __vk_vertex_buffer.buf, &memRequires);
+	vkGetBufferMemoryRequirements(__render_device.device(), __vk_vertex_buffer.buf, &memRequires);
 
 	VkMemoryAllocateInfo memAllocInfo = {};
 	memAllocInfo.sType = VK_STRUCTURE_TYPE_MEMORY_ALLOCATE_INFO;
@@ -1342,7 +1069,7 @@ bool Application::_init_vertex_buffer(const void* vertexData, uint32_t dataSize,
 		return false;
 	}
 	
-	res = vkAllocateMemory(__vk_device, &memAllocInfo, nullptr, &__vk_vertex_buffer.mem);
+	res = vkAllocateMemory(__render_device.device(), &memAllocInfo, nullptr, &__vk_vertex_buffer.mem);
 	if (res != VK_SUCCESS)
 	{
 		Log::error("Create vertex buffer info error, allocate memory failed!");
@@ -1352,16 +1079,16 @@ bool Application::_init_vertex_buffer(const void* vertexData, uint32_t dataSize,
 	__vk_vertex_buffer.buffer_info.offset = 0;
 
 	uint8_t *pData;
-	res = vkMapMemory(__vk_device, __vk_vertex_buffer.mem, 0, memRequires.size, 0, (void**)&pData);
+	res = vkMapMemory(__render_device.device(), __vk_vertex_buffer.mem, 0, memRequires.size, 0, (void**)&pData);
 	if (res != VK_SUCCESS)
 	{
 		Log::error("Create vertex buffer info error, map memory failed!");
 		return false;
 	}
 	memcpy(pData, vertexData, dataSize);
-	vkUnmapMemory(__vk_device, __vk_vertex_buffer.mem);
+	vkUnmapMemory(__render_device.device(), __vk_vertex_buffer.mem);
 
-	res = vkBindBufferMemory(__vk_device, __vk_vertex_buffer.buf, __vk_vertex_buffer.mem, 0);
+	res = vkBindBufferMemory(__render_device.device(), __vk_vertex_buffer.buf, __vk_vertex_buffer.mem, 0);
 	if (res != VK_SUCCESS)
 	{
 		Log::error("Create vertex buffer info error, bind buffer memory failed!");
@@ -1405,7 +1132,7 @@ bool Application::_init_descriptor_pool(bool useTexture)
 	descriptorPoolCreateInfo.poolSizeCount = useTexture ? 2 : 1;
 	descriptorPoolCreateInfo.pPoolSizes = typeCount;
 
-	res = vkCreateDescriptorPool(__vk_device, &descriptorPoolCreateInfo, nullptr, &__vk_descriptor_pool);
+	res = vkCreateDescriptorPool(__render_device.device(), &descriptorPoolCreateInfo, nullptr, &__vk_descriptor_pool);
 	if (res != VK_SUCCESS)
 	{
 		Log::error("Create descriptor pool error.");
@@ -1427,7 +1154,7 @@ bool Application::_init_descriptor_set(bool useTexture)
 	descriptorAllocInfo.pSetLayouts = __vk_desc_layouts.data();
 
 	__vk_descriptor_sets.resize(NUM_DESCRIPTOR_SETS);
-	res = vkAllocateDescriptorSets(__vk_device, &descriptorAllocInfo, __vk_descriptor_sets.data());
+	res = vkAllocateDescriptorSets(__render_device.device(), &descriptorAllocInfo, __vk_descriptor_sets.data());
 	if (res != VK_SUCCESS)
 	{
 		Log::error("Create descriptor set error.");
@@ -1450,7 +1177,7 @@ bool Application::_init_descriptor_set(bool useTexture)
 		//TODO:
 	}
 
-	vkUpdateDescriptorSets(__vk_device, useTexture ? 2 : 1, writes, 0, nullptr);
+	vkUpdateDescriptorSets(__render_device.device(), useTexture ? 2 : 1, writes, 0, nullptr);
 	return true;
 }
 
@@ -1465,7 +1192,7 @@ bool Application::_init_pipeline_cache()
 	pipelineCacheCreateInfo.pInitialData = nullptr;
 	pipelineCacheCreateInfo.flags = 0;
 
-	res = vkCreatePipelineCache(__vk_device, &pipelineCacheCreateInfo, nullptr, &__vk_pipeline_cache);
+	res = vkCreatePipelineCache(__render_device.device(), &pipelineCacheCreateInfo, nullptr, &__vk_pipeline_cache);
 	if (res != VK_SUCCESS)
 	{
 		Log::error("Create pipline cache error.");
@@ -1608,7 +1335,7 @@ bool Application::_init_pipeline(bool includeDepth, bool includeVi/* = true*/)
 	pipelineCreateInfo.renderPass = __vk_render_pass;
 	pipelineCreateInfo.subpass = 0;
 
-	res = vkCreateGraphicsPipelines(__vk_device, __vk_pipeline_cache, 1, &pipelineCreateInfo, nullptr, &__vk_pipeline);
+	res = vkCreateGraphicsPipelines(__render_device.device(), __vk_pipeline_cache, 1, &pipelineCreateInfo, nullptr, &__vk_pipeline);
 	if (res != VK_SUCCESS)
 	{
 		Log::error("Init pipeline error, create failed.");
@@ -1637,14 +1364,14 @@ bool Application::_draw_cube()
 	imageAcquiredSemaphoreCreateInfo.pNext = NULL;
 	imageAcquiredSemaphoreCreateInfo.flags = 0;
 
-	res = vkCreateSemaphore(__vk_device, &imageAcquiredSemaphoreCreateInfo, NULL, &imageAcquiredSemaphore);
+	res = vkCreateSemaphore(__render_device.device(), &imageAcquiredSemaphoreCreateInfo, NULL, &imageAcquiredSemaphore);
 	if (res != VK_SUCCESS)
 	{
 		Log::error("vkCreateSemaphore failed.");
 		return false;
 	}
 
-	res = vkAcquireNextImageKHR(__vk_device, __vk_swapchain, UINT64_MAX, imageAcquiredSemaphore, VK_NULL_HANDLE, &__current_swapchain_buffer);
+	res = vkAcquireNextImageKHR(__render_device.device(), __vk_swapchain, UINT64_MAX, imageAcquiredSemaphore, VK_NULL_HANDLE, &__current_swapchain_buffer);
 	if (res != VK_SUCCESS)
 	{
 		Log::error("vkAcquireNextImageKHR failed.");
@@ -1685,7 +1412,7 @@ bool Application::_draw_cube()
 	fenceInfo.sType = VK_STRUCTURE_TYPE_FENCE_CREATE_INFO;
 	fenceInfo.pNext = nullptr;
 	fenceInfo.flags = 0;
-	vkCreateFence(__vk_device, &fenceInfo, nullptr, &drawFence);
+	vkCreateFence(__render_device.device(), &fenceInfo, nullptr, &drawFence);
 
 	VkPipelineStageFlags pipeStageFlags = VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT;
 	VkSubmitInfo submitInfo[1] = {};
@@ -1718,7 +1445,7 @@ bool Application::_draw_cube()
 
 	do 
 	{
-		res = vkWaitForFences(__vk_device, 1, &drawFence, VK_TRUE, FENCE_TIMEOUT);
+		res = vkWaitForFences(__render_device.device(), 1, &drawFence, VK_TRUE, FENCE_TIMEOUT);
 	} 
 	while (res == VK_TIMEOUT);
 	if (res != VK_SUCCESS)
@@ -1736,8 +1463,8 @@ bool Application::_draw_cube()
 
 	Sleep(1 * 1000);
 
-	vkDestroySemaphore(__vk_device, imageAcquiredSemaphore, nullptr);
-	vkDestroyFence(__vk_device, drawFence, nullptr);
+	vkDestroySemaphore(__render_device.device(), imageAcquiredSemaphore, nullptr);
+	vkDestroyFence(__render_device.device(), drawFence, nullptr);
 	return true;
 }
 
