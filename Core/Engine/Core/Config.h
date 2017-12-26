@@ -6,7 +6,8 @@
 #define WIND_DEBUG
 #endif
 
-#define WIND_CORE_API __declspec(dllexport)
+#define WIND_CORE_API	__declspec(dllexport)
+#define WIND_CALL		__stdcall
 
 #define WIN32_LEAN_AND_MEAN
 

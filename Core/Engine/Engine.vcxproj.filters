@@ -33,6 +33,9 @@
     <ClCompile Include="Render\RenderDevice.cpp">
       <Filter>Render</Filter>
     </ClCompile>
+    <ClCompile Include="Core\Allocator.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\Application.h">
@@ -55,6 +58,9 @@
     </ClInclude>
     <ClInclude Include="Render\RenderDevice.h">
       <Filter>Render</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Allocator.h">
+      <Filter>Core</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
